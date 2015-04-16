@@ -1,0 +1,7 @@
+{
+  "name": "samples",
+  "license": "MIT",
+  "dependencies": {
+    "normalize.css": "~3.0.3"
+  }
+}
