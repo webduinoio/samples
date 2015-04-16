@@ -6,11 +6,11 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, user-scalable=yes, initial-scale=1, maximum-scale=1">
 
-  <title>超音波傳感器</title>
+  <title>三色 LED 調色盤</title>
 
   <script src="//webduino.io/components/webcomponentsjs/webcomponents.js"></script>
   <link rel='import' href='//webduino.io/components/webduino/web-arduino.html' />
-  <link rel='import' href='//webduino.io/components/webduino/wa-ultrasonic.html' />
+  <link rel='import' href='//webduino.io/components/webduino/wa-rgbled.html' />
   <link rel='stylesheet' href='../../bower_components/normalize.css/normalize.css' />
 
   <style>
@@ -41,15 +41,28 @@
   #msg.set::after {
     content: "Complete!";
   }
-  
-  #show {
-    font-size: 30px;
+
+  .container {
+    margin-left: 10px;
+    width: 100%;
+    max-width: 250px;
   }
-  #show::before {
-    content: '距離: ';
+  .desc {
+    display:inline-block;
+    width: 50px;
   }
-  #show::after {
-    content: ' cm';
+  #redBtn, #blueBtn, #greenBtn {
+    margin:10px;
+    vertical-align: middle;
+  }
+  #show{
+    width: 100%;
+    max-width: 250px;
+    height:100px;
+    border:1px solid #000;
+    background:#000;
+    margin-top: 15px;
+    margin-left: 5px;
   }
   </style>
 </head>
@@ -58,14 +71,29 @@
   <div id="msg" class="waiting">訊息: </div>
 
   <form>
-    <label>device :<input type="text" id="device"></label>
+    <label>device : <input type="text" id="device"></label>
     <button class="setting" id="set">設定</button>
   </form>
 
-  <p id='show'></p>
+  <div class="container">
+    <label class="desc">red:</label>
+    <input id='redBtn' type='range' min='0' max='255' step='5' value='0'>
+  </div>
+
+  <div class="container">
+    <label class="desc">green: </label>
+    <input id='greenBtn' type='range' min='0' max='255' step='5' value='0'>
+  </div>
+
+  <div class="container">
+    <label class="desc">blue: </label>
+    <input id='blueBtn' type='range' min='0' max='255' step='5' value='0'>
+  </div>
+
+  <div id="show"></div>
 
   <web-arduino id='board'>
-    <wa-ultrasonic id='ultrasonic' trig='11' echo='10'></wa-ultrasonic>
+    <wa-rgbled id='rgb' red='6' blue='9' green='10'></wa-rgbled>
   </web-arduino>
 
   <script src="js/main.js"></script>

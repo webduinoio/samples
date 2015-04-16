@@ -22,10 +22,17 @@ window.addEventListener('WebComponentsReady', function () {
 
   function ready() {
     var ultrasonic = document.getElementById('ultrasonic'),
-      show = document.getElementById('show');
+      led = document.getElementById('led'),
+      light = document.getElementById('light');
 
-    ultrasonic.ping(function(cm) {
-      show.innerHTML = cm;
+    ultrasonic.ping(function (cm) {
+      if (cm > 20) {
+        led.on();
+        light.className = "on";
+      } else {
+        led.off();
+        light.className = "off";
+      }
     }, 1000);
 
     msg.className = "set";

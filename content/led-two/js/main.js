@@ -21,14 +21,30 @@ window.addEventListener('WebComponentsReady', function () {
   }, false);
 
   function ready() {
-    var ultrasonic = document.getElementById('ultrasonic'),
-      show = document.getElementById('show');
+    var led1 = document.getElementById('led1'),
+      led2 = document.getElementById('led2'),
+      light1 = document.getElementById('light1'),
+      light2 = document.getElementById('light2');
 
-    ultrasonic.ping(function(cm) {
-      show.innerHTML = cm;
-    }, 1000);
+    ledAction(led1, light1);
+    ledAction(led2, light2);
 
     msg.className = "set";
   };
+
+  function ledAction(led, light) {
+    led.on();
+    light.className = 'on';
+
+    light.addEventListener('click', function () {
+      if (led.isOn()) {
+        this.className = 'off';
+        led.off();
+      } else {
+        this.className = 'on';
+        led.on();
+      }
+    }, false);
+  }
 
 }, false);

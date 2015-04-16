@@ -6,7 +6,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, user-scalable=yes, initial-scale=1, maximum-scale=1">
 
-  <title>超音波傳感器</title>
+  <title>超音波傳感器改變圖片大小</title>
 
   <script src="//webduino.io/components/webcomponentsjs/webcomponents.js"></script>
   <link rel='import' href='//webduino.io/components/webduino/web-arduino.html' />
@@ -42,14 +42,9 @@
     content: "Complete!";
   }
   
-  #show {
-    font-size: 30px;
-  }
-  #show::before {
-    content: '距離: ';
-  }
-  #show::after {
-    content: ' cm';
+  #img {
+    width: 100%;
+    max-width: 1024px;
   }
   </style>
 </head>
@@ -62,7 +57,7 @@
     <button class="setting" id="set">設定</button>
   </form>
 
-  <p id='show'></p>
+  <img id='img' src='//www.hua.com/flower_picture/meiguihua/images/r17.jpg'></img>
 
   <web-arduino id='board'>
     <wa-ultrasonic id='ultrasonic' trig='11' echo='10'></wa-ultrasonic>

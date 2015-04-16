@@ -22,10 +22,11 @@ window.addEventListener('WebComponentsReady', function () {
 
   function ready() {
     var ultrasonic = document.getElementById('ultrasonic'),
-      show = document.getElementById('show');
+      img = document.getElementById('img');
 
     ultrasonic.ping(function(cm) {
-      show.innerHTML = cm;
+      img.style.width = cm*20 + 'px';
+      img.style.height = cm*20 + 'px';
     }, 1000);
 
     msg.className = "set";

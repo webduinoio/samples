@@ -6,11 +6,11 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, user-scalable=yes, initial-scale=1, maximum-scale=1">
 
-  <title>超音波傳感器</title>
+  <title>兩顆 LED 燈交互亮</title>
 
   <script src="//webduino.io/components/webcomponentsjs/webcomponents.js"></script>
   <link rel='import' href='//webduino.io/components/webduino/web-arduino.html' />
-  <link rel='import' href='//webduino.io/components/webduino/wa-ultrasonic.html' />
+  <link rel='import' href='//webduino.io/components/webduino/wa-led.html' />
   <link rel='stylesheet' href='../../bower_components/normalize.css/normalize.css' />
 
   <style>
@@ -41,15 +41,27 @@
   #msg.set::after {
     content: "Complete!";
   }
-  
-  #show {
-    font-size: 30px;
+
+  #container {
+    position: relative;
+    width: 100%;
   }
-  #show::before {
-    content: '距離: ';
+  #light1, #light2 {
+    width: 49%;
+    position: absolute;
   }
-  #show::after {
-    content: ' cm';
+  #light1 {
+    left: 0;
+  }
+  #light2 {
+    right: 0;
+  }
+  img {
+    width: 100%;
+    max-width: 480px;
+  }
+  .off img:last-child, .on img:first-child {
+    display: none;
   }
   </style>
 </head>
@@ -58,14 +70,24 @@
   <div id="msg" class="waiting">訊息: </div>
 
   <form>
-    <label>device :<input type="text" id="device"></label>
+    <label>device : <input type="text" id="device"></label>
     <button class="setting" id="set">設定</button>
   </form>
 
-  <p id='show'></p>
+  <div id='container'>
+    <div id='light1' class="off">
+      <img src='http://i.imgur.com/T5H4MHE.png'></img>
+      <img src='http://i.imgur.com/8qFj2Ou.png'></img>
+    </div>
+    <div id='light2' class="off">
+      <img src='http://i.imgur.com/T5H4MHE.png'></img>
+      <img src='http://i.imgur.com/8qFj2Ou.png'></img>
+    </div>
+  </div>
 
-  <web-arduino id='board'>
-    <wa-ultrasonic id='ultrasonic' trig='11' echo='10'></wa-ultrasonic>
+  <web-arduino id='board' device='wa17'>
+    <wa-led id='led1' pin='10'></wa-led>
+    <wa-led id='led2' pin='11'></wa-led>
   </web-arduino>
 
   <script src="js/main.js"></script>
