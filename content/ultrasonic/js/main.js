@@ -21,22 +21,13 @@ window.addEventListener('WebComponentsReady', function () {
   }, false);
 
   function ready() {
-    var redBtn = document.getElementById('redBtn'),
-      greenBtn = document.getElementById('greenBtn'),
-      blueBtn = document.getElementById('blueBtn'),
-      rgb = document.getElementById('rgb');
+    var ultrasonic = document.getElementById('ultrasonic'),
+      img = document.getElementById('img');
 
-    redBtn.addEventListener('click', function () {
-      rgb.setColor(255, 0, 0); // red , green , blue
-    }, false);
-
-    greenBtn.addEventListener('click', function () {
-      rgb.setColor(0, 255, 0); // red , green , blue
-    }, false);
-
-    blueBtn.addEventListener('click', function () {
-      rgb.setColor(0, 0, 255); // red , green , blue
-    }, false);
+    ultrasonic.ping(function(cm) {
+      img.style.width = cm*20 + 'px';
+      img.style.height = cm*20 + 'px';
+    }, 1000);
 
     msg.className = "set";
   };

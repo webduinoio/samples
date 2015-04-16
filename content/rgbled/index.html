@@ -19,13 +19,15 @@
     margin: 5px;
   }
   #device {
+    max-width: 100px;
     height: 34px;
   }
   #set {
+    width: 70px;
     height: 40px;
   }
   #msg.default::after {
-    content: "No message!";
+    content: "None!";
   }
   #msg.waiting::after {
     content: "Loading...";
@@ -39,7 +41,7 @@
   #msg.set::after {
     content: "Complete!";
   }
-  
+
   #redBtn, #greenBtn, #blueBtn {
     font-size:30px;
     display:block;
@@ -50,12 +52,10 @@
 </head>
 
 <body>
-  <div id="msg" class="waiting"></div>
+  <div id="msg" class="waiting">訊息: </div>
 
   <form>
-    <label>device :
-      <input type="text" id="device" value="Mnw4">
-    </label>
+    <label>device :<input type="text" id="device"></label>
     <button class="setting" id="set">設定</button>
   </form>
 

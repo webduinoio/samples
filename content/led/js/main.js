@@ -4,6 +4,7 @@ window.addEventListener('WebComponentsReady', function () {
     board = document.getElementById('board');
 
   msg.className = "ready";
+  device.setAttribute('value', localStorage.device || "");
 
   setBtn.addEventListener('click', function (e) {
     msg.className = "setting";
@@ -11,6 +12,8 @@ window.addEventListener('WebComponentsReady', function () {
     board.device = device.value;
     board.on('ready', ready);
     board.init();
+
+    localStorage.device = device.value;
 
     e.stopPropagation();
     e.preventDefault();
