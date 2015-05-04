@@ -44,3 +44,8 @@
 
 	* Sound pin : 10
 	* LED pin : 9
+
+* [人體紅外線感測 + LED](http://webduinoio.github.io/samples/content/pir-led/index.html)
+
+	* Sound pin : 10
+	* LED pin : 9
