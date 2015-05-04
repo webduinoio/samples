@@ -39,3 +39,8 @@
 
 	* LED pin : 10
 	* Button pin : 11
+
+* [聲音感測器 + LED](http://webduinoio.github.io/samples/content/sound-led/index.html)
+
+	* Sound pin : 10
+	* LED pin : 9
