@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, user-scalable=yes, initial-scale=1, maximum-scale=1">
+
+  <title>溫溼度感測器</title>
+
+  <script src="//webduino.io/components/webcomponentsjs/webcomponents.js"></script>
+  <link rel='import' href='//webduino.io/components/webduino/web-arduino.html' />
+  <link rel='import' href='//webduino.io/components/webduino/wa-dht.html' />
+  <link rel='stylesheet' href='../../bower_components/normalize.css/normalize.css' />
+
+  <style>
+  #msg, form {
+    font-size: 20px;
+    margin: 5px;
+  }
+  #device {
+    max-width: 100px;
+    height: 34px;
+  }
+  #set {
+    width: 70px;
+    height: 40px;
+  }
+  #msg.default::after {
+    content: "None!";
+  }
+  #msg.waiting::after {
+    content: "Loading...";
+  }
+  #msg.ready::after {
+    content: "Ready!";
+  }
+  #msg.setting::after {
+    content: "Setting...";
+  }
+  #msg.set::after {
+    content: "Complete!";
+  }
+
+  #data {
+    font-size: 20px;
+    margin-top: 10px;
+  }
+  </style>
+</head>
+
+<body>
+  <div id="msg" class="waiting">訊息: </div>
+
+  <form>
+    <label>device :<input type="text" id="device"></label>
+    <button class="setting" id="set">設定</button>
+  </form>
+
+  <div id="data"></div>
+
+  <web-arduino id='board'>
+    <wa-dht id='dht' pin='10'></wa-dht>
+  </web-arduino>
+
+  <script src="js/main.js"></script>
+</body>
+
+</html>
