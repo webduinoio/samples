@@ -53,3 +53,8 @@
 * [溫溼度感測器](http://webduinoio.github.io/samples/content/dht/index.html)
 
 	* DHT pin : 10
+
+* [繼電器 + 按鈕](http://webduinoio.github.io/samples/content/relay-button/index.html)
+
+	* Relay pin : 10
+	* Button pin : 9

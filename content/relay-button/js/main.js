@@ -21,12 +21,18 @@ window.addEventListener('WebComponentsReady', function () {
   }, false);
 
   function ready() {
-    var dht = document.getElementById('dht'),
+    var relay = document.getElementById('relay'),
+      button = document.getElementById('button'),
       data = document.getElementById('data');
 
-    dht.read(function (evt) {
-      data.innerHTML = new Date().toLocaleString() + "<br>溫度:" + evt.temperature + " ℃<br> 溼度:" + evt.humidity + " %";
-    }, 1000);
+    button.on('pressed', function () {
+      relay.toggle();
+      if (relay.isOn()) {
+        data.innerHTML = "Relay on!";
+      } else {
+        data.innerHTML = "Relay off!";
+      }
+    });
 
     msg.className = "set";
     board.off('ready', ready);
