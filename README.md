@@ -42,11 +42,13 @@
 
 * [聲音感測器 + LED](http://webduinoio.github.io/samples/content/sound-led/index.html)
 
+	* 當感測器偵測到聲音時，亮起 LED。
 	* Sound pin : 10
 	* LED pin : 9
 
 * [人體紅外線感測 + LED](http://webduinoio.github.io/samples/content/pir-led/index.html)
 
+	* 偵測到物體(會發射紅外線，如人體、燈泡等)移動時，亮起 LED。
 	* Pir pin : 10
 	* LED pin : 9
 
@@ -56,5 +58,6 @@
 
 * [繼電器 + 按鈕](http://webduinoio.github.io/samples/content/relay-button/index.html)
 
+	* 按下按鈕後，透過繼電器，操作小型電器(如風扇、燈泡等)的開/關。
 	* Relay pin : 10
 	* Button pin : 9
