@@ -61,3 +61,7 @@
 	* 按下按鈕後，透過繼電器，操作小型電器(如風扇、燈泡等)的開/關。
 	* Relay pin : 10
 	* Button pin : 9
+
+* [震動開關](http://webduinoio.github.io/samples/content/shock-button/index.html)
+
+	* 震動開關 pin : 11
