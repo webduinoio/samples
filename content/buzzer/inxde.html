@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, user-scalable=yes, initial-scale=1, maximum-scale=1">
+
+  <title>蜂鳴器演奏馬力歐</title>
+
+  <script src="//webduino.io/components/webcomponentsjs/webcomponents.js"></script>
+  <link rel='import' href='//webduino.io/components/webduino/web-arduino.html' />
+    <link rel='import' href='http://webduino.io/components/webduino/wa-buzzer.html'></link>
+  <link rel='stylesheet' href='../../bower_components/normalize.css/normalize.css' />
+
+  <style>
+  #msg, form {
+    font-size: 20px;
+    margin: 5px;
+  }
+  #device {
+    max-width: 100px;
+    height: 34px;
+  }
+  #set {
+    width: 70px;
+    height: 40px;
+  }
+  #msg.default::after {
+    content: "None!";
+  }
+  #msg.waiting::after {
+    content: "Loading...";
+  }
+  #msg.ready::after {
+    content: "Ready!";
+  }
+  #msg.setting::after {
+    content: "Setting...";
+  }
+  #msg.set::after {
+    content: "Complete!";
+  }
+
+  img {
+    width: 100%;
+    max-width: 480px;
+  }
+  .off img:last-child, .on img:first-child {
+    display: none;
+  }
+  </style>
+</head>
+
+<body>
+  <div id="msg" class="waiting">訊息: </div>
+
+  <form>
+    <label>device : <input type="text" id="device"></label>
+    <button class="setting" id="set">設定</button>
+  </form>
+
+  <div id='light' class="off">
+    <img src='http://i.imgur.com/T5H4MHE.png'></img>
+    <img src='http://i.imgur.com/8qFj2Ou.png'></img>
+  </div>
+
+  <web-arduino id='board' device='你的 device 名稱'>
+    <wa-buzzer id='buzzer' pin='10' notes='E7,E7,0,E7,0,C7,E7,0,G7,0,0,0,G6,0,0,0,C7,0,0,G6,0,0,E6,0,0,A6,0,B6,0,AS6,A6,0,G6,E7,0,G7,A7,0,F7,G7,0,E7,0,C7,D7,B6,0,0,C7,0,0,G6,0,0,E6,0,0,A6,0,B6,0,AS6,A6,0,G6,E7,0,G7,A7,0,F7,G7,0,E7,0,C7,D7,B6,0,0' tempos='' ></wa-buzzer>
+  </web-arduino>
+  
+  <button id="play">play</button>
+  
+  <img src="http://vignette3.wikia.nocookie.net/fantendo/images/f/f6/MarioHand.png/revision/latest?cb=20110731140119" style="width:100%; max-height:400px; pointer-events: none; 
+  margin-top:-40px;">
+
+  <script src="js/main.js"></script>
+</body>
+
+</html>
