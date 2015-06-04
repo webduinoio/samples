@@ -21,18 +21,26 @@ window.addEventListener('WebComponentsReady', function () {
   }, false);
 
   function ready() {
-    var sound = document.getElementById('sound'),
-      led = document.getElementById('led'),
-      light = document.getElementById('light');
 
-    sound.on('detected', function () {
-      led.toggle();
-      if (led.isOn()) {
-        light.className = "on";
-      } else {
-        light.className = "off";
-      }
-    });
+    var  sound = document.getElementById('sound'),
+      led = document.getElementById('led'),
+      light = document.getElementById('light'),
+      timer;
+      led.off();
+      light.className = 'off';
+    
+      sound.on('detected', function () {
+        clearTimeout(timer);
+        led.on();
+        light.className = 'on';
+      });
+      
+      sound.on('ended', function () {
+        timer = setTimeout(function(){
+          led.off();
+          light.className = 'off';
+        },1000);
+      }); 
 
     msg.className = "set";
   }
