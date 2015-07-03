@@ -116,6 +116,12 @@ button:active{
   height:30px;
   font-size:11px;
 }
+#set{  
+  font-size: 20px;
+  line-height: 20px;
+  background: #666;
+  margin-left: 2px;
+}
   </style>
 </head>
 
@@ -124,9 +130,9 @@ button:active{
 
   <form>
     <label>device : <input type="text" id="device"></label>
-    <button class="setting" id="set">設定</button>
+    <button class="setting" id="set" notes="設定">設定</button>
   </form>
-
+<web-arduino id='board'>
   <wa-buzzer id='buzzer' pin='11' notes='' tempos='' ></wa-buzzer>
 </web-arduino>
   NOTES:<div id="show"></div>

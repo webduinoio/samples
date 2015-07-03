@@ -2,22 +2,7 @@ window.addEventListener('WebComponentsReady', function () {
   var setBtn = document.getElementById('set'),
     device = document.getElementById('device'),
     board = document.getElementById('board'),
-      show = document.getElementById("show"),
-      showTempo = document.getElementById("showtempo"),
-      replay = document.getElementById("replay"),
-      recode = document.getElementById("recode"),
-      tempoInput = document.getElementById("num"),
-      test = document.getElementById("test"),
-      stop = document.getElementById("stop"),
-      back = document.getElementById("delete"),
-      body = document.querySelector('body'),
-      b = document.querySelectorAll('button'),
-      buzzerArray =[],
-      tempoArray =[],
-      music,
-      a,ts,pt,pb,
-      tempoNum=8,
-      check=0;
+      b = document.querySelectorAll('button');
 
             for(var i=0; i<b.length; i++){
     b[i].innerText = b[i].getAttribute('notes');
@@ -44,7 +29,24 @@ window.addEventListener('WebComponentsReady', function () {
   }, false);
 
   function ready() {
-    var  buzzer = document.getElementById('buzzer');
+    console.log('ready');
+    var  buzzer     = document.getElementById('buzzer'),
+         show       = document.getElementById("show"),
+         showTempo  = document.getElementById("showtempo"),
+         replay     = document.getElementById("replay"),
+         recode     = document.getElementById("recode"),
+         tempoInput = document.getElementById("num"),
+         tempo      = document.getElementById("tempo"),
+         test       = document.getElementById("test"),
+         stop       = document.getElementById("stop"),
+         back       = document.getElementById("delete"),
+         body       = document.querySelector('body'),
+         buzzerArray=[],
+         tempoArray =[],
+         music,
+         a,ts,pt,pb,
+         tempoNum =8,
+         check    =0;
     
     _buzzer(0);
     
