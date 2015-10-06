@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>光敏電阻 ( photocell )</title>
+</head>
+<script src="https://webduino.io/components/webcomponentsjs/webcomponents.js"></script>
+<link rel='import' href='https://webduino.io/components/webduino/web-arduino.html'></link>
+<link rel='import' href='https://webduino.io/components/webduino/wa-led.html'></link>
+<link rel='import' href='https://webduino.io/components/webduino/wa-photocell.html'></link>
+<style>
+
+* {
+  font-size: 20px;
+}
+
+#msg.default::after {
+  content: "訊息";
+}
+
+#msg.waiting::after {
+  content: "Loading...";
+}
+
+#msg.ready::after {
+  content: "Ready!";
+}
+
+#msg.setting::after {
+  content: "設定中...";
+}
+
+#msg.set::after {
+  content: "設定完成";
+}
+
+input {
+  width: 100px;
+  margin: 5px 0;
+}
+
+button {
+  margin: 5px 0;
+}
+
+.container {
+  position: relative;
+}
+
+.msgContainer {
+  position: absolute; 
+  top: 0; 
+  right: 0; 
+  width: 60%;
+}
+
+#light img {
+  width: 25%;
+  display: none;
+}
+
+#light.off img:first-child {
+  display: inline-block;
+}
+
+#light.on img:last-child {
+  display: inline-block;
+}
+
+#msgRecv {
+  word-break: break-all;
+  height: 300px;
+  width: 100%;
+  overflow: auto;
+}
+
+#msgRecv::before {
+  content: 'message:';
+}
+</style>
+<body>
+  <web-arduino id="board">
+    <wa-photocell id='photocell' analogpin='5'></wa-photocell>
+  </web-arduino>
+  <div id="msg" class="waiting"></div>
+  <form>
+    <label>device : </label>
+    <input type="text" id="device">
+    <button class="setting" id="set">設定</button>
+  </form>
+  <p>photocell analog pin : 5</p>
+  <p>說明：
+    <br>值介於 0 ~ 1 之間，偵測的環境愈亮，數字愈大。
+  </p>
+
+  <div class="container">
+    <p>點擊燈炮，啟動光敏電阻</p>
+    <div id='light' class="off">
+      <img src='http://i.imgur.com/T5H4MHE.png'></img>
+      <img src='http://i.imgur.com/8qFj2Ou.png'></img>
+    </div>
+    <div class="msgContainer">
+      <button id='clearMsg'>clear message</button>
+      <br>
+      <div id='msgRecv'></div>
+    </div>
+  </div>
+
+</body>
+<script src="main.js"></script>
+</html>
