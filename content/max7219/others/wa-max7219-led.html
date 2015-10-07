@@ -1,0 +1,58 @@
+<link rel="import" href="../polymer/polymer.html">
+<polymer-element id="wa-max7219-led" attributes='state'>
+  <template>
+    <style>
+    img {
+      width: 56px;
+      margin: -2px;
+    }
+    </style>
+    <img src='off.png' id='off'></img>
+    <img src='on.png' id='on'></img>
+  </template>
+  <script>
+  (function() {
+    Polymer({
+      is: 'wa-max7219-led',
+      properties: {},
+      ready: function() {
+        this.$.on.style.display = 'none';
+        this.update();
+        this.addEventListener('click', function() {
+          if (this.getAttribute('state') == 'on') {
+            this.setAttribute('state', 'off');
+          } else {
+            this.setAttribute('state', 'on');
+          }
+          this.update();
+        }, false);
+      },
+      on: function() {
+        this.setAttribute('state', 'on');
+        this.$.off.style.display = 'none';
+        this.$.on.style.display = 'inline-block';
+      },
+      off: function() {
+        this.setAttribute('state', 'off');
+        this.$.on.style.display = 'none';
+        this.$.off.style.display = 'inline-block';
+      },
+      update: function() {
+        if (this.getAttribute('state') == 'on') {
+          this.on();
+          this.fire('state', {
+            id: this.id,
+            state: 'on'
+          });
+        } else {
+          this.off();
+          this.fire('state', {
+            id: this.id,
+            state: 'off'
+          });
+        }
+      }
+    });
+  })();
+  </script>
+</polymer-element>

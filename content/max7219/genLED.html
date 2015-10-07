@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>產生點矩陣圖碼 (gen a pitcute of max7219)</title>
+  <meta charset="UTF-8">
+  <script src="https://webduino.io/components/webcomponentsjs/webcomponents.js"></script>
+  </script>
+  <script type="text/javascript" src="./lib/asciimo.js"></script>
+  <script type="text/javascript" src="./lib/fonts.js"></script>
+  <script type="text/javascript" src="./lib/jquery.min.js"></script>
+  <link rel="import" href="others/wa-max7219-row.html">
+
+  <style>
+  body {
+    user-select: none;
+    -webkit-user-select: none;
+  }
+  </style>
+</head>
+
+<body>
+  Char:
+  <input id='ch' style="font-size:32px;width:40px" maxlength='1' value='0'></input>
+  <input id='hex' style="font-size:32px" value='0000000000000000' maxlength='16'>
+  </input>
+  <br>
+
+  <div id='max7219'>
+    <wa-max7219-row id='byte0'></wa-max7219-row>
+    <br>
+    <wa-max7219-row id='byte1'></wa-max7219-row>
+    <br>
+    <wa-max7219-row id='byte2'></wa-max7219-row>
+    <br>
+    <wa-max7219-row id='byte3'></wa-max7219-row>
+    <br>
+    <wa-max7219-row id='byte4'></wa-max7219-row>
+    <br>
+    <wa-max7219-row id='byte5'></wa-max7219-row>
+    <br>
+    <wa-max7219-row id='byte6'></wa-max7219-row>
+    <br>
+    <wa-max7219-row id='byte7'></wa-max7219-row>
+  </div>
+  <script>
+  
+  ch.addEventListener("keyup", function(e) {
+    var str = String.fromCharCode(e.keyCode);
+    ch.value = str;
+    genChar(str);
+  });
+
+  hex.addEventListener("keyup", function() {
+    update();
+  });
+  
+  max7219.addEventListener('state', function(e) {
+    var info = e.detail;
+    var str = hex.value;
+    var pos = info.row.substring(4) * 2;
+    var val = info.value.length < 2 ? '0' + info.value : info.value;
+    str = str.substring(0, pos) + val + str.substring(pos + 2);
+    hex.value = str;
+    update();
+  });
+
+  function update() {
+    var str = hex.value;
+    for (var i = 0; i < str.length; i = i + 2) {
+      var byteHex = str.substring(i, i + 2);
+      document.getElementById('byte' + (i / 2)).setAttribute('value', byteHex);
+    }
+    updateRealMax7219();
+  }
+
+  function updateRealMax7219() {
+    var str = hex.value;
+    var info = [0xf0, 0x04, 0x08, 0x01];
+    for (var i = 0; i < str.length; i = i + 2) {
+      var byteHex = '0x' + str.substring(i, i + 2);
+      info.push(parseInt(byteHex));
+    }
+    info.push(0xf7);
+  }
+
+  function genChar(str) {
+    Figlet.write(str, "Banner", function(str) {
+      var hexVal = '';
+      for (var line = 0; str.indexOf('\n') > 0;) {
+        var nextPos = str.indexOf('\n');
+        var lineStr = str.substring(line, nextPos);
+        str = str.substring(++nextPos);
+        var val = 0;
+        for (var i = 128; i > 0; i = i / 2) {
+          var c = lineStr.substring(0, 1);
+          lineStr = lineStr.substring(1);
+          if (c != ' ' && c != '') {
+            val += i;
+          }
+        }
+        hexVal += val < 16 ? '0' : '';
+        hexVal += val.toString(16);
+      }
+      hex.value = hexVal;
+      update();
+    });
+  }
+  
+  </script>
+</body>
+
+</html>

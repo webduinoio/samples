@@ -1,0 +1,49 @@
+<link rel="import" href="wa-max7219-led.html">
+<polymer-element name="wa-max7219-row" attributes="value">
+  <template>
+    <wa-max7219-led id='bit7'></wa-max7219-led>
+    <wa-max7219-led id='bit6'></wa-max7219-led>
+    <wa-max7219-led id='bit5'></wa-max7219-led>
+    <wa-max7219-led id='bit4'></wa-max7219-led>
+    <wa-max7219-led id='bit3'></wa-max7219-led>
+    <wa-max7219-led id='bit2'></wa-max7219-led>
+    <wa-max7219-led id='bit1'></wa-max7219-led>
+    <wa-max7219-led id='bit0'></wa-max7219-led>
+  </template>
+  <script>
+  (function() {
+    Polymer({
+      is: 'wa-max7219-row',
+      ready: function() {
+        var self = this;
+        this.update();
+        this.addEventListener('state', function(e) {
+          var newVal = 0;
+          for (var i = 7; i >= 0; i--) {
+            if (this.$['bit' + i].getAttribute('state') == 'on') {
+              newVal += Math.pow(2, i);
+            }
+          }
+          this.setAttribute('value', newVal.toString(16));
+          e.detail.row = self.id;
+          e.detail.value = newVal.toString(16);
+        });
+      },
+      update: function() {
+        var val = parseInt('0x' + this.getAttribute('value'));
+        for (var i = 7; i >= 0; i--) {
+          if ((Math.pow(2, i) & val) > 0) {
+            this.$['bit' + i].on();
+          } else {
+            this.$['bit' + i].off();
+          }
+        }
+      },
+      attributeChanged: function(attrName, oldVal, newVal) {
+        this.update();
+        //console.log(attrName, 'old: ' + oldVal, 'new:', newVal);
+      }
+    });
+  })();
+  </script>
+</polymer-element>
