@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>紅外線接收 ( irrecv )</title>
+  <meta name="viewport" content="width=device-width, user-scalable=yes, initial-scale=1, maximum-scale=1">
+</head>
+  <script src="https://webduino.io/components/webcomponentsjs/webcomponents.js"></script>
+  <link rel='import' href='https://webduino.io/components/webduino/web-arduino.html' />
+  <link rel='import' href='https://webduino.io/components/webduino/wa-led.html' />
+  <link rel='import' href='https://webduino.io/components/webduino/wa-irrecv.html' />
+<style>
+* {
+    font-size: 20px;
+  }
+
+  #msg.default::after {
+    content: "訊息";
+  }
+  
+  #msg.waiting::after {
+    content: "Loading...";
+  }
+  
+  #msg.ready::after {
+    content: "Ready!";
+  }
+  
+  #msg.setting::after {
+    content: "設定中...";
+  }
+  
+  #msg.set::after {
+    content: "設定完成";
+  }
+  
+  input {
+    width: 100px;
+    margin: 5px 0;
+  }
+  
+  button {
+    margin: 5px 0;
+  }
+  
+  #light img {
+    width: 25%;
+    display: none;
+  }
+  
+  #light.off img:first-child {
+    display: inline-block;
+  }
+  
+  #light.on img:last-child {
+    display: inline-block;
+  }
+  
+  #msgRecv {
+    word-break: break-all;
+  }
+  
+  #msgRecv::before {
+    content: 'message:';
+  }
+</style>
+<body>
+  <web-arduino id="board">
+    <wa-irrecv id='irrecv' pin='10'></wa-irrecv>
+  </web-arduino>
+  <div id="msg" class="waiting"></div>
+  <form>
+    <label>device : </label>
+    <input type="text" id="device">
+    <button class="setting" id="set">設定</button>
+  </form>
+  <p>irrecv pin : 10</p>
+  <p>說明：
+    <br>紅外線接收器面向自已，由左自右腳位依序為 Vout(讀取紅外線訊號)，GND，VCC。
+  </p>
+  <p>點擊燈炮，啟動紅外線接收</p>
+  <div id='light' class="off">
+    <img src='http://i.imgur.com/T5H4MHE.png'></img>
+    <img src='http://i.imgur.com/8qFj2Ou.png'></img>
+  </div>
+  <button id='clearMsg'>clear message</button>
+  <br>
+  <div id='msgRecv'></div>
+
+</body>
+<script src="main.js"></script>
+</html>
