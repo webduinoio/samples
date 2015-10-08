@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <title>紅外線發射 ( irled )</title>
+  <script src="https://webduino.io/components/webcomponentsjs/webcomponents.js"></script>
+  <link rel='import' href='https://webduino.io/components/webduino/web-arduino.html' />
+  <link rel='import' href='https://webduino.io/components/webduino/wa-irled.html' />
+ <style>
+ html, body {
+    width: 100%;
+    height: 100%;
+  }
+
+  * {
+    font-size: 20px;
+  }
+
+  #msg.default::after {
+    content: "訊息";
+  }
+  
+  #msg.waiting::after {
+    content: "Loading...";
+  }
+  
+  #msg.ready::after {
+    content: "Ready!";
+  }
+  
+  #msg.setting::after {
+    content: "設定中...";
+  }
+  
+  #msg.set::after {
+    content: "設定完成";
+  }
+  
+  #light img {
+    width: 25%;
+    display: none;
+  }
+  
+  #light.off img:first-child {
+    display: inline-block;
+  }
+  
+  #light.on img:last-child {
+    display: inline-block;
+  }
+  
+  #msgRecv {
+    word-break: break-all;
+  }
+  
+  #msgRecv::before {
+    content: 'message:';
+  }
+ </style>
+</head>
+
+<body>
+  <web-arduino id='board'>
+    <wa-irrecv id='irrecv' pin='11'></wa-irrecv>
+    <wa-irled id='irled' initsend="false" encode='20df10ef'></wa-irled>
+  </web-arduino>
+  <div id="msg" class="waiting"></div>
+  <form>
+    <label>device : </label>
+    <input type="text" id="device">
+    <button class="setting" id="set">設定</button>
+  </form>
+  <p>irled pin : 9 (固定!!!)</p>
+  <p>電視開關訊號 : 20df10ef</p>
+  <p>點擊圖示，燈泡亮起時，發出紅外線訊號</p>
+  <div id='light' class="off">
+    <img src='http://i.imgur.com/T5H4MHE.png'></img>
+    <img src='http://i.imgur.com/8qFj2Ou.png'></img>
+  </div>
+  <div id='msgRecv'></div>
+</body>
+<script src="main.js"></script>
+
+</html>
