@@ -15,25 +15,166 @@
   body {
     user-select: none;
     -webkit-user-select: none;
+    margin:0;
+    padding:0;
+  }
+  header{
+    height:100px;
+    width:100%;
+    line-height:100px;
+    background:#000;
+    margin:0;
+  }
+  h1{
+    text-align: center;
+    color:#fff;
+    margin:0;
+    padding:0;
+  }
+  main{
+    margin:20px;
+  }
+  span{
+    display:inline-block;
+    font-size:20px;
+    height:26px;
+    margin:15px 3px 0 0;
+    vertical-align: middle;
+  }
+  button,select{
+    margin:10px 10px 0 0;
+  }
+  #ch{
+    width:40px;
+    display:none;
+  }
+  #hex{
+    font-size:30px;
+  }
+  #clear{
+    font-size:30px;
+  }
+  #en-big,#en-small,#num,#face{
+    height:26px;
+    background:#fff;
+    outline:none;
+    font-size:16px;
+    vertical-align: middle;
   }
   #max7219{
     width: 445px;
     transform-origin: 222px 216px;
-    transform: rotate(-90deg) translateX(-12px);
+    transform: rotate(-90deg) translateX(-20px);
     -moz-transform-origin: 222px 216px;
-    -moz-transform: rotate(-90deg) translateX(-12px);
+    -moz-transform: rotate(-90deg) translateX(-20px);
     -webkit-transform-origin: 222px 216px;
-    -webkit-transform: rotate(-90deg) translateX(-12px);
+    -webkit-transform: rotate(-90deg) translateX(-20px);
   }
   </style>
 </head>
 
 <body>
-  Char:
-  <input id='ch' style="font-size:32px;width:40px" maxlength='1' value='0'></input>
-  <input id='hex' style="font-size:32px" value='0000000000000000' maxlength='16'>
-  </input>
-  <br>
+  <main>
+  <input id='hex' value='0000000000000000' maxlength='16'></input>
+  <button id="clear">Clear</button>
+  <br/>
+  <input id='ch' maxlength='1' value='0'></input>
+  <span>ABC: </span>
+  <select id="en-big">
+    <option></option>
+    <option value="00fc262226fc0000">A</option>
+    <option value="00fe929292fc0000">B</option>
+    <option value="007cc68282820000">C</option>
+    <option value="00fe8282c67c0000">D</option>
+    <option value="00fe929292920000">E</option>
+    <option value="00fe121212020000">F</option>
+    <option value="00fe829292f20000">G</option>
+    <option value="00fe101010fe0000">H</option>
+    <option value="008282fe82820000">I</option>
+    <option value="00828282fe020000">J</option>
+    <option value="00fe102844820000">K</option>
+    <option value="00fe808080800000">L</option>
+    <option value="00fe02fc02fe0000">M</option>
+    <option value="00fe0c30c0fe0000">N</option>
+    <option value="007cc682c67c0000">O</option>
+    <option value="00fe2222223e0000">P</option>
+    <option value="007cc6a246bc0000">Q</option>
+    <option value="00fe2262e2be0000">R</option>
+    <option value="009e929292f20000">S</option>
+    <option value="000202fe02020000">T</option>
+    <option value="00fe808080fe0000">U</option>
+    <option value="003e60c0603e0000">V</option>
+    <option value="00fe80fe80fe0000">W</option>
+    <option value="00c66c106cc60000">X</option>
+    <option value="000e18f0180e0000">Y</option>
+    <option value="00c2a2928a860000">Z</button>
+  </select>
+  <span>abc: </span>
+  <select id="en-small">
+    <option></option>
+    <option value="00f08888f8800000">a</option>
+    <option value="00fe9090f0000000">b</option>
+    <option value="00f0909090000000">c</option>
+    <option value="0000f09090fe0000">d</option>
+    <option value="00f8a8a8a8b80000">e</option>
+    <option value="000008fe0a000000">f</option>
+    <option value="0000bca4a4fc0000">g</option>
+    <option value="00fe1010f0000000">h</option>
+    <option value="000000f400000000">i</option>
+    <option value="000080f400000000">j</option>
+    <option value="00fe205088000000">k</option>
+    <option value="000000fe00000000">l</option>
+    <option value="00f010f010f00000">m</option>
+    <option value="00f01010f0000000">n</option>
+    <option value="00f09090f0000000">o</option>
+    <option value="00fc24243c000000">p</option>
+    <option value="003c2424fc800000">q</option>
+    <option value="00f0201000000000">r</option>
+    <option value="00b8a8a8e8000000">s</option>
+    <option value="0004fe8400000000">t</option>
+    <option value="00f08080f0000000">u</option>
+    <option value="0070807000000000">v</option>
+    <option value="00f080f080f00000">w</option>
+    <option value="0088502050880000">x</option>
+    <option value="0000b8a0a0f80000">y</option>
+    <option value="00c8a8a898000000">z</button>
+  </select>
+  <span>123: </span>
+  <select id="num">
+    <option></option>
+    <option value="00fe828282fe0000">0</option>
+    <option value="000082fe80000000">1</option>
+    <option value="00f29292929e0000">2</option>
+    <option value="0092929292fe0000">3</option>
+    <option value="007c4242fe400000">4</option>
+    <option value="009e929292f20000">5</option>
+    <option value="00fe929292f20000">6</option>
+    <option value="0002020202fe0000">7</option>
+    <option value="00fe929292fe0000">8</option>
+    <option value="009e929292fe0000">9</option>
+  </select>
+  <span>icon: </span>
+  <select id="face">
+    <option></option>
+    <option value="1026464040462610">:) 1</option>
+    <option value="ffd3b3bfbfb3d3ff">:) 2</option>
+    <option value="804c2c20202c4c80">:(</option>
+    <option value="316aaaa4a4aa6a31">XD</option>
+    <option value="914a444040444a91">>_<</option>
+    <option value="4525252020252545">=_=</option>
+    <option value="080c0effff0e0c08">↑</option>
+    <option value="103070ffff707010">↓</option>
+    <option value="183c7eff18181818">←</option>
+    <option value="18181818ff7e3c18">→</option>
+    <option value="183c7cf87c3c1800">♥</option>
+    <option value="1824448844241800">♡</option>
+    <option value="3c4281818181423c">○</option>
+    <option value="8142241818244281">Χ</option>
+    <option value="007e424242427e00">□</option>
+    <option value="0814224122140800">◇</option>
+    <option value="82f282fe92929200">正</option>
+    <option value="ff89f79191f789ff">囧</option>
+  </select>
 
   <div id='max7219'>
     <wa-max7219-row id='byte0'></wa-max7219-row>
@@ -52,15 +193,86 @@
     <br>
     <wa-max7219-row id='byte7'></wa-max7219-row>
   </div>
+  </main>
   <script>
   
+  var ch    = document.getElementById('ch'),
+      hex   = document.getElementById('hex'),
+      clear = document.getElementById('clear'),
+      enBig = document.getElementById('en-big'),
+      enSmall = document.getElementById('en-small'),
+      num = document.getElementById('num'),
+      face = document.getElementById('face'),
+      max7219 = document.getElementById('max7219');
+
   ch.addEventListener("keyup", function(e) {
     var str = String.fromCharCode(e.keyCode);
+    console.log(str);
     ch.value = str;
     genChar(str);
   });
 
   hex.addEventListener("keyup", function() {
+    update();
+  });
+  
+  clear.addEventListener("click", function(e) {
+    enBig.value = '';
+    enSmall.value = '';
+    face.value = '';
+    num.value = '';
+    genChar(' ');
+  });
+
+  enBig.addEventListener("change", function(e) {
+    num.value = '';
+    enSmall.value = '';
+    face.value = '';
+    var v = this.value;
+    if(v){
+      hex.value=v;
+    }else{
+      hex.value='0000000000000000';
+    }
+    update();
+  });
+
+  enSmall.addEventListener("change", function(e) {
+    num.value = '';
+    enBig.value = '';
+    face.value = '';
+    var v = this.value;
+    if(v){
+      hex.value=v;
+    }else{
+      hex.value='0000000000000000';
+    }
+    update();
+  });
+
+  num.addEventListener("change", function(e) {
+    enBig.value = '';
+    enSmall.value = '';
+    face.value = '';
+    var v = this.value;
+    if(v){
+      hex.value=v;
+    }else{
+      hex.value='0000000000000000';
+    }
+    update();
+  });
+
+  face.addEventListener("change", function(e) {
+    num.value = '';
+    enSmall.value = '';
+    enBig.value = '';
+    var v = this.value;
+    if(v){
+      hex.value=v;
+    }else{
+      hex.value='0000000000000000';
+    }
     update();
   });
   
