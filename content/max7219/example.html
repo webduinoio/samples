@@ -11,6 +11,9 @@
   <script type="text/javascript" src="./lib/jquery.min.js"></script>
   <link rel="import" href="others/wa-max7219-row.html">
 
+  <link rel='import' href='https://webduino.io/components/webduino/web-arduino.html' />
+  <link rel='import' href='https://webduino.io/components/webduino/wa-max7219.html' />
+
   <style>
   body {
     user-select: none;
@@ -51,8 +54,9 @@
   #hex{
     font-size:30px;
   }
-  #clear{
+  #clear, #exec, #set{
     font-size:30px;
+    margin-right: 0px;
   }
   #en-big,#en-small,#num,#face{
     height:26px;
@@ -70,13 +74,61 @@
     -webkit-transform-origin: 222px 216px;
     -webkit-transform: rotate(-90deg) translateX(-20px);
   }
+
+  #msg.default::after {
+    content: "訊息";
+  }
+  
+  #msg.waiting::after {
+    content: "Loading...";
+  }
+  
+  #msg.ready::after {
+    content: "Ready!";
+  }
+  
+  #msg.setting::after {
+    content: "設定中...";
+  }
+  
+  #msg.set::after {
+    content: "設定完成";
+  }
+
+  label, #msg {
+    font-size: 30px;
+  }
+
+  p {
+    font-size: 20px;
+    margin: 5px 0;
+  }
+
+  #device {
+    font-size: 30px;
+    width: 120px;
+  }
   </style>
 </head>
 
 <body>
+  
   <main>
+  <web-arduino id='board'>
+    <wa-max7219 id='max' din='11' cs='10' clk='9' state="on" data="006cd682c66c38c"></wa-max7219>
+  </web-arduino>
+  <div id="msg" class="waiting"></div>
+
+  <form>
+    <label>device : </label>
+    <input type="text" id="device">
+    <button class="setting" id="set">設定</button>
+    <p>(max7219 din : 11, cs : 10, clk : 9)</p>
+  </form>
+
   <input id='hex' value='0000000000000000' maxlength='16'></input>
   <button id="clear">Clear</button>
+  <button id="exec" disabled>執行</button>
   <br/>
   <input id='ch' maxlength='1' value='0'></input>
   <span>ABC: </span>
@@ -328,6 +380,46 @@
     });
   }
   
+  </script>
+
+  <script>
+    window.addEventListener('WebComponentsReady', function() {
+      var board = document.getElementById('board');
+      var device = document.getElementById('device');
+      var max = document.getElementById('max');
+      var msg = document.getElementById('msg');
+      var setBtn = document.getElementById('set');
+      var exec = document.getElementById('exec');
+      var hex = document.getElementById('hex');
+
+      device.setAttribute('value', localStorage.device || "");
+      msg.className = "ready";
+
+      setBtn.addEventListener('click', function(e) {
+        msg.className = "setting";
+        board.device = device.value;
+        localStorage.device = device.value;
+        board.on('ready', ready);
+        board.init();
+        e.stopPropagation();
+        e.preventDefault();
+        return false;
+      }, false);
+
+      exec.addEventListener('click', function() {
+        if (!hex.value) {
+          return false;
+        } 
+
+        max.on(hex.value);
+      }, false);
+
+      function ready() {
+        msg.className = "set";
+        exec.removeAttribute('disabled');
+      }
+
+    });
   </script>
 </body>
 
