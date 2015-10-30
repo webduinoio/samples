@@ -1,6 +1,11 @@
 <link rel="import" href="wa-max7219-led.html">
 <polymer-element name="wa-max7219-row" attributes="value">
   <template>
+    <style>
+      wa-max7219-led {
+        display: inline-block;
+      }
+    </style>
     <wa-max7219-led id='bit7'></wa-max7219-led>
     <wa-max7219-led id='bit6'></wa-max7219-led>
     <wa-max7219-led id='bit5'></wa-max7219-led>

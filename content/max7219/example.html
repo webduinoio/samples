@@ -4,6 +4,7 @@
 <head>
   <title>產生點矩陣圖碼 (gen a pitcute of max7219)</title>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, user-scalable=yes, initial-scale=1, maximum-scale=1">
   <script src="https://webduino.io/components/webcomponentsjs/webcomponents.js"></script>
   </script>
   <script type="text/javascript" src="./lib/asciimo.js"></script>
@@ -66,13 +67,18 @@
     vertical-align: middle;
   }
   #max7219{
-    width: 445px;
+    display: inline-block;
     transform-origin: 222px 216px;
     transform: rotate(-90deg) translateX(-20px);
     -moz-transform-origin: 222px 216px;
     -moz-transform: rotate(-90deg) translateX(-20px);
     -webkit-transform-origin: 222px 216px;
     -webkit-transform: rotate(-90deg) translateX(-20px);
+  }
+
+  .maxwrapper {
+    margin-top: 5px;
+    min-width: 450px;
   }
 
   #msg.default::after {
@@ -227,24 +233,28 @@
     <option value="82f282fe92929200">正</option>
     <option value="ff89f79191f789ff">囧</option>
   </select>
-
-  <div id='max7219'>
-    <wa-max7219-row id='byte0'></wa-max7219-row>
-    <br>
-    <wa-max7219-row id='byte1'></wa-max7219-row>
-    <br>
-    <wa-max7219-row id='byte2'></wa-max7219-row>
-    <br>
-    <wa-max7219-row id='byte3'></wa-max7219-row>
-    <br>
-    <wa-max7219-row id='byte4'></wa-max7219-row>
-    <br>
-    <wa-max7219-row id='byte5'></wa-max7219-row>
-    <br>
-    <wa-max7219-row id='byte6'></wa-max7219-row>
-    <br>
-    <wa-max7219-row id='byte7'></wa-max7219-row>
+  
+  <div class="maxwrapper">
+    <div id='max7219'>
+      <wa-max7219-row id='byte0'></wa-max7219-row>
+      <br>
+      <wa-max7219-row id='byte1'></wa-max7219-row>
+      <br>
+      <wa-max7219-row id='byte2'></wa-max7219-row>
+      <br>
+      <wa-max7219-row id='byte3'></wa-max7219-row>
+      <br>
+      <wa-max7219-row id='byte4'></wa-max7219-row>
+      <br>
+      <wa-max7219-row id='byte5'></wa-max7219-row>
+      <br>
+      <wa-max7219-row id='byte6'></wa-max7219-row>
+      <br>
+      <wa-max7219-row id='byte7'></wa-max7219-row>
+    </div>
   </div>
+
+  
   </main>
   <script>
   
