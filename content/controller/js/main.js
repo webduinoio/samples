@@ -229,15 +229,15 @@ window.addEventListener('load', function() {
       device2BtnOff.onclick = function() {
         board.disconnect();
         device2BtnGroup.style.opacity = 0.4;
-        device2Offline();
         alert('二樓離線');
+        device2Offline();
       }
 
       board.on('error', function(err) {
         board.error = err;
         device2BtnGroup.style.opacity = 0.4;
-        device2Offline();
         alert('二樓離線');
+        device2Offline();
       });
     });
   };
@@ -352,15 +352,15 @@ window.addEventListener('load', function() {
       device3BtnOff.onclick = function() {
         board.disconnect();
         device3BtnGroup.style.opacity = 0.4;
-        device3Offline();
         alert('門禁監控離線');
+        device3Offline();
       }
 
       board.on('error', function(err) {
         board.error = err;
         device3BtnGroup.style.opacity = 0.4;
-        device3Offline();
         alert('門禁監控離線');
+        device3Offline();
       });
     });
   };
