@@ -1,0 +1,55 @@
+@font-face {
+    font-family: 'icomoon';
+    src:    url('fonts/icomoon.eot?oa4j7v');
+    src:    url('fonts/icomoon.eot?oa4j7v#iefix') format('embedded-opentype'),
+        url('fonts/icomoon.ttf?oa4j7v') format('truetype'),
+        url('fonts/icomoon.woff?oa4j7v') format('woff'),
+        url('fonts/icomoon.svg?oa4j7v#icomoon') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+[class^="icon-"], [class*=" icon-"] {
+    /* use !important to prevent issues with browser extensions that change fonts */
+    font-family: 'icomoon' !important;
+    speak: none;
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+
+    /* Better Font Rendering =========== */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+.icon-sun:before {
+    content: "\e9d4";
+}
+.icon-switch:before {
+    content: "\e9b6";
+}
+.icon-lock:before {
+    content: "\e98f";
+}
+.icon-unlocked:before {
+    content: "\e990";
+}
+.icon-eye:before {
+    content: "\e9ce";
+}
+.icon-menu:before {
+    content: "\e9bd";
+}
+.icon-cog:before {
+    content: "\e994";
+}
+.icon-power:before {
+    content: "\e9b5";
+}
+.icon-blocked:before {
+    content: "\ea0e";
+}
+.icon-radio-unchecked:before {
+    content: "\ea56";
+}

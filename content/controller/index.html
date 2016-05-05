@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>house</title>
+  <script src="js/webduino-all.min.js"></script>
+  <script src="js/webduino-blockly.js"></script>
+  <script src="js/firebase.js"></script>
+  <script src="js/main.js"></script>
+  <link rel="stylesheet" href="style/main.css">
+  <link rel="stylesheet" href="style/icon.css">
+</head>
+
+<body>
+  <header>
+    Webduino 智慧家庭
+    <i class="menu icon-cog" id="menu"></i>
+  </header>
+  <div id="boardGroup">
+    <h3>控制設定</h3>
+    <div class="board">
+      一樓
+      <input type="text" id="device1" value="gvPx">
+      <button id="device1BtnOn"><i class="icon-power offline"></i></button>
+      <button id="device1BtnOff" class="hidden"><i class="icon-power online"></i></button>
+    </div>
+    <div class="board">
+      二樓
+      <input type="text" id="device2" value="OVXD">
+      <button id="device2BtnOn"><i class="icon-power offline"></i></button>
+      <button id="device2BtnOff" class="hidden"><i class="icon-power online"></i></button>
+    </div>
+    <div class="board">
+      門禁
+      <input type="text" id="device3" value="wndZ">
+      <button id="device3BtnOn"><i class="icon-power offline"></i></button>
+      <button id="device3BtnOff" class="hidden"><i class="icon-power online"></i></button>
+    </div>
+  </div>
+  <br/>
+  <div class="device1BtnGroup">
+    <h2>一樓</h2>
+    <button id="device1Btn1" data-components="Led1" data-order="0">客廳<i class="icon-switch"></i></button>
+    <button id="device1Btn2" data-components="Led2" data-order="1">餐廳<i class="icon-switch"></i></button>
+    <button id="device1Btn3" data-components="Led3" data-order="2">廚房<i class="icon-switch"></i></button>
+    <button id="device1Btn4" data-components="Led4" data-order="3">儲藏室<i class="icon-switch"></i></button>
+    <button id="device1Btn5" data-components="Led5" data-order="4">玄關<i class="icon-switch"></i></button>
+    <button id="device1Btn6" data-components="Servo" data-order="5">大門<i class="icon-blocked"></i></button>
+  </div>
+  <div class="device2BtnGroup">
+    <h2>二樓</h2>
+    <button id="device2Btn1" data-components="Led1" data-order="0">起居室 1<i class="icon-switch"></i></button>
+    <button id="device2Btn2" data-components="Led2" data-order="1">起居室 2<i class="icon-switch"></i></button>
+    <button id="device2Btn3" data-components="Led3" data-order="2">浴室 1<i class="icon-switch"></i></button>
+    <button id="device2Btn4" data-components="Led4" data-order="3">浴室 2<i class="icon-switch"></i></button>
+    <button id="device2Btn5" data-components="Led5" data-order="4">樓梯間<i class="icon-switch"></i></button>
+    <button id="device2Btn6" data-components="Led6" data-order="5">陽台<i class="icon-switch"></i></button>
+    <button id="device2Btn7" data-components="Servo" data-order="6">窗簾<i class="icon-blocked"></i></button>
+  </div>
+  <div class="device3BtnGroup">
+    <h2>門禁系統</h2>
+    <div><span id="device3RFIDCode"></span>
+    </div>
+  </div>
+</body>
+
+</html>
