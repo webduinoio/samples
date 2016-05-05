@@ -110,67 +110,65 @@ window.addEventListener('load', function() {
       device: device1.value,
       multi: true
     }, function(board) {
-      try {
-        board1 = board;
-        device1BtnGroup.style.opacity = 1;
-        device1BtnOn.className = 'hidden';
-        device1BtnOff.className = '';
-        device1Components = [
-          getLed(board, 7),
-          getLed(board, 8),
-          getLed(board, 9),
-          getLed(board, 10),
-          getLed(board, 11),
-          getServo(board, 6)
-        ];
-        checkDevice1State();
+      board1 = board;
+      device1BtnGroup.style.opacity = 1;
+      device1BtnOn.className = 'hidden';
+      device1BtnOff.className = '';
+      device1Components = [
+        getLed(board, 7),
+        getLed(board, 8),
+        getLed(board, 9),
+        getLed(board, 10),
+        getLed(board, 11),
+        getServo(board, 6)
+      ];
+      checkDevice1State();
 
-        for (var i = 0; i < device1Btn.length; i++) {
-          device1Btn[i].disabled = false;
-          device1Btn[i].onclick = function() {
-            var self = this;
-            var o = self.getAttribute('data-order');
-            var c = self.getAttribute('data-components');
-            if (i < (device1Btn.length - 1)) {
-              if (state.device1[c] == 'off') {
-                device1Components[o].on(function() {
-                  state.device1[c] = 'on';
-                  deviceStateOn(self);
-                });
-              } else {
-                device1Led1.off(function() {
-                  state.device1[c] = 'off';
-                  deviceStateOff(self);
-                });
-              }
-            } else {
-              if (state.device1[c] == 'off') {
-                device1Components[o].angle = 170;
+      for (var i = 0; i < device1Btn.length; i++) {
+        device1Btn[i].disabled = false;
+        device1Btn[i].onclick = function() {
+          var self = this;
+          var o = self.getAttribute('data-order');
+          var c = self.getAttribute('data-components');
+          if (i < (device1Btn.length - 1)) {
+            if (state.device1[c] == 'off') {
+              device1Components[o].on(function() {
                 state.device1[c] = 'on';
                 deviceStateOn(self);
-              } else {
-                device1Components[o].angle = 10;
+              });
+            } else {
+              device1Led1.off(function() {
                 state.device1[c] = 'off';
                 deviceStateOff(self);
-              }
+              });
             }
-          };
-        }
-
-        device1BtnOff.onclick = function() {
-          board.disconnect();
-          device1BtnGroup.style.opacity = 0.4;
-          device1Offline();
-        }
-
-        board.on('error', function(err) {
-          board.error = err;
-          device1BtnGroup.style.opacity = 0.4;
-          device1Offline();
-        });
-      } catch (e) {
-        console.log(e);
+          } else {
+            if (state.device1[c] == 'off') {
+              device1Components[o].angle = 170;
+              state.device1[c] = 'on';
+              deviceStateOn(self);
+            } else {
+              device1Components[o].angle = 10;
+              state.device1[c] = 'off';
+              deviceStateOff(self);
+            }
+          }
+        };
       }
+
+      device1BtnOff.onclick = function() {
+        board.disconnect();
+        device1BtnGroup.style.opacity = 0.4;
+        device1Offline();
+        alert('一樓離線');
+      }
+
+      board.on('error', function(err) {
+        board.error = err;
+        device1BtnGroup.style.opacity = 0.4;
+        device1Offline();
+        alert('一樓離線');
+      });
     });
   };
 
@@ -182,67 +180,65 @@ window.addEventListener('load', function() {
       device: device2.value,
       multi: true
     }, function(board) {
-      try {
-        board2 = board;
-        device2BtnGroup.style.opacity = 1;
-        device2BtnOn.className = 'hidden';
-        device2BtnOff.className = '';
-        device2Components = [
-          getLed(board, 7),
-          getLed(board, 8),
-          getLed(board, 9),
-          getLed(board, 10),
-          getLed(board, 11),
-          getLed(board, 12),
-          getServo(board, 6)
-        ];
-        checkDevice2State();
-        for (var i = 0; i < device2Btn.length; i++) {
-          device2Btn[i].disabled = false;
-          device2Btn[i].onclick = function() {
-            var self = this;
-            var o = self.getAttribute('data-order');
-            var c = self.getAttribute('data-components');
-            if (i < (device2Btn.length - 1)) {
-              if (state.device2[c] == 'off') {
-                device2Components[o].on(function() {
-                  state.device2[c] = 'on';
-                  deviceStateOn(self);
-                });
-              } else {
-                device2Led1.off(function() {
-                  state.device2[c] = 'off';
-                  deviceStateOff(self);
-                });
-              }
-            } else {
-              if (state.device2[c] == 'off') {
-                device2Components[o].angle = 170;
+      board2 = board;
+      device2BtnGroup.style.opacity = 1;
+      device2BtnOn.className = 'hidden';
+      device2BtnOff.className = '';
+      device2Components = [
+        getLed(board, 7),
+        getLed(board, 8),
+        getLed(board, 9),
+        getLed(board, 10),
+        getLed(board, 11),
+        getLed(board, 12),
+        getServo(board, 6)
+      ];
+      checkDevice2State();
+      for (var i = 0; i < device2Btn.length; i++) {
+        device2Btn[i].disabled = false;
+        device2Btn[i].onclick = function() {
+          var self = this;
+          var o = self.getAttribute('data-order');
+          var c = self.getAttribute('data-components');
+          if (i < (device2Btn.length - 1)) {
+            if (state.device2[c] == 'off') {
+              device2Components[o].on(function() {
                 state.device2[c] = 'on';
                 deviceStateOn(self);
-              } else {
-                device2Components[o].angle = 10;
+              });
+            } else {
+              device2Led1.off(function() {
                 state.device2[c] = 'off';
                 deviceStateOff(self);
-              }
+              });
             }
-          };
-        }
-
-        device2BtnOff.onclick = function() {
-          board.disconnect();
-          device2BtnGroup.style.opacity = 0.4;
-          device2Offline();
-        }
-
-        board.on('error', function(err) {
-          board.error = err;
-          device2BtnGroup.style.opacity = 0.4;
-          device2Offline();
-        });
-      } catch (e) {
-        console.log(e);
+          } else {
+            if (state.device2[c] == 'off') {
+              device2Components[o].angle = 170;
+              state.device2[c] = 'on';
+              deviceStateOn(self);
+            } else {
+              device2Components[o].angle = 10;
+              state.device2[c] = 'off';
+              deviceStateOff(self);
+            }
+          }
+        };
       }
+
+      device2BtnOff.onclick = function() {
+        board.disconnect();
+        device2BtnGroup.style.opacity = 0.4;
+        device2Offline();
+        alert('二樓離線');
+      }
+
+      board.on('error', function(err) {
+        board.error = err;
+        device2BtnGroup.style.opacity = 0.4;
+        device2Offline();
+        alert('二樓離線');
+      });
     });
   };
 
@@ -253,121 +249,119 @@ window.addEventListener('load', function() {
       device: device3.value,
       multi: true
     }, function(board) {
-      try {
-        board3 = board;
-        device3BtnGroup.style.opacity = 1;
-        device3BtnOn.className = 'hidden';
-        device3BtnOff.className = '';
-        device3RFID = getRFID(board);
-        device3RFID.read();
+      board3 = board;
+      device3BtnGroup.style.opacity = 1;
+      device3BtnOn.className = 'hidden';
+      device3BtnOff.className = '';
+      device3RFID = getRFID(board);
+      device3RFID.read();
 
-        function get_time(t) {
-          var varTime = new Date(),
-            varHours = varTime.getHours(),
-            varMinutes = varTime.getMinutes(),
-            varSeconds = varTime.getSeconds();
-          var varNow;
-          if (t == "hms") {
-            varNow = varHours + ":" + varMinutes + ":" + varSeconds;
-          } else if (t == "h") {
-            varNow = varHours;
-          } else if (t == "m") {
-            varNow = varMinutes;
-          } else if (t == "s") {
-            varNow = varSeconds;
-          }
-          return varNow;
+      function get_time(t) {
+        var varTime = new Date(),
+          varHours = varTime.getHours(),
+          varMinutes = varTime.getMinutes(),
+          varSeconds = varTime.getSeconds();
+        var varNow;
+        if (t == "hms") {
+          varNow = varHours + ":" + varMinutes + ":" + varSeconds;
+        } else if (t == "h") {
+          varNow = varHours;
+        } else if (t == "m") {
+          varNow = varMinutes;
+        } else if (t == "s") {
+          varNow = varSeconds;
         }
-
-        var code;
-        device3RFID.on("enter", function(uid) {
-          if (uid == '0604C63B') {
-            //藍
-            code = device3RFIDCode.innerHTML || '';
-            device3RFIDCode.innerHTML = code + '開門 / ' + uid + ' / ' + get_time("hms") + '<br/>';
-            state.device1.Servo = 'on';
-            device1Components[5].angle = 10;
-            device1Btn[5].querySelector('i').style.color = btnColorOnText;
-            myFirebase.push(state);
-          }
-          if (uid == '26195C14') {
-            //綠
-            code = device3RFIDCode.innerHTML || '';
-            device3RFIDCode.innerHTML = code + '全開 / ' + uid + ' / ' + get_time("hms") + '<br/>';
-            for (var i = 0; i < device1Btn.length; i++) {
-              var cc = device1Btn[i].getAttribute('data-components');
-              state.device1[cc] = 'on';
-              if (i < (device1Btn.length - 1)) {
-                device1Components[i].on();
-              } else {
-                device1Components[i].angle = 170;
-              }
-              device1Btn[i].querySelector('i').style.color = btnColorOffText;
-            }
-            for (var i = 0; i < device2Btn.length; i++) {
-              var cc = device2Btn[i].getAttribute('data-components');
-              state.device2[cc] = 'on';
-              if (i < (device2Btn.length - 1)) {
-                device2Components[i].on();
-              } else {
-                device2Components[i].angle = 170;
-              }
-              device2Btn[i].querySelector('i').style.color = btnColorOffText;
-            }
-            myFirebase.push(state);
-          }
-          if (uid == '6520DE52') {
-            //橘
-            code = device3RFIDCode.innerHTML || '';
-            device3RFIDCode.innerHTML = code + '全關 / ' + uid + ' / ' + get_time("hms") + '<br/>';
-            for (var i = 0; i < device1Btn.length; i++) {
-              var cc = device1Btn[i].getAttribute('data-components');
-              state.device1[cc] = 'off';
-              if (i < (device1Btn.length - 1)) {
-                device1Components[i].off();
-              } else {
-                device1Components[i].angle = 10;
-              }
-              device1Btn[i].querySelector('i').style.color = btnColorOffText;
-            }
-            for (var i = 0; i < device2Btn.length; i++) {
-              var cc = device2Btn[i].getAttribute('data-components');
-              state.device2[cc] = 'off';
-              if (i < (device2Btn.length - 1)) {
-                device2Components[i].off();
-              } else {
-                device2Components[i].angle = 10;
-              }
-              device2Btn[i].querySelector('i').style.color = btnColorOffText;
-            }
-            myFirebase.push(state);
-
-          }
-          if (uid == '5685C43B') {
-            //黃
-            code = device3RFIDCode.innerHTML || '';
-            device3RFIDCode.innerHTML = code + '關門 / ' + uid + ' / ' + get_time("hms") + '<br/>';
-            state.device1.Servo = 'off';
-            device1Components[5].angle = 10;
-            device1Btn[5].querySelector('i').style.color = btnColorOffText;
-            myFirebase.push(state);
-          }
-        });
-
-        device3BtnOff.onclick = function() {
-          board.disconnect();
-          device3BtnGroup.style.opacity = 0.4;
-          device3Offline();
-        }
-
-        board.on('error', function(err) {
-          board.error = err;
-          device3BtnGroup.style.opacity = 0.4;
-          device3Offline();
-        });
-      } catch (e) {
-        console.log(e);
+        return varNow;
       }
+
+      var code;
+      device3RFID.on("enter", function(uid) {
+        if (uid == '0604C63B') {
+          //藍
+          code = device3RFIDCode.innerHTML || '';
+          device3RFIDCode.innerHTML = code + '開門 / ' + uid + ' / ' + get_time("hms") + '<br/>';
+          state.device1.Servo = 'on';
+          device1Components[5].angle = 10;
+          device1Btn[5].querySelector('i').style.color = btnColorOnText;
+          myFirebase.push(state);
+        }
+        if (uid == '26195C14') {
+          //綠
+          code = device3RFIDCode.innerHTML || '';
+          device3RFIDCode.innerHTML = code + '全開 / ' + uid + ' / ' + get_time("hms") + '<br/>';
+          for (var i = 0; i < device1Btn.length; i++) {
+            var cc = device1Btn[i].getAttribute('data-components');
+            state.device1[cc] = 'on';
+            if (i < (device1Btn.length - 1)) {
+              device1Components[i].on();
+            } else {
+              device1Components[i].angle = 170;
+            }
+            device1Btn[i].querySelector('i').style.color = btnColorOffText;
+          }
+          for (var i = 0; i < device2Btn.length; i++) {
+            var cc = device2Btn[i].getAttribute('data-components');
+            state.device2[cc] = 'on';
+            if (i < (device2Btn.length - 1)) {
+              device2Components[i].on();
+            } else {
+              device2Components[i].angle = 170;
+            }
+            device2Btn[i].querySelector('i').style.color = btnColorOffText;
+          }
+          myFirebase.push(state);
+        }
+        if (uid == '6520DE52') {
+          //橘
+          code = device3RFIDCode.innerHTML || '';
+          device3RFIDCode.innerHTML = code + '全關 / ' + uid + ' / ' + get_time("hms") + '<br/>';
+          for (var i = 0; i < device1Btn.length; i++) {
+            var cc = device1Btn[i].getAttribute('data-components');
+            state.device1[cc] = 'off';
+            if (i < (device1Btn.length - 1)) {
+              device1Components[i].off();
+            } else {
+              device1Components[i].angle = 10;
+            }
+            device1Btn[i].querySelector('i').style.color = btnColorOffText;
+          }
+          for (var i = 0; i < device2Btn.length; i++) {
+            var cc = device2Btn[i].getAttribute('data-components');
+            state.device2[cc] = 'off';
+            if (i < (device2Btn.length - 1)) {
+              device2Components[i].off();
+            } else {
+              device2Components[i].angle = 10;
+            }
+            device2Btn[i].querySelector('i').style.color = btnColorOffText;
+          }
+          myFirebase.push(state);
+
+        }
+        if (uid == '5685C43B') {
+          //黃
+          code = device3RFIDCode.innerHTML || '';
+          device3RFIDCode.innerHTML = code + '關門 / ' + uid + ' / ' + get_time("hms") + '<br/>';
+          state.device1.Servo = 'off';
+          device1Components[5].angle = 10;
+          device1Btn[5].querySelector('i').style.color = btnColorOffText;
+          myFirebase.push(state);
+        }
+      });
+
+      device3BtnOff.onclick = function() {
+        board.disconnect();
+        device3BtnGroup.style.opacity = 0.4;
+        device3Offline();
+        alert('門禁監控離線');
+      }
+
+      board.on('error', function(err) {
+        board.error = err;
+        device3BtnGroup.style.opacity = 0.4;
+        device3Offline();
+        alert('門禁監控離線');
+      });
     });
   };
 
