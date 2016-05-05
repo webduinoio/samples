@@ -20,6 +20,8 @@ window.addEventListener('load', function() {
       Led3: 'off',
       Led4: 'off',
       Led5: 'off',
+      Led6: 'off',
+      Led7: 'off',
       Servo: 'off'
     },
     device2: {
@@ -36,7 +38,6 @@ window.addEventListener('load', function() {
   /* device 1 */
 
   var board1, device1Components;
-  var device1Led1, device1Led2, device1Led3, device1Led4, device1Led5, device1Servo;
   var device1 = document.getElementById('device1');
   var device1BtnOn = document.getElementById('device1BtnOn');
   var device1BtnOff = document.getElementById('device1BtnOff');
@@ -48,13 +49,15 @@ window.addEventListener('load', function() {
     document.getElementById('device1Btn3'),
     document.getElementById('device1Btn4'),
     document.getElementById('device1Btn5'),
-    document.getElementById('device1Btn6')
+    document.getElementById('device1Btn6'),
+    document.getElementById('device1Btn7'),
+    document.getElementById('device1Btn8')
   ];
+  var device1DHT;
 
   /* device 2 */
 
   var board2, device2Components;
-  var device2Led1, device2Led2, device2Led3, device2Led4, device2Led5, device2Led6, device2Servo;
   var device2 = document.getElementById('device2');
   var device2BtnOn = document.getElementById('device2BtnOn');
   var device2BtnOff = document.getElementById('device2BtnOff');
@@ -69,6 +72,7 @@ window.addEventListener('load', function() {
     document.getElementById('device2Btn6'),
     document.getElementById('device2Btn7')
   ];
+  var device2DHT;
 
   /* device 3 */
 
@@ -115,13 +119,17 @@ window.addEventListener('load', function() {
       device1BtnOn.className = 'hidden';
       device1BtnOff.className = '';
       device1Components = [
-        getLed(board, 7),
-        getLed(board, 8),
-        getLed(board, 9),
-        getLed(board, 10),
         getLed(board, 11),
-        getServo(board, 6)
+        getLed(board, 10),
+        getLed(board, 9),
+        getLed(board, 8),
+        getLed(board, 7),
+        getLed(board, 6),
+        getLed(board, 5),
+        getServo(board, 12)
       ];
+      device1DHT = getDht(board, 2);
+
       checkDevice1State();
 
       for (var i = 0; i < device1Btn.length; i++) {
@@ -156,9 +164,15 @@ window.addEventListener('load', function() {
         };
       }
 
+      device1DHT.read(function(e) {
+        document.getElementById("dht1").innerHTML = '<span class="t">' +
+          e.temperature + ' 度</span> / <span class="h">' + e.humidity + ' %</span>';
+      }, 3000);
+
       device1BtnOff.onclick = function() {
         board.disconnect();
         device1BtnGroup.style.opacity = 0.4;
+        document.getElementById("dht1").innerHTML = ' -- / -- ';
         device1Offline();
         alert('一樓離線');
       }
@@ -166,6 +180,7 @@ window.addEventListener('load', function() {
       board.on('error', function(err) {
         board.error = err;
         device1BtnGroup.style.opacity = 0.4;
+        document.getElementById("dht1").innerHTML = ' -- / -- ';
         device1Offline();
         alert('一樓離線');
       });
@@ -185,15 +200,19 @@ window.addEventListener('load', function() {
       device2BtnOn.className = 'hidden';
       device2BtnOff.className = '';
       device2Components = [
-        getLed(board, 7),
-        getLed(board, 8),
-        getLed(board, 9),
-        getLed(board, 10),
         getLed(board, 11),
-        getLed(board, 12),
-        getServo(board, 6)
+        getLed(board, 10),
+        getLed(board, 9),
+        getLed(board, 8),
+        getLed(board, 7),
+        getLed(board, 6),
+        getServo(board, 12)
       ];
+
+      device2DHT = getDht(board, 2);
+
       checkDevice2State();
+
       for (var i = 0; i < device2Btn.length; i++) {
         device2Btn[i].disabled = false;
         device2Btn[i].onclick = function() {
@@ -226,9 +245,14 @@ window.addEventListener('load', function() {
         };
       }
 
+      device2DHT.read(function(e) {
+        document.getElementById("dht2").innerHTML = '<span class="t">' + e.temperature + ' 度</span> / <span class="h">' + e.humidity + ' %</span>';
+      }, 30000);
+
       device2BtnOff.onclick = function() {
         board.disconnect();
         device2BtnGroup.style.opacity = 0.4;
+        document.getElementById("dht2").innerHTML = ' -- / -- ';
         alert('二樓離線');
         device2Offline();
       }
@@ -236,6 +260,7 @@ window.addEventListener('load', function() {
       board.on('error', function(err) {
         board.error = err;
         device2BtnGroup.style.opacity = 0.4;
+        document.getElementById("dht2").innerHTML = ' -- / -- ';
         alert('二樓離線');
         device2Offline();
       });

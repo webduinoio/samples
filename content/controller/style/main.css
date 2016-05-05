@@ -32,7 +32,7 @@ button:focus {
 
 h2 {
   color: #fff;
-  margin:10px 0;
+  margin: 10px 0;
 }
 
 header {
@@ -53,9 +53,9 @@ header {
   position: absolute;
   right: 20px;
   top: 18px;
-  opacity:.4;
+  opacity: .4;
   transition: .3s;
-  cursor:pointer;
+  cursor: pointer;
 }
 
 .btn {
@@ -66,13 +66,13 @@ header {
   display: none;
 }
 
-.menu:hover{  
-  opacity:.7;
+.menu:hover {
+  opacity: .7;
 }
 
 #boardGroup {
   display: none;
-  z-index:2;
+  z-index: 2;
   position: fixed;
   padding: 10px 0 30px 0;
   top: 62px;
@@ -87,8 +87,35 @@ header {
   display: block;
 }
 
-#boardGroup h3{
+#boardGroup h3 {
   margin: 20px 0;
+}
+
+.dht{
+  font-size:14px;
+  color:#fff;
+  opacity:.8;
+}
+
+.dht .t{
+  color:#fc0;
+}
+
+.dht .h{
+  color:#0cf;
+}
+
+#boardGroup b {
+  display:block;
+  width:90%;
+  height:1px;
+  margin:0 auto 10px;
+  border-bottom:1px dashed #666;
+}
+
+#boardGroup a {
+  color:#fff;
+  font-size:18px;
 }
 
 .board {
@@ -112,25 +139,26 @@ header {
   background: rgba(255, 255, 255, .4);
 }
 
-.board .online{
+.board .online {
   color: #0f0;
 }
-.board .offline{
+
+.board .offline {
   color: #f77;
 }
 
 .board button {
   font-size: 16px;
   padding: 6px 10px 4px;
-  background:rgba(255,255,255,.3);
+  background: rgba(255, 255, 255, .3);
   border-radius: 0 5px 5px 0;
   vertical-align: middle;
   transition: .3s;
-  cursor:pointer;
+  cursor: pointer;
 }
 
-.board button:hover{
-  background:rgba(255,255,255,.4);
+.board button:hover {
+  background: rgba(255, 255, 255, .4);
 }
 
 .device1BtnGroup,
@@ -141,9 +169,11 @@ header {
   width: calc(100% - 30px);
   max-width: 300px;
   vertical-align: top;
-  opacity:0.4;
+  opacity: 0.4;
 }
 
+.device1BtnGroup button,
+.device2BtnGroup button,
 .device3BtnGroup div {
   width: 100%;
   padding: 10px 15px;
@@ -155,40 +185,33 @@ header {
   text-align: left;
   border-radius: 0 15px 15px 0;
   border-left: 7px solid #f90;
-  margin: 5px;
+  margin: 5px 10px 5px 0;
 }
 
 .device1BtnGroup button,
-.device2BtnGroup button{
-  width: 100%;
+.device2BtnGroup button {
   height: 54px;
-  padding: 10px 15px;
-  background: rgba(0, 0, 0, .7);
-  margin: 5px;
   line-height: 32px;
   font-size: 18px;
-  color: #fff;
   border-left: 7px solid #999;
-  box-shadow: rgba(0, 0, 0, .5) 0 0 3px;
-  text-align: left;
-  border-radius: 0 15px 15px 0;
 }
+
 .device1BtnGroup button i,
-.device2BtnGroup button i{
-  display:block;
-  margin-top:6px;
-  float:right;
+.device2BtnGroup button i {
+  display: block;
+  margin-top: 6px;
+  float: right;
 }
 
 @media (max-width:1024px) {
-  header{
+  header {
     background: rgba(0, 0, 0, .9);
   }
   #boardGroup {
-    background:rgba(0,0,0,.9);
-    width:100%;
-    top:60px;
-    right:0;
-    height:calc(100% - 60px);
+    background: rgba(0, 0, 0, .9);
+    width: 100%;
+    top: 60px;
+    right: 0;
+    height: calc(100% - 60px);
   }
 }
