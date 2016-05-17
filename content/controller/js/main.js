@@ -167,7 +167,7 @@ window.addEventListener('load', function() {
       device1DHT.read(function(e) {
         document.getElementById("dht1").innerHTML = '<span class="t">' +
           e.temperature + ' 度</span> / <span class="h">' + e.humidity + ' %</span>';
-      }, 3000);
+      }, 30000);
 
       device1BtnOff.onclick = function() {
         board.disconnect();
@@ -247,7 +247,7 @@ window.addEventListener('load', function() {
 
       device2DHT.read(function(e) {
         document.getElementById("dht2").innerHTML = '<span class="t">' + e.temperature + ' 度</span> / <span class="h">' + e.humidity + ' %</span>';
-      }, 30000);
+      }, 300000);
 
       device2BtnOff.onclick = function() {
         board.disconnect();
@@ -360,6 +360,7 @@ window.addEventListener('load', function() {
             }
             device2Btn[i].querySelector('i').style.color = btnColorOffText;
           }
+          myFirebase.set({});
           myFirebase.push(state);
 
         }
