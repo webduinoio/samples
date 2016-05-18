@@ -13,20 +13,42 @@
 </head>
 
 <body>
-	<div id="menu">
-		<div id="close-btn">
-			ⓧ
-		</div>
-		<div id="menu-device">
-		裝置: <input type="text" id="device" value="OVXD"><button id="button">連線</button>
-		</div>
-	</div>
-	<div id="content">
-	  <div id="s">test</div>
-	  <div id="a" class="btn" data-name="a"></div>
-	  <div id="b" class="btn" data-name="b"></div>
-	  <div id="c" class="btn" data-name="c"></div>
-	  <div id="d" class="btn" data-name="d"></div>
+  <div id="menu">
+    <div id="close-btn">
+      ⓧ
+    </div>
+    <div id="menu-device">
+      裝置:
+      <input type="text" id="device" value="OVXD">
+      <button id="button">連線</button>
+      <br/>
+      <div id="mobile1"><span>模擬左手</span>
+        <input type="checkbox" id="mobileCheck1" disabled>
+      </div>
+      <div id="mobile2"><span>模擬右手</span>
+        <input type="checkbox" id="mobileCheck2" disabled>
+      </div>
+    </div>
+  </div>
+  <div id="s">WEBDUINO
+    <br/>ROBOT CONTROLLER<span id="check" disabled><br/>機器人未連線</span></div>
+  <div id="superFight">
+    <img src="image/fight.png">
+  </div>
+  <div id="fire"></div>
+  <div id="barTextUp">絕招</div>
+  <div id="bar">
+    <div>絕招</div>
+  </div>
+  <div id="content">
+    <div class="leftBtn">
+      <div id="a" class="btn" data-name="a"></div>
+      <div id="b" class="btn" data-name="b"></div>
+    </div>
+    <div class="rightBtn">
+      <div id="c" class="btn" data-name="c"></div>
+      <div id="d" class="btn" data-name="d"></div>
+    </div>
   </div>
 </body>
 

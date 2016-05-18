@@ -1,7 +1,9 @@
+@import url(https://fonts.googleapis.com/css?family=Roboto+Condensed);
+
 html,
 body {
   height:100%;
-  wifht:100%;
+  width:100%;
   margin:0;
   padding:0;
   -webkit-user-select: none;
@@ -11,7 +13,7 @@ body {
 }
 
 #menu{
-  z-index:2;
+  z-index:99;
   width:0;
   height:100%;
   position:fixed;
@@ -73,21 +75,56 @@ body {
   background:rgba(255,255,255,.8);
 }
 
+#check{
+  font-size:14px;
+}
 
-#content{
-  margin:50px auto;
-  position:relative;
-  width:100%;
-  max-width:1024px;
+#mobile1,#mobile2{
+  opacity:.3;
+  margin:20px 0 0 -60px;
+}
+
+#mobile1 input,
+#mobile1 span,
+#mobile2 input,
+#mobile2 span{
+  display:inline-block;
+  vertical-align: middle;
 }
 
 #s {
   position:absolute;
   width:100%;
-  top:50px;
+  top:20px;
   left:0;
   text-align:center;
-  font-size: 50px;
+  font-size: 20px;
+  font-family: 'Roboto Condensed', sans-serif;
+}
+
+#content{
+  z-index:1;
+  margin:0 auto;
+  position:relative;
+  height:100%;
+  width:100%;
+  max-width:1024px;
+}
+
+.leftBtn, .rightBtn{
+  width:130px;
+  height:250px;
+  position:absolute;
+  background:#fff;
+  bottom:0;
+}
+
+.leftBtn{
+  left:0;
+}
+
+.rightBtn{
+  right:0;
 }
 
 .btn {
@@ -101,25 +138,111 @@ body {
 }
 
 #a {
-  background: #c00;
-  left: 20px;
+  background: #f00;
+  left: 15px;
   top: 20px;
 }
 
 #b {
-  background: #0cc;
-  left: 20px;
+  background: #0d6;
+  left: 15px;
   top: 130px;
 }
 
 #c {
-  background: #f90;
-  right: 20px;
+  background: #f80;
+  right: 15px;
   top: 20px;
 }
 
 #d {
-  background: #09f;
-  right: 20px;
+  background: #06f;
+  right: 15px;
   top: 130px;
+}
+
+#bar, #bar div, #barTextUp, #fire{
+  width:100px;
+  height:100px;
+  position:absolute;
+  bottom:20px;
+  border-radius:10px;
+}
+
+#bar, #barTextUp, #fire{
+  left:calc(50% - 50px);
+}
+
+#bar{
+  z-index:3;
+  height:0px;
+  background:#fc0;
+  overflow: hidden;
+  transition:.3s;
+}
+#bar div, #barTextUp{
+  text-align:center;
+  font-size:40px;
+  line-height:100px;
+}
+
+#fire{
+  z-index:4;
+  display:none;
+  background:rgba(0,0,0,0);
+}
+
+#barTextUp{
+  z-index:2;
+  color:#ccc;
+  background:#eee;
+}
+
+#bar div{
+  color:#f50;
+  left:0;
+  bottom:0;
+}
+
+#bar.fire{
+  -webkit-animation: fire 0.4s infinite;
+}
+
+#superFight{
+  display:none;
+  position:absolute;
+  top:0;
+  left:0;
+  z-index:5;
+  width:100%;
+  height:100%;
+  background-image:-webkit-radial-gradient(#fff,#f00);
+  text-align:center;
+}
+#superFight:before{
+  content:"";
+  width:0;
+  height:100%;
+  display:inline-block;
+  vertical-align: middle;
+}
+#superFight img{
+  width:90%;
+  vertical-align: middle;
+  -webkit-animation: fire 0.4s infinite;
+}
+
+@-webkit-keyframes fire{
+  0%,100%{
+    -webkit-transform:scale(1);
+  }
+  50%{
+    -webkit-transform:scale(1.05);
+  }
+}
+
+@media (max-width:450px) {
+  #bar,#barTextUp,#fire{
+    bottom:240px;
+  }
 }
