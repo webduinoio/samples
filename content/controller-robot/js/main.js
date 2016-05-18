@@ -162,19 +162,30 @@ window.addEventListener('load', function() {
       //s.innerHTML = '右後';
     }
     if (m == 'ac' || m == 'ca') {
-      car.goFront();
+      setTimeout(function(){
+        car.goFront();
+      },100);
       //s.innerHTML = '往前';
     }
     if (m == 'ad' || m == 'da') {
-      car.turnLeft();
+      car.stop();
+      setTimeout(function(){
+        car.turnLeft();
+      },100);
       //s.innerHTML = '左轉';
     }
     if (m == 'cb' || m == 'bc') {
-      car.turnRight();
+      car.stop();
+      setTimeout(function(){
+        car.turnRight();
+      },100);
       //s.innerHTML = '右轉';
     }
     if (m == 'bd' || m == 'db') {
-      car.goBack();
+      car.stop();
+      setTimeout(function(){
+        car.goBack();
+      },100);
       //s.innerHTML = '後退';
     }
     if (m == 'ab' || m == 'ba') {
