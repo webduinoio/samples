@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, user-scalable=yes, initial-scale=1, maximum-scale=1">
+
+  <title>蜂鳴器演奏馬力歐</title>
+
+  <script src="https://webduino.io/components/webcomponentsjs/webcomponents.js"></script>
+  <link rel='import' href='https://webduino.io/components/webduino/web-arduino.html' />
+  <link rel='import' href='https://webduino.io/components/webduino/wa-buzzer.html'></link>
+  <link rel='stylesheet' href='../../bower_components/normalize.css/normalize.css' />
+
+  <style>
+  #msg, form {
+    font-size: 20px;
+    margin: 5px;
+  }
+  #device {
+    max-width: 100px;
+    height: 34px;
+  }
+  #set {
+    width: 70px;
+    height: 40px;
+  }
+  #msg.default::after {
+    content: "None!";
+  }
+  #msg.waiting::after {
+    content: "Loading...";
+  }
+  #msg.ready::after {
+    content: "Ready!";
+  }
+  #msg.setting::after {
+    content: "Setting...";
+  }
+  #msg.set::after {
+    content: "Complete!";
+  }
+
+body{
+  margin:20px;
+}
+#recode,#replay,#stop,#tempo,#delete,#test{
+  font-size:16px;
+  margin:20px 2px 10px;
+  width:50px;
+  height:50px;
+  background:#ddd;
+  color:#000;
+  line-height:18px;
+}
+.t{
+  display:inline-block;
+  height:50px;
+}
+#tempo{
+  width:80px;
+}
+.t span,.t button{
+  height:50px;
+  display:inline-block;
+  vertical-align:middle;
+}
+#show,#showtempo{
+  margin:5px 5px 15px;
+  border:1px solid #000;
+  padding:15px;
+  width:80%;
+  height:30px;
+  overflow-y:scroll;
+  word-wrap:break-word;
+  white-space:pre-wrap;
+}
+button{
+  vertical-align:top;
+  width:30px;
+  background:#444;
+  margin:0 -16px 10px;
+  border:1px solid #999;
+  outline:none;
+  color:#fff;
+  height:60px;
+  position:relative;
+  z-index:3;
+  line-height:70px;
+  font-size:11px;
+}
+button:active{
+  background:#000;
+}
+.disabled{
+  opacity:.4;
+}
+.w{
+  z-index:1;
+  position:relative;
+  margin:0 -2px 10px;
+  color:#000;
+  background:#fff;
+  height:100px;
+  line-height:150px;
+}
+.w:active{
+  background:#ddd;
+}
+.z{
+  width:100%;
+  margin:0 -2px 10px;
+  background:#888;
+  line-height:20px;
+  height:30px;
+  font-size:11px;
+}
+#set{  
+  font-size: 20px;
+  line-height: 20px;
+  background: #666;
+  margin-left: 2px;
+}
+  </style>
+</head>
+
+<body id="bodyplay">
+  <div id="msg" class="waiting">訊息: </div>
+
+  <form>
+    <label>device : <input type="text" id="device"></label>
+    <button class="setting" id="set" notes="設定">設定</button>
+  </form>
+<web-arduino id='board'>
+  <wa-buzzer id='buzzer' pin='14' notes='' tempos='' ></wa-buzzer>
+</web-arduino>
+  NOTES:<div id="show"></div>
+  TEMPOS:<div id="showtempo"></div>
+  <button id="recode" notes="開始記錄"style="width:110px;"></button>
+  <button id="stop" notes="停止錄音"disabled="disabled" class="disabled" ></button>
+  <button id="replay" notes="播放" disabled="disabled" class="disabled"></button>
+  <button id="delete" notes="回復" disabled="disabled" class="disabled"></button>
+  <button id="test" notes="試聽" disabled="disabled" class="disabled"></button>
+  <div class="t"><span>TEMPO:</span><input id="tempo" type="range" min="1" max="10" value="8"></input><span id="num">8</span>
+  </div>
+  <br/>
+<button notes="0" class="z"></button>
+<br/>
+<button notes="B0" class="w"></button>
+
+<button notes="C1" class="w"></button>
+<button notes="CS1"></button>
+<button notes="D1" class="w"></button>
+<button notes="DS1"></button>
+<button notes="E1" class="w"></button>
+<button notes="F1" class="w"></button>
+<button notes="FS1"></button>
+<button notes="G1" class="w"></button>
+<button notes="GS1"></button>
+<button notes="A1" class="w"></button>
+<button notes="AS1"></button>
+<button notes="B1" class="w"></button>
+
+<button notes="C2" class="w"></button>
+<button notes="CS2"></button>
+<button notes="D2" class="w"></button>
+<button notes="DS2"></button>
+<button notes="E2" class="w"></button>
+<button notes="F2" class="w"></button>
+<button notes="FS2"></button>
+<button notes="G2" class="w"></button>
+<button notes="GS2"></button>
+<button notes="A2" class="w"></button>
+<button notes="AS2"></button>
+<button notes="B2" class="w"></button>
+
+<button notes="C3" class="w"></button>
+<button notes="CS3"></button>
+<button notes="D3" class="w"></button>
+<button notes="DS3"></button>
+<button notes="E3" class="w"></button>
+<button notes="F3" class="w"></button>
+<button notes="FS3"></button>
+<button notes="G3" class="w"></button>
+<button notes="GS3"></button>
+<button notes="A3" class="w"></button>
+<button notes="AS3"></button>
+<button notes="B3" class="w"></button>
+
+<button notes="C4" class="w"></button>
+<button notes="CS4"></button>
+<button notes="D4" class="w"></button>
+<button notes="DS4"></button>
+<button notes="E4" class="w"></button>
+<button notes="F4" class="w"></button>
+<button notes="FS4"></button>
+<button notes="G4" class="w"></button>
+<button notes="GS4"></button>
+<button notes="A4" class="w"></button>
+<button notes="AS4"></button>
+<button notes="B4" class="w"></button>
+
+<button notes="C5" class="w"></button>
+<button notes="CS5"></button>
+<button notes="D5" class="w"></button>
+<button notes="DS5"></button>
+<button notes="E5" class="w"></button>
+<button notes="F5" class="w"></button>
+<button notes="FS5"></button>
+<button notes="G5" class="w"></button>
+<button notes="GS5"></button>
+<button notes="A5" class="w"></button>
+<button notes="AS5"></button>
+<button notes="B5" class="w"></button>
+
+<button notes="C6" class="w"></button>
+<button notes="CS6"></button>
+<button notes="D6" class="w"></button>
+<button notes="DS6"></button>
+<button notes="E6" class="w"></button>
+<button notes="F6" class="w"></button>
+<button notes="FS6"></button>
+<button notes="G6" class="w"></button>
+<button notes="GS6"></button>
+<button notes="A6" class="w"></button>
+<button notes="AS6"></button>
+<button notes="B6" class="w"></button>
+
+<button notes="C7" class="w"></button>
+<button notes="CS7"></button>
+<button notes="D7" class="w"></button>
+<button notes="DS7"></button>
+<button notes="E7" class="w"></button>
+<button notes="F7" class="w"></button>
+<button notes="FS7"></button>
+<button notes="G7" class="w"></button>
+<button notes="GS7"></button>
+<button notes="A7" class="w"></button>
+<button notes="AS7"></button>
+<button notes="B7" class="w"></button>
+
+<button notes="C8" class="w"></button>
+
+  <script src="js/main.js"></script>
+</body>
+
+</html>
