@@ -11,7 +11,7 @@ window.addEventListener('load', function() {
 
   var hammer = new Hammer(window);
 
-  var timer;
+  var timer, timer2;
   var barHeight = 0;
   var bar = document.getElementById('bar');
   var fire = document.getElementById('fire');
@@ -101,8 +101,9 @@ window.addEventListener('load', function() {
       mobile2.style.opacity = 1;
       mobileCheck2.disabled = false;
       car = getToyCar(board, 6, 7, 8, 9);
-      mobileCheck1.addEventListener('change',hand);
-      mobileCheck2.addEventListener('change',hand);
+      mobileCheck1.addEventListener('change', hand);
+      mobileCheck2.addEventListener('change', hand);
+
       function hand() {
         if (mobileCheck1.checked && !mobileCheck2.checked) {
           setDeviceMotionListener(function(x, y, z) {
@@ -115,7 +116,7 @@ window.addEventListener('load', function() {
               }, 500);
             }
           });
-        } else if(!mobileCheck1.checked && mobileCheck2.checked){
+        } else if (!mobileCheck1.checked && mobileCheck2.checked) {
           setDeviceMotionListener(function(x, y, z) {
             if ((Math.round(x)) > 5) {
               car.onlyLeftFront();
@@ -126,7 +127,7 @@ window.addEventListener('load', function() {
               }, 500);
             }
           });
-        } else if(mobileCheck1.checked && mobileCheck2.checked){
+        } else if (mobileCheck1.checked && mobileCheck2.checked) {
           setDeviceMotionListener(function(x, y, z) {
             if ((Math.round(x)) > 5) {
               car.goFront();
@@ -137,7 +138,7 @@ window.addEventListener('load', function() {
               }, 500);
             }
           });
-        }else {
+        } else {
           removeDeviceMotionListener();
         }
       }
@@ -162,30 +163,19 @@ window.addEventListener('load', function() {
       //s.innerHTML = '右後';
     }
     if (m == 'ac' || m == 'ca') {
-      setTimeout(function(){
-        car.goFront();
-      },100);
+      car.goFront();
       //s.innerHTML = '往前';
     }
     if (m == 'ad' || m == 'da') {
-      car.stop();
-      setTimeout(function(){
-        car.turnLeft();
-      },100);
+      car.turnLeft();
       //s.innerHTML = '左轉';
     }
     if (m == 'cb' || m == 'bc') {
-      car.stop();
-      setTimeout(function(){
-        car.turnRight();
-      },100);
+      car.turnRight();
       //s.innerHTML = '右轉';
     }
     if (m == 'bd' || m == 'db') {
-      car.stop();
-      setTimeout(function(){
-        car.goBack();
-      },100);
+      car.goBack();
       //s.innerHTML = '後退';
     }
     if (m == 'ab' || m == 'ba') {
@@ -204,13 +194,19 @@ window.addEventListener('load', function() {
     var name = e.target.getAttribute('data-name');
     _bar();
     fingerNum = fingerNum + 1;
-    if (fingerNum == 1) {
-      ar[0] = name;
-      joypad(ar[0]);
-    } else if (fingerNum == 2) {
-      ar.push(name);
-      joypad((ar[0] + ar[1]));
-    }
+    car.stop();
+    clearTimeout(timer2);
+      if (fingerNum == 1) {
+        ar[0] = name;
+        timer2 = setTimeout(function() {
+          joypad(ar[0]);
+        },100);
+      } else if (fingerNum == 2) {
+        ar.push(name);
+        timer2 = setTimeout(function() {
+          joypad((ar[0] + ar[1]));
+        },100);
+      }
   }
 
   function up(e) {
@@ -219,8 +215,9 @@ window.addEventListener('load', function() {
     var name = e.target.getAttribute('data-name');
     fingerNum = fingerNum - 1;
     if (fingerNum === 0) {
-      clearTimeout(timer);
       car.stop();
+      clearTimeout(timer);
+      clearTimeout(timer2);
       //s.innerHTML = '停止';
     }
     if (ar[0] == name) {
@@ -229,7 +226,9 @@ window.addEventListener('load', function() {
     if (ar[1] == name) {
       ar.splice(1, 2);
     }
-    joypad((ar[0]));
+    timer2 = setTimeout(function() {
+      joypad((ar[0]));
+    }, 100);
   }
 
 
