@@ -78,10 +78,6 @@ window.addEventListener('load', function() {
       recode.className = 'menu disabled';
       stop.removeAttribute('disabled');
       stop.className = 'menu';
-      c1.removeAttribute('disabled');
-      c1.className = 'menu';
-      c2.removeAttribute('disabled');
-      c2.className = 'menu';
       replay.setAttribute('disabled', 'disabled');
       replay.className = 'menu disabled';
       back.removeAttribute('disabled');
@@ -89,7 +85,7 @@ window.addEventListener('load', function() {
       test.removeAttribute('disabled');
       test.className = 'menu';
       recode.innerText = '錄音進行中...';
-      show.innerText = 'menu';
+      show.innerText = '';
       showTempo.innerText = '';
       _buzzer(1);
 
@@ -110,10 +106,6 @@ window.addEventListener('load', function() {
       recode.className = 'menu';
       stop.setAttribute('disabled', 'disabled');
       stop.className = 'menu disabled';
-      c1.setAttribute('disabled', 'disabled');
-      c1.className = 'menu disabled';
-      c2.setAttribute('disabled', 'disabled');
-      c2.className = 'menu disabled';
       replay.removeAttribute('disabled');
       replay.className = 'menu';
       back.setAttribute('disabled', 'disabled');
