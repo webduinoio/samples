@@ -7,7 +7,6 @@ window.addEventListener('load', function() {
     device = document.getElementById('device'),
     pin = document.getElementById('pin'),
     keyboard = document.querySelectorAll('.keyboard'),
-    b = document.querySelectorAll('button'),
     buzzer,
     show = document.getElementById("show"),
     showTempo = document.getElementById("showtempo"),
@@ -20,7 +19,7 @@ window.addEventListener('load', function() {
     test = document.getElementById("test"),
     stop = document.getElementById("stop"),
     back = document.getElementById("delete"),
-    body = document.querySelector('body'),
+    clear = document.getElementById("clear"),
     buzzerArray = [],
     tempoArray = [],
     music,
@@ -37,9 +36,9 @@ window.addEventListener('load', function() {
 
   msg.innerHTML = "裝置尚未連線";
   device.setAttribute('value', localStorage.device || "");
-  if(localStorage.pin){
-    var p = localStorage.pin-2;
-    pin[p].setAttribute('selected','selected');
+  if (localStorage.pin) {
+    var p = localStorage.pin - 2;
+    pin[p].setAttribute('selected', 'selected');
   }
 
   setBtn.onclick = function() {
@@ -66,10 +65,10 @@ window.addEventListener('load', function() {
 
     _buzzer(0);
 
-    tempo.addEventListener('change', function() {
+    tempo.oninput = function() {
       tempoNum = tempo.value;
       tempoInput.innerText = tempoNum;
-    });
+    };
 
     recode.addEventListener('click', function() {
       tempoArray = [];
@@ -82,6 +81,8 @@ window.addEventListener('load', function() {
       replay.className = 'menu disabled';
       back.removeAttribute('disabled');
       back.className = 'menu';
+      clear.removeAttribute('disabled');
+      clear.className = 'menu';
       test.removeAttribute('disabled');
       test.className = 'menu';
       recode.innerText = '錄音進行中...';
@@ -101,6 +102,13 @@ window.addEventListener('load', function() {
       console.log('back:' + buzzerArray);
     });
 
+    clear.addEventListener('click', function() {
+      tempoArray = [];
+      buzzerArray = [];
+      show.innerText = '';
+      showTempo.innerText = '';
+    });
+
     stop.addEventListener('click', function() {
       recode.removeAttribute('disabled');
       recode.className = 'menu';
@@ -110,6 +118,8 @@ window.addEventListener('load', function() {
       replay.className = 'menu';
       back.setAttribute('disabled', 'disabled');
       back.className = 'menu disabled';
+      clear.setAttribute('disabled', 'disabled');
+      clear.className = 'menu disabled';
       test.setAttribute('disabled', 'disabled');
       test.className = 'menu disabled';
       recode.innerText = '重新記錄';
@@ -119,43 +129,42 @@ window.addEventListener('load', function() {
 
     replay.addEventListener('click', function() {
       console.log('replay:' + buzzerArray);
-      buzzer.play(buzzerArray,tempoArray);
+      buzzer.play(buzzerArray, tempoArray);
     });
 
     test.addEventListener('click', function() {
       console.log('test:' + buzzerArray);
-      buzzer.play(buzzerArray,tempoArray);
+      buzzer.play(buzzerArray, tempoArray);
     });
 
     function _buzzer(check) {
       if (check === 1) {
-        body.addEventListener('click', rr);
-        body.removeEventListener('click', ss);
+        for (var i = 0; i < keyboard.length; i++) {
+          keyboard[i].addEventListener('click', rr);
+          keyboard[i].removeEventListener('click', ss);
+        }
       } else {
-        body.addEventListener('click', ss);
-        body.removeEventListener('click', rr);
+        for (var i = 0; i < keyboard.length; i++) {
+          keyboard[i].addEventListener('click', ss);
+          keyboard[i].removeEventListener('click', rr);
+        }
       }
     }
 
     function rr(e) {
-      if (e.target.tagName === 'BUTTON' && e.target.id != 'replay' && e.target.id != 'set' && e.target.id != 'recode' && e.target.id != 'stop' && e.target.id != 'delete' && e.target.id != 'test') {
-        a = e.target.getAttribute('notes');
-        buzzer.play([a],[tempoNum]);
-        buzzerArray.push(a);
-        tempoArray.push(tempoNum);
-        ts = tempoArray.toString();
-        music = buzzerArray.toString();
-        show.innerHTML = music;
-        showTempo.innerHTML = ts;
-        buzzer.play();
-      }
+      a = e.target.getAttribute('notes');
+      buzzer.play([a], [tempoNum]);
+      buzzerArray.push(a);
+      tempoArray.push(tempoNum);
+      ts = tempoArray.toString();
+      music = buzzerArray.toString();
+      show.innerHTML = music;
+      showTempo.innerHTML = ts;
     }
 
     function ss(e) {
-      if (e.target.tagName === 'BUTTON' && e.target.id != 'replay' && e.target.id != 'set' && e.target.id != 'recode' && e.target.id != 'stop' && e.target.id != 'delete' && e.target.id != 'test') {
-        a = e.target.getAttribute('notes');
-        buzzer.play([a],[tempoNum]);
-      }
+      a = e.target.getAttribute('notes');
+      buzzer.play([a], [tempoNum]);
     }
 
   };
