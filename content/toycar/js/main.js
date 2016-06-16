@@ -29,7 +29,6 @@ window.addEventListener('load', function() {
   B.style.height = ((w.innerWidth / 3.2) - 40) + 'px';
   L.style.height = w.innerWidth / 4 * 2 + 'px';
   R.style.height = w.innerWidth / 4 * 2 + 'px';
-  //bubu.style.height = (bubu.offsetWidth*1.4) + 'px';
   bubu.style.left = (w.innerWidth / 2 - bubu.offsetWidth/1.8) + 'px';
 
   window.addEventListener('resize', rs);
@@ -40,7 +39,6 @@ window.addEventListener('load', function() {
     B.style.height = ((w.innerWidth / 3.2) - 40) + 'px';
     L.style.height = w.innerWidth / 4 * 2 + 'px';
     R.style.height = w.innerWidth / 4 * 2 + 'px';
-    //bubu.style.height = (bubu.offsetWidth*1.4) + 'px';
     bubu.style.left = (w.innerWidth / 2 - bubu.offsetWidth/1.8) + 'px';
   }
 
@@ -113,6 +111,7 @@ window.addEventListener('load', function() {
         bg.style.backgroundPosition = 'left bottom';
       });
       controllerBtnEvent(bubu, ["mousedown", "touchstart"], function() {
+        bg.style.backgroundPosition = 'right bottom';
         setDeviceOrientationListener(function(alpha, beta, gamma) {
           if ((Math.round(beta)) > 15 && (Math.abs(Math.round(gamma)) < 15 && Math.abs(Math.round(gamma)) > 0)) {
             car.goBack();
@@ -129,6 +128,7 @@ window.addEventListener('load', function() {
       });
       controllerBtnEvent(bubu, ["mouseup", "touchend"], function() {
         car.stop();
+        bg.style.backgroundPosition = 'left bottom';
         removeDeviceOrientationListener();
       });
     });

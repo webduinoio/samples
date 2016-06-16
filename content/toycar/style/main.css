@@ -15,7 +15,9 @@ header{
   position:fixed;
   height:40px;
   background:#000;
-  width:100%;
+  width:120px;
+  right:0;
+  top:0;
   color:#fff;
   z-index:99;
   text-align: center;
@@ -46,7 +48,7 @@ div{
 }
 #bg{
   width:100%;
-  height:100%;
+  height:calc(100% + 40px);
   position:fixed;
   bottom:-40px;
   z-index:1;
