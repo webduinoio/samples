@@ -73,7 +73,7 @@ window.addEventListener('load', function() {
         deviceInput.style.background = '#f00';
       }
     },5000);
-    boardReady('OVXD', function(board) {
+    boardReady(deviceId, function(board) {
       state=1;
       deviceInput.style.background = '#090';
       board.systemReset();
