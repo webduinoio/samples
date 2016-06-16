@@ -42,7 +42,7 @@ window.addEventListener('load', function() {
     bubu.style.left = (w.innerWidth / 2 - bubu.offsetWidth/1.8) + 'px';
   }
 
-  var car;
+  var car, timer, state = 0;
 
   function controllerBtnEvent(c, e, callback) {
     if (e != "click") {
@@ -66,8 +66,15 @@ window.addEventListener('load', function() {
 
   deviceBtn.onclick = function() {
     deviceId = deviceInput.value;
+    deviceInput.style.background = '#555';
     localStorage.toyCarDeviceId = deviceId;
+    timer = setTimeout(function(){
+      if(state==0){
+        deviceInput.style.background = '#f00';
+      }
+    },5000);
     boardReady('OVXD', function(board) {
+      state=1;
       deviceInput.style.background = '#090';
       board.systemReset();
       board.samplingInterval = 250;
