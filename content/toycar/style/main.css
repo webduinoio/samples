@@ -1,0 +1,131 @@
+html,body{
+  width:100%;
+  height:100%;
+  margin:0;
+  padding:0;
+  font-family:'Verdana';
+  background:#333;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  background:#fff;
+}
+header{
+  position:fixed;
+  height:40px;
+  background:#000;
+  width:100%;
+  color:#fff;
+  z-index:99;
+  text-align: center;
+  line-height: 40px;
+  font-size:18px;
+}
+.deviceArea{
+  position:absolute;
+  right:10px;
+  top:-2px;
+}
+.deviceInput{
+  width:40px;
+  border:none;
+  outline:none;
+  background:#666;
+  padding:2px 3px 3px;
+  margin:0 5px;
+}
+.deviceBtn{
+  border:none;
+  outline:none;
+  background:#666;
+  margin:0;
+}
+div{
+  z-index:2;
+}
+#bg{
+  width:100%;
+  height:100%;
+  position:fixed;
+  bottom:-40px;
+  z-index:1;
+  background-image: url(https://lh3.googleusercontent.com/-axih1ezTBZk/VYJyraFTlMI/AAAAAAABH-4/RbL6j3myoiY/s000/control.jpg);
+  background-size: 200%;
+  background-repeat:no-repeat;
+  background-position: left bottom;
+}
+
+#show{
+  /* background-image:url(https://lh3.googleusercontent.com/-qbPeem4w5Mw/VYEoVlHKmMI/AAAAAAABH-I/Y6k66Gz7Tr0/s000/a1.jpg); */
+  width:200px;
+  height:200px;
+  background-size:cover;
+  margin:20px auto 0 ;
+}
+#show.n{
+  display:none;
+}
+#show.f{
+  -webkit-transform:rotate(0deg);
+}
+#show.b{
+  -webkit-transform:rotate(180deg);
+}
+#show.l{
+  -webkit-transform:rotate(90deg);
+}
+#show.r{
+  -webkit-transform:rotate(-90deg);
+}
+#show.fl{
+  -webkit-transform:rotate(45deg);
+}
+#show.fr{
+  -webkit-transform:rotate(-45deg);
+}
+#show.bl{
+  -webkit-transform:rotate(135deg);
+}
+#show.br{
+  -webkit-transform:rotate(225deg);
+}
+
+#f{
+  opacity:.4;
+  position:absolute;
+  left:0;
+  width:35%;
+  border:1px dashed #fff;
+}
+#b{
+  opacity:.4;
+  position:absolute;
+  bottom:0;
+  left:0;
+  width:35%;
+  border:1px dashed #fff;
+}
+#r{
+  opacity:.4;
+  position:absolute;
+  bottom:0;
+  right:0;
+  width:21%;
+  border:1px dashed #fff;
+}
+#l{
+  opacity:.4;
+  position:absolute;
+  bottom:0;
+  right:21%;
+  width:18%;
+  border:1px dashed #fff;
+}
+#bubu{
+  width:20%;
+  height: 100%;
+  background:none;
+  position:absolute;
+  bottom:0;
+}
