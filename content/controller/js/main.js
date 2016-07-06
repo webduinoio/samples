@@ -233,11 +233,11 @@ window.addEventListener('load', function() {
             }
           } else {
             if (state.device2[c] == 'off') {
-              device2Components[o].angle = 170;
+              device2Components[o].angle = 10;
               state.device2[c] = 'on';
               deviceStateOn(self);
             } else {
-              device2Components[o].angle = 10;
+              device2Components[o].angle = 170;
               state.device2[c] = 'off';
               deviceStateOff(self);
             }
