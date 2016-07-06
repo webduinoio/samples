@@ -301,8 +301,7 @@ window.addEventListener('load', function() {
 
       var code;
       device3RFID.on("enter", function(uid) {
-        if (uid == '0604C63B') {
-          //藍
+        if (uid == 'E8F92E00') {
           code = device3RFIDCode.innerHTML || '';
           device3RFIDCode.innerHTML = code + '開門 / ' + uid + ' / ' + get_time("hms") + '<br/>';
           state.device1.Servo = 'on';
@@ -311,7 +310,6 @@ window.addEventListener('load', function() {
           myFirebase.push(state);
         }
         if (uid == '26195C14') {
-          //綠
           code = device3RFIDCode.innerHTML || '';
           device3RFIDCode.innerHTML = code + '全開 / ' + uid + ' / ' + get_time("hms") + '<br/>';
           for (var i = 0; i < device1Btn.length; i++) {
@@ -337,7 +335,6 @@ window.addEventListener('load', function() {
           myFirebase.push(state);
         }
         if (uid == '6520DE52') {
-          //橘
           code = device3RFIDCode.innerHTML || '';
           device3RFIDCode.innerHTML = code + '全關 / ' + uid + ' / ' + get_time("hms") + '<br/>';
           for (var i = 0; i < device1Btn.length; i++) {
@@ -364,8 +361,7 @@ window.addEventListener('load', function() {
           myFirebase.push(state);
 
         }
-        if (uid == '5685C43B') {
-          //黃
+        if (uid == '66C62403') {
           code = device3RFIDCode.innerHTML || '';
           device3RFIDCode.innerHTML = code + '關門 / ' + uid + ' / ' + get_time("hms") + '<br/>';
           state.device1.Servo = 'off';
