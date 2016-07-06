@@ -11,7 +11,7 @@ window.addEventListener('load', function() {
   var menu = document.getElementById('menu');
   var boardGroup = document.getElementById('boardGroup');
 
-  var myFirebase = new Firebase('https://smarthouse20160519.firebaseio.com/');
+  var myFirebase = new Firebase('https://smart-house-20160706.firebaseio.com/');
 
   var state = {
     device1: {
@@ -233,11 +233,11 @@ window.addEventListener('load', function() {
             }
           } else {
             if (state.device2[c] == 'off') {
-              device2Components[o].angle = 10;
+              device2Components[o].angle = 170;
               state.device2[c] = 'on';
               deviceStateOn(self);
             } else {
-              device2Components[o].angle = 170;
+              device2Components[o].angle = 10;
               state.device2[c] = 'off';
               deviceStateOff(self);
             }
@@ -328,7 +328,7 @@ window.addEventListener('load', function() {
             if (i < (device2Btn.length - 1)) {
               device2Components[i].on();
             } else {
-              device2Components[i].angle = 170;
+              device2Components[i].angle = 10;
             }
             device2Btn[i].querySelector('i').style.color = btnColorOffText;
           }
@@ -430,11 +430,11 @@ window.addEventListener('load', function() {
       } else {
         if (state.device2[c] == 'on') {
           checkDeviceStateOn(device2Btn, i)
-          device2Components[i].angle = 10;
+          device2Components[i].angle = 170;
           device2Btn[i].querySelector('i').className = 'icon-radio-unchecked';
         } else {
           checkDeviceStateOff(device2Btn, i)
-          device2Components[i].angle = 170;
+          device2Components[i].angle = 10;
           device2Btn[i].querySelector('i').className = 'icon-blocked';
         }
       }
