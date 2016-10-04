@@ -32,6 +32,10 @@
     font-size: 16px;
     margin: 10px 0 0;
   }
+
+  #errorMsg{
+    color:#c00;
+  }
   
   #mapAddress {
     width: 400px;
@@ -92,6 +96,7 @@
     <br/>
     <button id="submit">連線並開始偵測</button>
     <button id="refresh" disabled='true'>重新偵測</button>
+    <span id="errorMsg"></span>
   </div>
   <div id="map"></div>
   <script type="text/javascript">
@@ -102,6 +107,7 @@
   var mapAddressName = document.getElementById('mapAddressName');
   var submit = document.getElementById('submit');
   var refresh = document.getElementById('refresh');
+  var errorMsg = document.getElementById('errorMsg');
 
   if (window.localStorage.deviceID) {
     deviceID.value = window.localStorage.deviceID;
@@ -133,6 +139,15 @@
       varHours = varTime.getHours(),
       varMinutes = varTime.getMinutes(),
       varSeconds = varTime.getSeconds();
+    if(varHours*1<10){
+      varHours = '0'+varHours;
+    }
+    if(varMinutes*1<10){
+      varMinutes = '0'+varMinutes;
+    }
+    if(varSeconds*1<10){
+      varSeconds = '0'+varSeconds;
+    }
     var varNow;
     if (t == "hms") {
       varNow = varHours + ":" + varMinutes + ":" + varSeconds;
@@ -226,29 +241,33 @@
             });
 
           } else {
+            errorMsg.innerHTML = '無法定義「' + address +'」';
             console.log(address + ' is error');
           }
         });
       }
     }
 
-
-
-    submit.onclick = function() {
-      submit.disabled = true;
-      refresh.disabled = false;
+    function localStorageSave(){
       window.localStorage.deviceID = deviceID.value;
       window.localStorage.dhtPin = dhtPin.value;
       window.localStorage.mapAddressName = mapAddressName.value;
       window.localStorage.mapAddress = mapAddress.value;
       window.localStorage.dhtTime = dhtTime.value;
+    }
+
+
+    submit.onclick = function() {
+      submit.disabled = true;
+      refresh.disabled = false;
+      localStorageSave();
       addressMarker(mapAddress.value, mapAddressName.value, 'a1', test);
     };
 
     refresh.onclick = function() {
+      localStorageSave();
       location.reload();
     };
-
 
 
     function test() {
