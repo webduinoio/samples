@@ -120,28 +120,13 @@
   }
 
 
-  var gmapKey = 'AIzaSyB6TBwRrd2pQeyD0COblf4uADkO1EMjSCw';
+  //var gmapKey = 'AIzaSyB6TBwRrd2pQeyD0COblf4uADkO1EMjSCw';
   var gmapCenter = '高雄市前鎮區復興四路20號';
   var gmapZoom = 16;
   var gmapZIndex = 1;
   var gmap;
   var gmapPosArray = [];
   var gmapMarkerArray = [];
-
-  function loadScript(url, callback) {
-
-    var script = document.createElement('script')
-    script.type = 'text/javascript';
-
-    script.onload = function() {
-      callback();
-    };
-
-    script.src = url;
-    document.getElementsByTagName('head')[0].appendChild(script);
-  }
-
-  loadScript('https://maps.googleapis.com/maps/api/js?key=' + gmapKey, gmapFn);
 
   function get_time(t) {
     var varTime = new Date(),
@@ -222,6 +207,7 @@
           if (status == google.maps.GeocoderStatus.OK) {
             LatLng = results[0].geometry.location;
             marker.setPosition(LatLng);
+            gmap.setCenter(LatLng);
             console.log('lat:' + LatLng.lat() + ',lng:' + LatLng.lng());
 
             var infowindow = new google.maps.InfoWindow({
@@ -279,6 +265,8 @@
     }
 
   }
+  </script>
+  <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB6TBwRrd2pQeyD0COblf4uADkO1EMjSCw&callback=gmapFn">
   </script>
 </body>
 
