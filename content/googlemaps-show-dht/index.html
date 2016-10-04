@@ -85,11 +85,9 @@
       <option value="20000">20 秒</option>
       <option value="30000">30 秒</option>
       <option value="60000">60 秒</option>
-    </select> 
-    <br/>
-    目的地名稱：
-    <input id="mapAddressName">
-    地址：
+    </select>
+    <br/> 目的地名稱：
+    <input id="mapAddressName"> 地址：
     <input id="mapAddress">
     <br/>
     <button id="submit">連線並開始偵測</button>
@@ -144,6 +142,25 @@
   }
 
   loadScript('https://maps.googleapis.com/maps/api/js?key=' + gmapKey, gmapFn);
+
+  function get_time(t) {
+    var varTime = new Date(),
+      varHours = varTime.getHours(),
+      varMinutes = varTime.getMinutes(),
+      varSeconds = varTime.getSeconds();
+    var varNow;
+    if (t == "hms") {
+      varNow = varHours + ":" + varMinutes + ":" + varSeconds;
+    } else if (t == "h") {
+      varNow = varHours;
+    } else if (t == "m") {
+      varNow = varMinutes;
+    } else if (t == "s") {
+      varNow = varSeconds;
+    }
+    return varNow;
+  }
+
 
   function gmapFn() {
 
@@ -242,7 +259,7 @@
       addressMarker(mapAddress.value, mapAddressName.value, 'a1', test);
     };
 
-    refresh.onclick = function(){
+    refresh.onclick = function() {
       location.reload();
     };
 
@@ -256,7 +273,7 @@
         board.samplingInterval = 250;
         dht = getDht(board, dhtPin.value * 1);
         dht.read(function(evt) {
-          document.querySelector('#a1 .markerContent').innerHTML = '溫度：' + dht.temperature + '度<br/>濕度：'+dht.humidity+'%';
+          document.querySelector('#a1 .markerContent').innerHTML = '偵測時間：' + get_time("hms") + '<br/>溫度：' + dht.temperature + '度<br/>濕度：' + dht.humidity + '%';
         }, dhtTime.value * 1);
       });
     }
