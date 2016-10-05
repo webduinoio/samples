@@ -3,24 +3,32 @@
 
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
   <title>使用 Google Sheet 儲存 DHT 數據</title>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
   <script src="https://webduino.io/components/webduino-js/dist/webduino-all.min.js"></script>
   <script src="https://blockly.webduino.io/webduino-blockly.js"></script>
   <script src="https://blockly.webduino.io/lib/runtime.min.js"></script>
   <style>
-  body{
-  	line-height:40px;
+  body {
+    line-height: 40px;
   }
-  	body, input, button, select, option{
-  		font-size:20px;
-  	}
-  	button{
-  		margin:10px 0;
-  	}
-  	select{
-  		font-size:30px!important;
-  	}
+  
+  body,
+  input,
+  button,
+  select,
+  option {
+    font-size: 20px;
+  }
+  
+  button {
+    margin: 10px 0;
+  }
+  
+  select {
+    font-size: 30px!important;
+  }
   </style>
 </head>
 
@@ -62,6 +70,8 @@
   <input id="sheetName" value="工作表1">
   <br/>
   <button id="submit">連線並開始儲存</button>
+  <button id="refresh" disabled='true'>重新設定</button>
+  <span id="errorMsg"></span>
   <script>
   var deviceID = document.getElementById('deviceID');
   var dhtPin = document.getElementById('dhtPin');
@@ -69,6 +79,8 @@
   var sheetUrl = document.getElementById('sheetUrl');
   var sheetUrName = document.getElementById('sheetName');
   var submit = document.getElementById('submit');
+  var refresh = document.getElementById('refresh');
+  var errorMsg = document.getElementById('errorMsg');
 
   function writeSheetData(d) {
     $.get("https://script.google.com/macros/s/AKfycbyrYjDKcUswV_9VADdmHZ7WHnT5KmBp13k0-1NNCcDQ9w8H463m/exec", d);
@@ -101,28 +113,35 @@
   var dht;
   var myData = {};
 
-  if(window.localStorage.deviceID){
-  	deviceID.value = window.localStorage.deviceID;
+  if (window.localStorage.deviceID) {
+    deviceID.value = window.localStorage.deviceID;
   }
-  if(window.localStorage.dhtPin){
-  	dhtPin.value = window.localStorage.dhtPin;
+  if (window.localStorage.dhtPin) {
+    dhtPin.value = window.localStorage.dhtPin;
   }
-  if(window.localStorage.dhtTime){
-  	dhtTime.value = window.localStorage.dhtTime;
+  if (window.localStorage.dhtTime) {
+    dhtTime.value = window.localStorage.dhtTime;
   }
-  if(window.localStorage.sheetUrl){
-  	sheetUrl.value = window.localStorage.sheetUrl;
+  if (window.localStorage.sheetUrl) {
+    sheetUrl.value = window.localStorage.sheetUrl;
   }
-  if(window.localStorage.sheetName){
-  	sheetName.value = window.localStorage.sheetName;
+  if (window.localStorage.sheetName) {
+    sheetName.value = window.localStorage.sheetName;
+  }
+
+  function localStorageSave() {
+    window.localStorage.deviceID = deviceID.value;
+    window.localStorage.dhtPin = dhtPin.value;
+    window.localStorage.sheetUrl = sheetUrl.value;
+    window.localStorage.sheetName = sheetName.value;
+    window.localStorage.dhtTime = dhtTime.value;
   }
 
 
   submit.onclick = function() {
-  	window.localStorage.deviceID = deviceID.value;
-  	window.localStorage.dhtPin = dhtPin.value;
-  	window.localStorage.sheetUrl = sheetUrl.value;
-  	window.localStorage.sheetName = sheetName.value;
+    submit.disabled = true;
+    refresh.disabled = false;
+    localStorageSave();
     console.log('ready');
     console.log(dhtPin.value * 1);
     boardReady(deviceID.value, function(board) {
@@ -142,6 +161,11 @@
         writeSheetData(myData);
       }, dhtTime.value * 1);
     });
+  };
+
+  refresh.onclick = function() {
+    localStorageSave();
+    location.reload();
   };
   </script>
 </body>

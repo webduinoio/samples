@@ -3,6 +3,7 @@
 
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
   <title>google map dht</title>
   <script src="https://webduino.io/components/webduino-js/dist/webduino-all.min.js"></script>
   <script src="https://blockly.webduino.io/webduino-blockly.js"></script>
@@ -17,7 +18,6 @@
   
   #setup {
     box-sizing: content-box;
-    height: 110px;
     line-height: 30px;
     font-size: 16px;
     padding: 5px 20px 0;
@@ -30,20 +30,24 @@
   
   #setup button {
     font-size: 16px;
-    margin: 10px 0 0;
+    margin: 10px 0 20px;
   }
 
   #errorMsg{
     color:#c00;
   }
   
+input{
+  width:80px;
+}
+
   #mapAddress {
-    width: 400px;
+    width: 300px;
   }
   
   #map {
     width: 100%;
-    height: calc(100% - 120px);
+    height: calc(100% - 130px);
   }
   
   .mapMarker {
@@ -54,6 +58,13 @@
     margin: 5px 0 8px 0;
     padding: 5px 0 8px 0;
     border-bottom: 1px solid #ccc;
+  }
+
+  @media (max-width:600px){
+    #map {
+      width: 100%;
+      height: calc(100% - 190px);
+    }
   }
   </style>
 </head>
