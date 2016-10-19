@@ -92,7 +92,8 @@ window.addEventListener('load', function() {
   button.onclick = function() {
     boardReady({
       device: device.value,
-      multi: true
+      multi: true,
+      server: 'ws.webduinokit.cn'
     }, function(board) {
       button.style.color = '#0f0';
       check.style.display = 'none';
