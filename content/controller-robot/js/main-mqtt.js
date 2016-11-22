@@ -91,8 +91,8 @@ window.addEventListener('load', function() {
 
   button.onclick = function() {
     boardReady({
-      transport: 'websocket',
-      url: device.value
+      device: device.value,
+      multi: true
     }, function(board) {
       button.style.color = '#0f0';
       check.style.display = 'none';
