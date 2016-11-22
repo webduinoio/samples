@@ -34,11 +34,16 @@
     font-size:30px;
   }
   #light{
-    width:300px;
+    width:250px;
     cursor:pointer;
+    float:left;
   }
   #light img{
     width:100%;
+  }
+  #control{
+    float:left;
+    margin:30px 10px;
   }
   #lightOn{
     display:none;
@@ -47,6 +52,11 @@
 </head>
 
 <body>
+  <div id='light'>
+    <img src='on.png' id="lightOn"></img>
+    <img src='off.png' id="lightOff"></img>
+  </div>
+  <div id="control">
   開發板 ID：
   <input id="deviceID">
   <br/> LED 腳位：
@@ -66,8 +76,8 @@
   </select>
   <br/> 按鈕開關
   <select id="buttonType">
-    <option value="2">下拉</option>
-    <option value="1">上拉</option>
+    <option value="down">下拉</option>
+    <option value="up">上拉</option>
   </select> 
    腳位：
   <select id="buttonPin">
@@ -91,10 +101,6 @@
   <br/>
   <button id="submit">連線並開始記錄</button>
   <button id="refresh" disabled='true'>重新設定</button>
-  <br/>
-  <div id='light'>
-    <img src='on.png' id="lightOn"></img>
-    <img src='off.png' id="lightOff"></img>
   </div>
   <script src="main.js"></script>
 </body>

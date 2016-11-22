@@ -64,6 +64,23 @@ function localStorageSave() {
   window.localStorage.googlesheetSave = jsonOString;
 }
 
+function toggle() {
+  console.log(get_time("hms"));
+  myData.column0 = get_time("hms");
+  a = a * -1;
+  if (a < 0) {
+    led.off();
+    lightOff.style.display = 'inline-block';
+    lightOn.style.display = 'none';
+    myData.column1 = '關燈';
+  } else {
+    led.on();
+    lightOff.style.display = 'none';
+    lightOn.style.display = 'inline-block';
+    myData.column1 = '燈打開了';
+  }
+  writeSheetData(myData);
+}
 
 submit.onclick = function() {
   submit.disabled = true;
@@ -75,8 +92,8 @@ submit.onclick = function() {
     board.systemReset();
     board.samplingInterval = 250;
     led = getLed(board, ledPin.value * 1);
-    led.on();
-    if (buttonType == 1) {
+    if (buttonType.value == 'down') {
+      console.log('down');
       button = getButton(board, buttonPin.value * 1);
     } else {
       button = getPullupButton(board, buttonPin.value * 1);
@@ -85,29 +102,10 @@ submit.onclick = function() {
     myData.sheetUrl = sheetUrl.value;
     myData.sheetName = sheetName.value;
     console.log(myData);
-    button.on("pressed", function(){
-      toggle();
-    });
-    light.addEventListener('click',function(){
-      toggle();
-    });
-    function toggle() {
-      console.log(get_time("hms"));
-      a = a * -1;
-      if (a < 0) {
-        led.off();
-        lightOff.style.display = 'inline-block';
-        lightOn.style.display = 'none';
-        myData.column0 = get_time("hms");
-        myData.column1 = '關燈';
-      } else {
-        led.on();
-        lightOff.style.display = 'none';
-        lightOn.style.display = 'inline-block';
-        myData.column1 = '燈打開了';
-      }
-      writeSheetData(myData);
-    }
+    led.off();
+    button.on("pressed", toggle);
+    light.addEventListener('click', toggle);
+
   });
 };
 
