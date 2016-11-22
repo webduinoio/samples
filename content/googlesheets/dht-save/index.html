@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <title>使用 Google Sheet 儲存 DHT 數據</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script src="https://webduino.io/components/webduino-js/dist/webduino-all.min.js"></script>
+  <script src="https://blockly.webduino.io/webduino-blockly.js"></script>
+  <script src="https://blockly.webduino.io/lib/runtime.min.js"></script>
+  <style>
+  body {
+    line-height: 40px;
+  }
+  
+  body,
+  input,
+  button,
+  select,
+  option {
+    font-size: 20px;
+  }
+  
+  button {
+    margin: 10px 0;
+  }
+  
+  select {
+    font-size: 20px!important;
+  }
+
+  #msg{
+    font-size:30px;
+  }
+  </style>
+</head>
+
+<body>
+  開發板 ID：
+  <input id="deviceID">
+  <br/> 溫濕度傳感器腳位：
+  <select id="dhtPin">
+    <option value="2">2</option>
+    <option value="3">3</option>
+    <option value="4">4</option>
+    <option value="5">5</option>
+    <option value="6">6</option>
+    <option value="7">7</option>
+    <option value="8">8</option>
+    <option value="9">9</option>
+    <option value="10">10</option>
+    <option value="11">11</option>
+    <option value="12">12</option>
+    <option value="13">13</option>
+  </select>
+  <br/> 擷取時間：
+  <select id="dhtTime">
+    <option value="500">0.5 秒</option>
+    <option value="750">0.75 秒</option>
+    <option value="1000">1 秒</option>
+    <option value="2000">2 秒</option>
+    <option value="3000">3 秒</option>
+    <option value="4000">4 秒</option>
+    <option value="5000">5 秒</option>
+    <option value="10000">10 秒</option>
+    <option value="20000">20 秒</option>
+    <option value="30000">30 秒</option>
+    <option value="60000">60 秒</option>
+  </select>
+  <br/> 試算表網址：
+  <input id="sheetUrl">
+  <br/> 試算表名稱：
+  <input id="sheetName" value="工作表1">
+  <br/>
+  <button id="submit">連線並開始儲存</button>
+  <button id="refresh" disabled='true'>重新設定</button>
+  <br/>
+  <span id="msg"></span>
+  <script src="main.js"></script>
+</body>
+
+</html>
