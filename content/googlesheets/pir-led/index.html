@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-  <title>使用 Google Sheet 記錄開關燈時間</title>
+  <title>使用 Google Sheet 儲存人體紅外線偵測開關燈數據</title>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
   <script src="https://webduino.io/components/webduino-js/dist/webduino-all.min.js"></script>
   <script src="https://blockly.webduino.io/webduino-blockly.js"></script>
@@ -33,31 +33,11 @@
   #msg{
     font-size:30px;
   }
-  #light{
-    width:250px;
-    cursor:pointer;
-    float:left;
-  }
-  #light img{
-    width:100%;
-  }
-  #control{
-    float:left;
-    margin:30px 10px;
-  }
-  #lightOn{
-    display:none;
-  }
   </style>
 </head>
 
 <body>
-  <h2>網頁點燈 + Google 試算表紀錄</h2>
-  <div id='light'>
-    <img src='on.png' id="lightOn"></img>
-    <img src='off.png' id="lightOff"></img>
-  </div>
-  <div id="control">
+  <h2>人體紅外線 + 點燈 + Google 試算表紀錄</h2>
   開發板 ID：
   <input id="deviceID">
   <br/> LED 腳位：
@@ -69,19 +49,14 @@
     <option value="6">6</option>
     <option value="7">7</option>
     <option value="8">8</option>
-    <option value="9">9</option>
+    <option value="9" selected="selected">9</option>
     <option value="10">10</option>
     <option value="11">11</option>
     <option value="12">12</option>
     <option value="13">13</option>
   </select>
-  <br/> 按鈕開關
-  <select id="buttonType">
-    <option value="down">下拉</option>
-    <option value="up">上拉</option>
-  </select> 
-   腳位：
-  <select id="buttonPin">
+  <br/> 人體紅外線：
+  <select id="pirPin">
     <option value="2">2</option>
     <option value="3">3</option>
     <option value="4">4</option>
@@ -91,18 +66,19 @@
     <option value="8">8</option>
     <option value="9">9</option>
     <option value="10">10</option>
-    <option value="11">11</option>
+    <option value="11" selected="selected">11</option>
     <option value="12">12</option>
     <option value="13">13</option>
-  </select>
+  </select> 
   <br/> 試算表網址：
   <input id="sheetUrl">
   <br/> 試算表名稱：
   <input id="sheetName" value="工作表1">
   <br/>
-  <button id="submit">連線並開始記錄</button>
+  <button id="submit">連線並開始儲存</button>
   <button id="refresh" disabled='true'>重新設定</button>
-  </div>
+  <br/>
+  <span id="msg"></span>
   <script src="main.js"></script>
 </body>
 
