@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <title>google map ultrasonic led</title>
+  <script src="https://webduino.io/components/webduino-js/dist/webduino-all.min.js"></script>
+  <script src="https://blockly.webduino.io/webduino-blockly.js"></script>
+  <script src="https://blockly.webduino.io/lib/runtime.min.js"></script>
+  <style>
+  html,
+  body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+  }
+  
+  #setup {
+    box-sizing: content-box;
+    line-height: 30px;
+    font-size: 16px;
+    padding: 5px 20px 0;
+  }
+  
+  #setup input,
+  #setup select {
+    margin: 0 10px 0 0;
+  }
+  
+  #setup button {
+    font-size: 16px;
+    margin: 10px 0 20px;
+  }
+  
+  #errorMsg {
+    color: #c00;
+  }
+  
+  input {
+    width: 80px;
+  }
+  
+  #mapAddress {
+    width: 300px;
+  }
+  
+  #map {
+    width: 100%;
+    height: calc(100% - 130px);
+  }
+  
+  .mapMarker {
+    line-height: 20px;
+    font-size: 16px;
+  }
+  
+  .mapMarker h3 {
+    margin: 5px 0 8px 0;
+    padding: 5px 0 8px 0;
+    border-bottom: 1px solid #ccc;
+  }
+  
+  #light {
+    width: 80px;
+    margin: 10px 0;
+    cursor: pointer;
+  }
+  
+  #light img {
+    width: 100%;
+  }
+  
+  #lightOn {
+    display: none;
+  }
+  
+  @media (max-width:600px) {
+    #map {
+      width: 100%;
+      height: calc(100% - 190px);
+    }
+  }
+  </style>
+</head>
+
+<body>
+  <div id="setup">
+    開發板 ID：
+    <input id="deviceID"> LED 腳位：
+    <select id="ledPin">
+      <option value="2">2</option>
+      <option value="3">3</option>
+      <option value="4">4</option>
+      <option value="5">5</option>
+      <option value="6">6</option>
+      <option value="7">7</option>
+      <option value="8">8</option>
+      <option value="9">9</option>
+      <option value="10">10</option>
+      <option value="11">11</option>
+      <option value="12">12</option>
+      <option value="13">13</option>
+    </select>
+    超音波 Trig：
+    <select id="trigPin">
+      <option value="2">2</option>
+      <option value="3">3</option>
+      <option value="4">4</option>
+      <option value="5">5</option>
+      <option value="6">6</option>
+      <option value="7">7</option>
+      <option value="8">8</option>
+      <option value="9">9</option>
+      <option value="10">10</option>
+      <option value="11" selected="selected">11</option>
+      <option value="12">12</option>
+      <option value="13">13</option>
+    </select>
+    Echo：
+    <select id="echoPin">
+      <option value="2">2</option>
+      <option value="3">3</option>
+      <option value="4">4</option>
+      <option value="5">5</option>
+      <option value="6">6</option>
+      <option value="7">7</option>
+      <option value="8">8</option>
+      <option value="9">9</option>
+      <option value="10" selected="selected">10</option>
+      <option value="11">11</option>
+      <option value="12">12</option>
+      <option value="13">13</option>
+    </select>
+    擷取時間：
+    <select id="detectTime">
+      <option value="250">0.25 秒</option>
+      <option value="500" selected="selected">0.5 秒</option>
+      <option value="750">0.75 秒</option>
+      <option value="1000">1 秒</option>
+      <option value="2000">2 秒</option>
+    </select>
+    觸發距離：
+    <select id="distance">
+      <option value="10">10 公分</option>
+      <option value="15" selected="selected">15 公分</option>
+      <option value="20">20 公分</option>
+      <option value="25">25 公分</option>
+      <option value="30">30 公分</option>
+    </select>
+    <br/> 目的地名稱：
+    <input id="mapAddressName"> 地址：
+    <input id="mapAddress">
+    <br/>
+    <button id="submit">連線並開始監控</button>
+    <button id="refresh" disabled='true'>重新整理</button>
+    <span id="errorMsg"></span>
+  </div>
+  <div id="map"></div>
+  <script src="main.js"></script>
+  <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB6TBwRrd2pQeyD0COblf4uADkO1EMjSCw&callback=gmapFn">
+  </script>
+</body>
+
+</html>
