@@ -1,0 +1,198 @@
+<html>
+
+<head>
+    <script src="bower_components/webduino-js/dist/webduino-all.js"></script>
+    <script src="SSD1306.js"></script>
+    <style>
+    .btn {
+        font-size: 1em;
+    }
+    
+    canvas {
+        background-color: #000000;
+    }
+    </style>
+</head>
+
+<body onload="init();">
+    <canvas id="canvas" width="128" height="64"></canvas>
+    <br>
+    <div id='msg'>200</div>
+    <input id='range' type='range' min="0" max="255" value="100">
+    <button id='btn' class='btn'>Show</button>
+    <script>
+    var img1 = new Image();
+    var ctx = document.getElementById('canvas');
+
+    var board, OLED, lastVal;
+    var bytes = new Array();
+    var imgData;
+    var imgHexData = "";
+    var imgBitData = "";
+    var imgFile = "car.gif";
+
+    board = new webduino.WebArduino(location.hash.substring(1));
+    board.on(webduino.BoardEvent.READY, function() {
+        console.log("Ready...");
+        OLED = new SSD1306(board);
+        btn.addEventListener('click', function() {
+            render();
+        });
+    });
+
+    board.on(webduino.BoardEvent.ERROR, function(err) {
+        console.log('board error', err.message);
+    });
+
+    board.on(webduino.BoardEvent.BEFOREDISCONNECT, function() {
+        console.log('board beforedisconnect');
+    });
+
+    board.on(webduino.BoardEvent.DISCONNECT, function() {
+        console.log('board disconnect');
+        board.disconnect();
+    });
+
+    board.on(webduino.BoardEvent.STRING_MESSAGE,
+        function(event) {
+            var m = event.message;
+            console.log("STRING:", m);
+        });
+
+    range.addEventListener('change', function(e) {
+        msg.innerHTML = range.value;
+        paint();
+    });
+
+    function render() {
+        OLED.clear();
+        console.log("render...", imgHexData);
+        OLED.save(imgHexData, function() {
+            OLED.render();
+            console.log("render done.");
+            //console.log(imgHexData);
+            //console.log(imgBitData);
+        });
+    }
+
+    function print(size, x, y, text) {
+        ctx.font = size + 'pt Calibri';
+        ctx.fillStyle = 'white';
+        ctx.fillText(text, x, y + size);
+        updateCanvas();
+        render();
+    }
+
+    function paint() {
+        if (canvas.getContext) {
+            ctx = canvas.getContext('2d');
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.clear = function() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+            };
+            ctx.drawImage(img1, 0, 0);
+            updateCanvas();
+        }
+    }
+
+    function updateCanvas() {
+        imgHexData = "";
+        imgBitData = "";
+        var x = 0,
+            y = 0,
+            imgByte;
+
+        imgData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+        bytes.length = 0;
+        for (var y = 0; y < 64; y++) {
+            for (var x = 0; x < 128; x++) {
+                var addr = 128 * 4 * y + x * 4;
+                imgByte = imgData.data[addr];
+                imgByte = imgByte > range.value ? 255 : 0;
+                imgData.data[addr] = imgByte;
+                imgData.data[addr + 1] = imgByte;
+                imgData.data[addr + 2] = imgByte;
+                bytes.push(imgByte > 0 ? 1 : 0);
+            }
+        }
+        ctx.putImageData(imgData, 0, 0);
+        for (i = 0; i < bytes.length; i = i + 8) {
+            if (i % 128 == 0) {
+                imgBitData += "\r\n";
+            }
+            imgBitData = '' + imgBitData + bytes[i + 0] + bytes[i + 1] + bytes[i + 2] + bytes[i + 3] + bytes[i + 4] + bytes[i + 5] + bytes[i + 6] + bytes[i + 7];
+
+            var x =
+                bytes[i + 0] << 7 | bytes[i + 1] << 6 |
+                bytes[i + 2] << 5 | bytes[i + 3] << 4 |
+                bytes[i + 4] << 3 | bytes[i + 5] << 2 |
+                bytes[i + 6] << 1 | bytes[i + 7] << 0;
+            if (x <= 15) imgHexData += "0";
+            imgHexData = imgHexData + x.toString(16);
+        }
+        //toString();
+    }
+
+
+    function init() {
+        document.onpaste = function(e) {
+            ctx.clear();
+            var IMAGE_MIME_REGEX = /^image\/(p?jpeg|gif|png)$/i;
+            var items = e.clipboardData.items;
+
+            var loadImage = function(file) {
+                var reader = new FileReader();
+                reader.onload = function(e) {
+                    img1.src = e.target.result;
+                };
+                reader.readAsDataURL(file);
+            };
+
+            for (var i = 0; i < items.length; i++) {
+                if (IMAGE_MIME_REGEX.test(items[i].type)) {
+                    loadImage(items[i].getAsFile());
+                    return;
+                }
+            }
+            // Normal paste handling here
+        }
+        img1.onload = function() {
+            console.log("img onload.");
+            ctx.drawImage(img1, 0, 0);
+            updateCanvas();
+        };
+        img1.src = imgFile;
+        paint();
+    }
+
+
+    function go() {
+        OLED.clear();
+        var i = 250;
+        var loopId = setInterval(function() {
+            i -= 10;
+            range.value = i;
+            paint();
+            OLED.save(imgHexData, function() {
+                OLED.render();
+                if (i == 100) {
+                    clearInterval(loopId);
+                }
+            });
+        }, 500);
+    }
+
+
+    function toString() {
+        console.log("imgHexData", imgHexData.length);
+        console.log(imgHexData);
+    }
+    /*
+    ctx.font = '31pt Calibri';
+    ctx.fillStyle = 'white';
+    ctx.fillText('林玉玲', 3, 50);
+    */
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,119 @@
+<html>
+
+<head>
+  <script type="text/javascript" src="../webduino-js/src/module/Max7219.js"></script>
+</head>
+
+<body>
+  <script>
+  (function() {
+    var proto = Object.create(HTMLElement.prototype, {
+      din: {
+        get: function() {
+          return this.getAttribute('din');
+        },
+        set: function(val) {
+          this.setAttribute('din', val);
+        }
+      },
+      cs: {
+        get: function() {
+          return this.getAttribute('cs');
+        },
+        set: function(val) {
+          this.setAttribute('cs', val);
+        }
+      },
+      clk: {
+        get: function() {
+          return this.getAttribute('clk');
+        },
+        set: function(val) {
+          this.setAttribute('clk', val);
+        }
+      },
+      state: {
+        get: function() {
+          return this.getAttribute('state');
+        },
+        set: function(val) {
+          this.setAttribute('state', val);
+        }
+      },
+      intensity: {
+        get: function() {
+          return this.getAttribute('intensity');
+        },
+        set: function(val) {
+          this.setAttribute('intensity', val);
+        }
+      },
+      data: {
+        get: function() {
+          return this.getAttribute('data');
+        },
+        set: function(val) {
+          this.setAttribute('data', val);
+        }
+      }
+    });
+
+    proto.init_ = function(board) {
+      var observer, config,
+        Max7219 = webduino.module.Max7219;
+
+      this.max7219 = new Max7219(board, board.getDigitalPin(this.din), board.getDigitalPin(this.cs), board.getDigitalPin(this.clk));
+      this.off();
+
+      if (this.state === 'on' && this.data) {
+        this.on(this.data);
+      }
+
+      if (this.intensity) {
+        this.max7219.intensity = this.intensity;
+      }
+    };
+
+    proto.on = function(data) {
+      if (data) {
+        this.max7219.on(data);
+      } else {
+        this.max7219.on();
+      }
+    };
+
+    proto.off = function() {
+      this.animateStop();
+      this.max7219.off();
+    };
+
+    proto.animate = function(data, times, duration, callback) {
+      this.max7219.animate(data, times, duration, callback);
+    };
+
+    proto.animateStop = function() {
+      this.max7219.animateStop();
+    };
+
+    proto.attributeChangedCallback = function(attrName, oldVal, newVal) {
+      if (this.max7219) {
+        switch (attrName) {
+          case 'state':
+            newVal === "on" ? this.on() : this.off();
+            break;
+          case 'intensity':
+            this.max7219.intensity = newVal;
+            break;
+        }
+      }
+    };
+
+    document.registerElement('wa-max7219', {
+      prototype: proto
+    });
+
+  })();
+  </script>
+</body>
+
+</html>

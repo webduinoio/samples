@@ -1,0 +1,20 @@
+{
+  "name": "webduino-smart",
+  "homepage": "https://github.com/marty5499/webduino-smart",
+  "authors": [
+    "marty <marty.shu@gmail.com>"
+  ],
+  "description": "",
+  "main": "",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "webduino": "^0.3.2"
+  }
+}

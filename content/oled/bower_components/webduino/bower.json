@@ -1,0 +1,12 @@
+{
+  "name": "webduino",
+  "description": "Web components for Webduino",
+  "repository": "https://github.com/webduinoio/webduino.git",
+  "homepage": "http://webduino.io",
+  "keywords": ["arduino", "webduino", "web-components"],
+  "license": "MIT",
+  "dependencies": {
+    "webcomponentsjs": "0.x",
+    "webduino-js": "dist"
+  }
+}
