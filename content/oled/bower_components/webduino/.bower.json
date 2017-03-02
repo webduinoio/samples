@@ -1,0 +1,26 @@
+{
+  "name": "webduino",
+  "description": "Web components for Webduino",
+  "repository": "https://github.com/webduinoio/webduino.git",
+  "homepage": "http://webduino.io",
+  "keywords": [
+    "arduino",
+    "webduino",
+    "web-components"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "webcomponentsjs": "0.x",
+    "webduino-js": "dist"
+  },
+  "version": "0.3.2",
+  "_release": "0.3.2",
+  "_resolution": {
+    "type": "version",
+    "tag": "0.3.2",
+    "commit": "d1a01e28c132025dffa89ab86a0be5fb89d5a128"
+  },
+  "_source": "https://github.com/webduinoio/webduino.git",
+  "_target": "^0.3.2",
+  "_originalSource": "webduino"
+}

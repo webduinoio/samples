@@ -1,0 +1,13 @@
+{
+  "name": "webduino-js",
+  "homepage": "https://github.com/webduinoio/webduino-js",
+  "_release": "b142aa9837",
+  "_resolution": {
+    "type": "branch",
+    "branch": "dist",
+    "commit": "b142aa983745dbf4d12bd7a2431eb2d0a41cc0bd"
+  },
+  "_source": "https://github.com/webduinoio/webduino-js.git",
+  "_target": "dist",
+  "_originalSource": "webduino-js"
+}

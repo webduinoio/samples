@@ -1,0 +1,51 @@
+<html>
+
+<head>
+  <script type="text/javascript" src="../webduino-js/src/module/RFID.js"></script>
+</head>
+
+<body>
+  <script>
+  (function() {
+    var proto = Object.create(HTMLElement.prototype, {
+      isReading: {
+        get: function() {
+          return !!(this.rfid && this.rfid.isReading);
+        }
+      }
+    });
+
+    proto.init_ = function(board) {
+      var RFID = webduino.module.RFID;
+      this.rfid = new RFID(board);
+    };
+
+    proto.read = function(enterHandler, leaveHandler) {
+      this.rfid.read(enterHandler, leaveHandler);
+    };
+
+    proto.stopRead = function() {
+      this.rfid.stopRead();
+    };
+
+    proto.on = function(evtType, handler) {
+      this.rfid.on(evtType, handler);
+    };
+
+    proto.off = function(evtType, handler) {
+      this.rfid.off(evtType, handler);
+    };
+
+    proto.detachedCallback = function() {
+      this.rfid.destroy();
+    };
+
+    document.registerElement('wa-rfid', {
+      prototype: proto
+    });
+
+  })();
+  </script>
+</body>
+
+</html>

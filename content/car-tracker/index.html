@@ -1,0 +1,39 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <title>Webduino Demo Tracker Car</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script src="https://webduino.io/components/webduino-js/dist/webduino-all.min.js"></script>
+  <script src="https://blockly.webduino.io/lib/firebase.js"></script>
+  <script src="https://blockly.webduino.io/lib/runtime.min.js"></script>
+  <script src="js/CarTracker.js"></script>
+  <script src="js/drawTrack.js"></script>
+  <script src="js/webduino-blockly.js"></script>
+  <link rel="stylesheet" href="style/control-panel.css" media="screen, projection">
+</head>
+
+<body>
+  <center>
+    <div id="demo-area-09-controller">
+      <div class="demo-area-01-show">
+        device :
+        <input type="text" class="deviceInput">
+        <button class="deviceBtn">設定</button>
+      </div>
+      <div id="btn-record" class="demo-area-09-btn disabled record">⬤</div>
+      <div id="btn-stop" class="demo-area-09-btn disabled">■</div>
+      <div id="btn-replay" class="demo-area-09-btn disabled">▶</div>
+      <div class="demo-area-02-show">Radial(ms):</div>
+      <input type="range" min="1" max="200" step="5" value="100" class="demo-area-09-input radial">
+      <div class="demo-area-02-show">Degree(ms):</div>
+      <input type="range" min="1" max="200" step="5" value="100" class="demo-area-09-input degree">
+      <canvas id="canvas" height=360 width=520>您的瀏覽器不支援canvas元素（此訊息在瀏覽器不支援canvas元素時顯示）</canvas>
+    </div>
+  </center>
+  <script src="js/main.js"></script>
+</body>
+
+</html>

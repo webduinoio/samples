@@ -1,0 +1,113 @@
+    html,
+    body {
+      font-family: 'Verdana';
+      background: #333;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+    }
+    
+    #demo-area-09-controller {
+      box-sizing: border-box;
+      /*background: #808080;*/
+      width: 100%;
+      max-width: 550px;
+      padding: 0px 0px;
+      margin: 0px auto;
+      overflow: hidden;
+      pointer-events: auto!important;
+    }
+    
+    .demo-area-01-show {
+      color: #fff;
+      font-size: 12px;
+      text-align: left;
+      height: 30px;
+      line-height: 24px;
+      margin: 0px;
+    }
+    
+    .demo-area-02-show {
+      color: #fff;
+      font-size: 12px;
+      text-align: left;
+      height: 12px;
+      line-height: 12px;
+      margin: 0px;
+    }
+    
+    #canvas {
+      background: #C0C0C0;
+      margin: 5px auto;
+      text-align: center;
+    }
+    
+    .demo-area-09-btn {
+      position: relative;
+      display: inline-block;
+      width: calc(33% - 10px);
+      height: 30px;
+      line-height: 30px;
+      font-size: 18px;
+      background: #555;
+      margin: 3px 1px;
+      text-align: center;
+      border-radius: 5px;
+      color: #333;
+      vertical-align: middle;
+      cursor: pointer;
+    }
+    
+    .demo-area-09-btn.disabled {
+      pointer-events: none;
+      color: #333;
+    }
+    
+    .demo-area-09-btn.enabled {
+      pointer-events: auto;
+      color: #fff;
+    }
+    
+    .demo-area-09-btn.disabled.record {
+      pointer-events: none;
+      line-height: 25px;
+      color: #333;
+    }
+    
+    .demo-area-09-btn.enabled.record {
+      pointer-events: auto;
+      line-height: 25px;
+      color: #f00;
+    }
+    
+    .demo-area-09-btn:active {
+      background: #777;
+    }
+    
+    .demo-area-09-input {
+      margin: 10px auto;
+      -webkit-appearance: none;
+      border-radius: 5px;
+      width: calc(97% - 10px);
+      height: 5px;
+      background: none;
+      background-image: -webkit-linear-gradient(left, #246 0%, #246 50%, #222 50%, #222 100%);
+      outline: none;
+      transition: .1s;
+      cursor: pointer;
+    }
+    
+    .demo-area-09-input::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 15px;
+      height: 15px;
+      border-radius: 50%;
+      background: #555;
+      transition: .1s;
+    }
+    
+    .demo-area-09-input::-webkit-slider-thumb:hover,
+    .demo-area-09-input::-webkit-slider-thumb:active {
+      background: #777;
+    }

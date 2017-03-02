@@ -1,0 +1,188 @@
+<html>
+
+<head>
+  <script type="text/javascript" src="js/wa.js"></script>
+  <script type="text/javascript" src="js/wa.event.js"></script>
+  <script type="text/javascript" src="../webduino-js/dist/webduino-base.min.js"></script>
+</head>
+
+<body>
+  <script>
+  (function() {
+    var count_ = 0;
+
+    var proto = Object.create(HTMLElement.prototype, {
+      device: {
+        get: function() {
+          return this.getAttribute('device');
+        },
+        set: function(val) {
+          this.setAttribute('device', val);
+        }
+      },
+      server: {
+        get: function() {
+          return this.getAttribute('server');
+        },
+        set: function(val) {
+          this.setAttribute('server', val);
+        }
+      },
+      multi: {
+        get: function() {
+          return this.getAttribute('multi');
+        },
+        set: function(val) {
+          this.setAttribute('multi', val);
+        }
+      },
+      autoReconnect: {
+        get: function() {
+          return this.getAttribute('autoReconnect');
+        },
+        set: function(val) {
+          this.setAttribute('autoReconnect', val);
+        }
+      },
+      path: {
+        get: function() {
+          return this.getAttribute('path');
+        },
+        set: function(val) {
+          this.setAttribute('path', val);
+        }
+      },
+      baudRate: {
+        get: function() {
+          return this.getAttribute('baudRate');
+        },
+        set: function(val) {
+          this.setAttribute('baudRate', val);
+        }
+      },
+      address: {
+        get: function() {
+          return this.getAttribute('address');
+        },
+        set: function(val) {
+          this.setAttribute('address', val);
+        }
+      },
+      ws: {
+        get: function() {
+          return this.getAttribute('ws');
+        },
+        set: function(val) {
+          this.setAttribute('ws', val);
+        }
+      }
+    });
+
+    proto.init = function() {
+      var board, ev,
+        self = this,
+        WebArduino = webduino.WebArduino,
+        Arduino = webduino.Arduino,
+        BoardEvent = webduino.BoardEvent,
+        util = webduino.util,
+        events = self.events_,
+        device = self.device,
+        server = self.server,
+        multi = self.multi,
+        autoReconnect = self.autoReconnect,
+        path = self.path,
+        baudRate = self.baudRate,
+        address = self.address,
+        ws = self.ws;
+
+      if (device || path || address || ws) {
+        if (device) {
+          self.board = board = new WebArduino(util.extend({
+            device: device
+          }, {
+            server: server || undefined,
+            multi: multi || undefined,
+            autoReconnect: autoReconnect || undefined
+          }));
+        } else if (path) {
+          self.board = board = new Arduino(util.extend({
+            transport: 'serial',
+            path: path
+          }, {
+            baudRate: baudRate || undefined
+          }));
+        } else if (address){
+          self.board = board = new Arduino({
+            transport: 'bluetooth',
+            address: address
+          });
+        } else {
+          self.board = board = new Arduino({
+            transport: 'websocket',
+            url: ws
+          })
+        }
+
+        board.on(BoardEvent.READY, function(event) {
+          var children = self.children;
+          for (var i = 0, len = children.length; i < len; i++) {
+            children[i].init_ && children[i].init_(board);
+          }
+          events.emit('ready', [event], self);
+
+          // boardsReady
+          --count_;
+          try {
+            if (count_ === 0) {
+              ev = new Event("boardsReady", {
+                "bubbles": true,
+                "cancelable": false
+              });
+              document.dispatchEvent(ev);
+            }
+          } catch (e) {
+            // nothing
+          }
+        });
+
+        board.on(BoardEvent.STRING_MESSAGE, function(event) {
+          events.emit('message', [event], self);
+        });
+      }
+    };
+
+    proto.on = function(eventType, handler) {
+      this.events_.on(eventType, handler);
+    };
+
+    proto.off = function(eventType, handler) {
+      this.events_.off(eventType, handler);
+    };
+
+    proto.sendString = function(message) {
+      this.board.sendString(message);
+    };
+
+    proto.systemReset = function(message) {
+      this.board.systemReset();
+      this.board.startup();
+    };
+
+    proto.createdCallback = function() {
+      ++count_;
+    };
+
+    proto.attachedCallback = function() {
+      this.events_ = new webduino.Events();
+      this.init();
+    };
+
+    document.registerElement('web-arduino', {
+      prototype: proto
+    });
+
+  })();
+  </script>
+</body>
+
+</html>
