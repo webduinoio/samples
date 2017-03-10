@@ -9,6 +9,11 @@ window.addEventListener('load', function () {
   var stepList = [];
   var deviceInput = document.querySelector('.deviceInput');
   var deviceBtn = document.querySelector('.deviceBtn');
+  var radialValue = document.getElementById('radialValue');
+  var degreeValue = document.getElementById('degreeValue');
+  var drawCanvas = document.getElementById('canvas');
+  var bar = document.querySelectorAll('.bar');
+  var ready = document.querySelectorAll('.ready');
 
   if(localStorage.toyCarDeviceId){
     deviceInput.value = localStorage.toyCarDeviceId;
@@ -37,27 +42,39 @@ window.addEventListener('load', function () {
 
   function enableBtn(c) {
     if (c == 'btn-record') {
-      document.getElementById(c).className = 'demo-area-09-btn enabled record';
+      document.getElementById(c).className = 'btn enabled record';
     } else {
-      document.getElementById(c).className = 'demo-area-09-btn enabled';
+      document.getElementById(c).className = 'btn enabled';
     }
   }
 
   function disableBtn(c) {
     if (c == 'btn-record') {
-      document.getElementById(c).className = 'demo-area-09-btn disabled record';
+      document.getElementById(c).className = 'btn disabled record';
     } else {
-      document.getElementById(c).className = 'demo-area-09-btn disabled';
+      document.getElementById(c).className = 'btn disabled';
     }
   }
 
   deviceBtn.onclick = function () {
     deviceId = deviceInput.value;
     localStorage.toyCarDeviceId = deviceId;
-
+    deviceBtn.innerHTML = 'Connecting...';
+    deviceBtn.style.opacity = '.7';
     boardReady(deviceId, function (board) {
       board.systemReset();
       board.samplingInterval = 20;
+      deviceBtn.innerHTML = 'Board Online!!';
+      setTimeout(function(){
+        deviceBtn.innerHTML = 'Connect';
+        deviceBtn.style.opacity = '1';
+      },1500);
+      bar.forEach(function(item){
+        item.removeAttribute('disabled');
+      });
+      ready.forEach(function(item){
+        item.className = 'container';
+      });
       board.on(webduino.BoardEvent.STRING_MESSAGE,
         function (event) {
           var m = event.message;
@@ -87,34 +104,39 @@ window.addEventListener('load', function () {
       });
 
       var p;
-      var radial = document.querySelector('.demo-area-09-input.radial');
+      var radial = document.querySelector('.bar.radial');
+      var barColor = '#599';
       radial.setAttribute('min', 0);
       radial.setAttribute('max', 200);
       radial.setAttribute('step', 5);
       radial.setAttribute('value', 100);
       p = Math.round((100 - 1) * 100 / (200 - 1));
+        radialValue.innerHTML = '100 (ms)';
       // console.log(p);
-      radial.style.backgroundImage = '-webkit-linear-gradient(left ,#246 0%,#246 ' + p + '%,#222 ' + p + '%, #222 100%)';
+      radial.style.backgroundImage = '-webkit-linear-gradient(left ,'+barColor+' 0%, '+barColor+' ' + p + '%,#000 ' + p + '%, #000 100%)';
       radial.oninput = function () {
         var _value = this.value;
         p = Math.round((_value - 1) * 100 / (200 - 1));
-        radial.style.backgroundImage = '-webkit-linear-gradient(left ,#246 0%,#246 ' + p + '%,#222 ' + p + '%, #222 100%)';
+        radial.style.backgroundImage = '-webkit-linear-gradient(left ,'+barColor+' 0%,'+barColor+' ' + p + '%,#000 ' + p + '%, #000 100%)';
         drawTrack.constantR = parseInt(_value);
+        radialValue.innerHTML = parseInt(_value) + ' (ms)';
       };
 
-      var degree = document.querySelector('.demo-area-09-input.degree');
+      var degree = document.querySelector('.bar.degree');
       degree.setAttribute('min', 0);
       degree.setAttribute('max', 200);
       degree.setAttribute('step', 5);
       degree.setAttribute('value', 100);
       p = Math.round((100 - 1) * 100 / (200 - 1));
+      degreeValue.innerHTML = '100 (ms)';
       // console.log(p);
-      degree.style.backgroundImage = '-webkit-linear-gradient(left ,#246 0%,#246 ' + p + '%,#222 ' + p + '%, #222 100%)';
+      degree.style.backgroundImage = '-webkit-linear-gradient(left ,'+barColor+' 0%,'+barColor+' ' + p + '%,#000 ' + p + '%, #000 100%)';
       degree.oninput = function () {
         var _value = this.value;
         p = Math.round((_value - 1) * 100 / (200 - 1));
-        degree.style.backgroundImage = '-webkit-linear-gradient(left ,#246 0%,#246 ' + p + '%,#222 ' + p + '%, #222 100%)';
+        degree.style.backgroundImage = '-webkit-linear-gradient(left ,'+barColor+' 0%,'+barColor+' ' + p + '%,#000 ' + p + '%, #000 100%)';
         drawTrack.constantD = parseInt(_value);
+        degreeValue.innerHTML = parseInt(_value) + ' (ms)';
       };
 
       controllerBtnEvent(document.getElementById('btn-record'), 'click', function () {

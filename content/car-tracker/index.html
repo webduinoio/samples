@@ -16,23 +16,37 @@
 </head>
 
 <body>
-  <center>
-    <div id="demo-area-09-controller">
-      <div class="demo-area-01-show">
-        device :
+    <header>
+       Webduino Car Tracking & Controller
+    </header>
+    <div id="controller">
+      <div class="container">
+        <label>Device:</label>
         <input type="text" class="deviceInput">
-        <button class="deviceBtn">設定</button>
+        <button class="deviceBtn">Connect</button>
       </div>
-      <div id="btn-record" class="demo-area-09-btn disabled record">⬤</div>
-      <div id="btn-stop" class="demo-area-09-btn disabled">■</div>
-      <div id="btn-replay" class="demo-area-09-btn disabled">▶</div>
-      <div class="demo-area-02-show">Radial(ms):</div>
-      <input type="range" min="1" max="200" step="5" value="100" class="demo-area-09-input radial">
-      <div class="demo-area-02-show">Degree(ms):</div>
-      <input type="range" min="1" max="200" step="5" value="100" class="demo-area-09-input degree">
+      <div class="container ready">
+        <label>Record & Replay:</label>
+        <br/>
+        <div id="btn-record" class="btn disabled record">⬤</div>
+        <div id="btn-stop" class="btn disabled">■</div>
+        <div id="btn-replay" class="btn disabled">▶</div>
+      </div>
+      <div class="container ready">
+        <label>Draw Controller:</label>
       <canvas id="canvas" height=360 width=520>您的瀏覽器不支援canvas元素（此訊息在瀏覽器不支援canvas元素時顯示）</canvas>
+      </div>
+      <div class="container ready bar-group">
+        <div class="bar-setting">
+        <label>Radial:<span id="radialValue"></span></label>
+        <input type="range" min="1" max="200" step="5" value="100" class="bar radial" disabled="true">
+        </div>
+        <div class="bar-setting">
+        <label>Degree:<span id="degreeValue"></span></label>
+        <input type="range" min="1" max="200" step="5" value="100" class="bar degree" disabled="true">
+        </div>
+      </div>
     </div>
-  </center>
   <script src="js/main.js"></script>
 </body>
 
