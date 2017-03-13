@@ -28,7 +28,7 @@ header {
   padding: 0px 0px;
   margin: 30px auto;
   overflow: hidden;
-  pointer-events: auto!important;
+  //pointer-events: auto!important;
 }
 
 label {

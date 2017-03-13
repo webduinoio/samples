@@ -37,7 +37,7 @@ $(function() {
       num = num + 1;
       board.systemReset();
       board.samplingInterval = 250;
-      soundLeft = getUltrasonic(board, 10, 11);
+      soundLeft = getUltrasonic(board, 11, 10);
       if (num == 2) {
         _go();
       }
@@ -49,7 +49,7 @@ $(function() {
       num = num + 1;
       board.systemReset();
       board.samplingInterval = 250;
-      soundRight = getUltrasonic(board, 10, 11);
+      soundRight = getUltrasonic(board, 11, 10);
       if (num == 2) {
         _go();
       }
