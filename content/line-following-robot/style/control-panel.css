@@ -41,6 +41,23 @@ label {
   text-align: left;
   line-height: 14px;
   margin: 0px;
+  width:100%;
+}
+
+.corr{
+  display:inline-block;
+  width:31%;
+  margin:0;
+  padding:0;
+  text-align:center;
+}
+
+label .corr:first-child{
+  text-align:left;
+}
+
+label .corr:last-child{
+  text-align:right;
 }
 
 .container {
@@ -156,7 +173,7 @@ label span {
 }
 
 .bar {
-  margin: 10px auto;
+  margin: 10px auto 20px;
   -webkit-appearance: none;
   border-radius: 10px;
   width: 100%;
