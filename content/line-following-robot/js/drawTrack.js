@@ -27,8 +27,8 @@
     this.trackPixel = [];
     this.prevPixel = 0;
 
-    this.constantR = 100;
-    this.constantD = 100;
+    this.constantR = 250;
+    this.constantD = 250;
 
     this.pad = ('createTouch' in document);
     if (this.pad) {
@@ -87,8 +87,8 @@
       if (self.pad) {
         touch = e.touches[0];
       }
-      var x = touch.clientX - touch.target.offsetLeft;
-      var y = touch.clientY - touch.target.offsetTop;
+      var x = touch.clientX + window.scrollX - touch.target.offsetLeft;
+      var y = touch.clientY + window.scrollY - touch.target.offsetTop;
 
       self.clear();
 
@@ -104,8 +104,8 @@
         if (self.pad) {
           touch = e.touches[0];
         }
-        var x = touch.clientX - touch.target.offsetLeft;
-        var y = touch.clientY - touch.target.offsetTop;
+        var x = touch.clientX + window.scrollX - touch.target.offsetLeft;
+        var y = touch.clientY + window.scrollY - touch.target.offsetTop;
 
         self.getPoint(x, y);
         self.drawPoint(true);
@@ -236,7 +236,9 @@
           s = 0;
         }
 
-        time = parseInt(Math.abs(this.degreeL) * ((this.constantD * 7) / 100));
+//        time = parseInt(Math.abs(this.degreeL) * ((this.constantD * 7) / 100));
+        time = parseInt((Math.abs(this.degreeL) * this.constantD) / 30);
+
         if (s != 0) {
           this._stepList.push({
             status: s,
@@ -245,8 +247,10 @@
         }
         this._stepList.push({
           status: 2,
-          timeval: parseInt(((this.constantR * 30) / 100) * r)
+//          timeval: parseInt(((this.constantR * 30) / 100) * r)
+          timeval: parseInt(r*this.constantR * 50/360)
         });
+
         // console.log(this.constantD,this.constantR,s,time,parseInt(((this.constantR*30)/100) * r));
 
         this.degreeL = degS;

@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-  <title>Webduino Demo - Line following robot</title>
+  <title>Webduino Demo Tracker Car</title>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
   <script src="https://webduino.io/components/webduino-js/dist/webduino-all.min.js"></script>
   <script src="https://blockly.webduino.io/lib/firebase.js"></script>
@@ -17,7 +17,7 @@
 
 <body>
     <header>
-       Webduino Line Following Robot
+       Webduino Car Tracking & Controller
     </header>
     <div id="controller">
       <div class="container">
@@ -38,12 +38,20 @@
       </div>
       <div class="container ready bar-group">
         <div class="bar-setting">
-        <label>Radial:<span id="radialValue"></span></label>
-        <input type="range" min="1" max="200" step="5" value="100" class="bar radial" disabled="true">
+        <label>Radial : <span id="radialValue"></span> / 50 pix</label>
+        <input type="range" min="5" max="300" step="5" value="150" class="bar radial" disabled="true">
         </div>
         <div class="bar-setting">
-        <label>Degree:<span id="degreeValue"></span></label>
-        <input type="range" min="1" max="200" step="5" value="100" class="bar degree" disabled="true">
+        <label>Degree : <span id="degreeValue"></span> / 30 &deg;</label>
+        <input type="range" min="5" max="300" step="5" value="190" class="bar degree" disabled="true">
+        </div>
+        <div class="bar-setting">
+        <label style='text-align: center;' >L&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Around<span id="aroundValue"></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;R</label>
+        <input type="range" min="-50" max="50" step="1" value="0" class="bar around" disabled="true">
+        </div>
+        <div class="bar-setting">
+        <label>Rotational speed : <span id="speedValue"></span></label>
+        <input type="range" min="1" max="100" step="1" value="100" class="bar speed" disabled="true">
         </div>
       </div>
     </div>
