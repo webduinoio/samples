@@ -12,6 +12,7 @@ body {
 }
 
 header {
+  box-sizing: border-box;
   height: 50px;
   width: 100%;
   background: #000;
@@ -160,8 +161,7 @@ label span {
   border-radius: 10px;
   width: 100%;
   height: 10px;
-  background: none;
-  background-image: -webkit-linear-gradient(left, #588 0%, #588 50%, #000 50%, #000 100%);
+  background: #000;
   outline: none;
   transition: .1s;
   cursor: pointer;
