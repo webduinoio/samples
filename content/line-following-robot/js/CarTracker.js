@@ -140,6 +140,8 @@
     var self = this;
     var sysexData = [];
 
+    console.log('CarTracker.setSpeed : ', tire, speed);
+
     sysexData[0] = 0xf0;
     sysexData[1] = 0x4;
     sysexData[2] = 0x17;
@@ -162,7 +164,7 @@
     this._state = 'replay';
     this._board.send([0xf0, 0x4, 0x17, 0x02, 0xf7]);
 
-    console.log('replay steps : ', stepList.length);
+    // console.log('replay steps : ', stepList.length);
 
     if (typeof callback != 'function') {
       callback = function () {};
@@ -185,8 +187,6 @@
           var n = 2;
           var status = parseInt(stepList[self._counter].status, 10);
           var ms = parseInt(stepList[self._counter].timeval, 10);
-
-          console.log('replay : ', self._counter, '/', status, '/', ms);
           var data = [0, 0, 0];
 
           data[0] = n << 3 | status;

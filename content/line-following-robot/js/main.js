@@ -1,8 +1,9 @@
 window.addEventListener('load', function () {
-  document.body.addEventListener('touchmove', function (event) {
-    event.preventDefault();
-  }, false);
-
+  /*
+    document.body.addEventListener('touchmove', function (event) {
+      event.preventDefault();
+    }, {passive:false});
+  */
   var drawTrack;
   var CarTracker;
   var deviceId = '';
@@ -11,7 +12,9 @@ window.addEventListener('load', function () {
   var deviceBtn = document.querySelector('.deviceBtn');
   var radialValue = document.getElementById('radialValue');
   var degreeValue = document.getElementById('degreeValue');
-  var drawCanvas = document.getElementById('canvas');
+  var aroundValue = document.getElementById('aroundValue');
+  var speedValue = document.getElementById('speedValue');
+  // var drawCanvas = document.getElementById('canvas');
   var bar = document.querySelectorAll('.bar');
   var ready = document.querySelectorAll('.ready');
   var carAround = 0;
@@ -19,7 +22,7 @@ window.addEventListener('load', function () {
   var RIGHT = 0;
   var LEFT = 1;
 
-  if(localStorage.toyCarDeviceId){
+  if (localStorage.toyCarDeviceId) {
     deviceInput.value = localStorage.toyCarDeviceId;
   }
 
@@ -60,19 +63,19 @@ window.addEventListener('load', function () {
     }
   }
 
-  function setRPM(around,rpm){
+  function setRPM(around, rpm) {
     var rRPM = rpm;
     var lRPM = rpm;
 
-    if(around < 0) {
-      lRPM = rpm * (100+around) / 100;
+    if (around < 0) {
+      lRPM = rpm * (100 + around) / 100;
     } else {
-      console.log("L" + around);
-      rRPM = rpm * (100-around) / 100;
+      // console.log("L", around);
+      rRPM = rpm * (100 - around) / 100;
     }
 
-    CarTracker.setSpeed(RIGHT,rRPM);
-    CarTracker.setSpeed(LEFT,lRPM);
+    CarTracker.setSpeed(RIGHT, rRPM);
+    CarTracker.setSpeed(LEFT, lRPM);
   }
 
   deviceBtn.onclick = function () {
@@ -84,20 +87,21 @@ window.addEventListener('load', function () {
       board.systemReset();
       board.samplingInterval = 20;
       deviceBtn.innerHTML = 'Board Online!!';
-      setTimeout(function(){
+      setTimeout(function () {
         deviceBtn.innerHTML = 'Connect';
         deviceBtn.style.opacity = '1';
-      },1500);
-      bar.forEach(function(item){
+      }, 1500);
+      bar.forEach(function (item) {
         item.removeAttribute('disabled');
       });
-      ready.forEach(function(item){
+      ready.forEach(function (item) {
         item.className = 'container';
       });
       board.on(webduino.BoardEvent.STRING_MESSAGE,
         function (event) {
+          var dt = new Date();
           var m = event.message;
-          console.log(deviceId, m);
+          console.log(dt, deviceId, m);
         });
 
       // console.log('board ready.');
@@ -105,7 +109,7 @@ window.addEventListener('load', function () {
       enableBtn('btn-record');
       CarTracker = getCarTracker(board, 17, 18, 19, 6, 7, 8, 9);
 
-      setRPM(carAround,carRPM);
+      setRPM(carAround, carRPM);
 
       /* Paint Toy Car */
       drawTrack = getDrawTrack('canvas');
@@ -131,35 +135,37 @@ window.addEventListener('load', function () {
       var p;
       var radial = document.querySelector('.bar.radial');
       var barColor = '#599';
-      radial.setAttribute('min', 5);
-      radial.setAttribute('max', 300);
-      radial.setAttribute('step', 5);
-      radial.setAttribute('value', 150);
+      radial.setAttribute('min', 10);
+      radial.setAttribute('max', 600);
+      radial.setAttribute('step', 10);
+      radial.setAttribute('value', 60);
       p = Math.round((radial.value - 1) * 100 / (radial.max - 1));
+      drawTrack.constantR = parseInt(radial.value);
       radialValue.innerHTML = parseInt(radial.value) + ' ms';
 
-      radial.style.backgroundImage = '-webkit-linear-gradient(left ,'+barColor+' 0%, '+barColor+' ' + p + '%,#000 ' + p + '%, #000 100%)';
+      radial.style.backgroundImage = '-webkit-linear-gradient(left ,' + barColor + ' 0%, ' + barColor + ' ' + p + '%,#000 ' + p + '%, #000 100%)';
       radial.oninput = function () {
         var _value = this.value;
         p = Math.round((_value - 1) * 100 / (this.max - 1));
-        radial.style.backgroundImage = '-webkit-linear-gradient(left ,'+barColor+' 0%,'+barColor+' ' + p + '%,#000 ' + p + '%, #000 100%)';
+        radial.style.backgroundImage = '-webkit-linear-gradient(left ,' + barColor + ' 0%,' + barColor + ' ' + p + '%,#000 ' + p + '%, #000 100%)';
         drawTrack.constantR = parseInt(_value);
         radialValue.innerHTML = parseInt(_value) + ' ms';
       };
 
       var degree = document.querySelector('.bar.degree');
-      degree.setAttribute('min', 5);
-      degree.setAttribute('max', 300);
+      degree.setAttribute('min', 10);
+      degree.setAttribute('max', 250);
       degree.setAttribute('step', 5);
-      degree.setAttribute('value', 190);
+      degree.setAttribute('value', 100);
       p = Math.round((degree.value - 1) * 100 / (degree.max - 1));
+      drawTrack.constantD = parseInt(degree.value);
       degreeValue.innerHTML = parseInt(degree.value) + ' ms';
       // console.log(p);
-      degree.style.backgroundImage = '-webkit-linear-gradient(left ,'+barColor+' 0%,'+barColor+' ' + p + '%,#000 ' + p + '%, #000 100%)';
+      degree.style.backgroundImage = '-webkit-linear-gradient(left ,' + barColor + ' 0%,' + barColor + ' ' + p + '%,#000 ' + p + '%, #000 100%)';
       degree.oninput = function () {
         var _value = this.value;
         p = Math.round((_value - 1) * 100 / (this.max - 1));
-        degree.style.backgroundImage = '-webkit-linear-gradient(left ,'+barColor+' 0%,'+barColor+' ' + p + '%,#000 ' + p + '%, #000 100%)';
+        degree.style.backgroundImage = '-webkit-linear-gradient(left ,' + barColor + ' 0%,' + barColor + ' ' + p + '%,#000 ' + p + '%, #000 100%)';
         drawTrack.constantD = parseInt(_value);
         degreeValue.innerHTML = parseInt(_value) + ' ms';
       };
@@ -169,18 +175,17 @@ window.addEventListener('load', function () {
       around.setAttribute('max', 50);
       around.setAttribute('step', 1);
       around.setAttribute('value', 0);
-      p = Math.round(((around.value-around.min) - 1) * 100 / ((around.max-around.min) - 1));
+      p = Math.round(((around.value - around.min) - 1) * 100 / ((around.max - around.min) - 1));
       aroundValue.innerHTML = '(' + parseInt(around.value) + ')';
       // console.log(p);
-      around.style.backgroundImage = '-webkit-linear-gradient(left ,'+barColor+' 0%,'+barColor+' ' + p + '%,#000 ' + p + '%, #000 100%)';
+      around.style.backgroundImage = '-webkit-linear-gradient(left ,' + barColor + ' 0%,' + barColor + ' ' + p + '%,#000 ' + p + '%, #000 100%)';
       around.oninput = function () {
         var _value = this.value;
-        p = Math.round(((_value-this.min) - 1) * 100 / ((this.max-this.min) - 1));
-        around.style.backgroundImage = '-webkit-linear-gradient(left ,'+barColor+' 0%,'+barColor+' ' + p + '%,#000 ' + p + '%, #000 100%)';
-        drawTrack.constantD = parseInt(_value);
+        p = Math.round(((_value - this.min) - 1) * 100 / ((this.max - this.min) - 1));
+        around.style.backgroundImage = '-webkit-linear-gradient(left ,' + barColor + ' 0%,' + barColor + ' ' + p + '%,#000 ' + p + '%, #000 100%)';
         aroundValue.innerHTML = '(' + parseInt(_value) + ')';
         carAround = parseInt(_value);
-        setRPM(carAround,carRPM);
+        setRPM(carAround, carRPM);
       };
 
       var speed = document.querySelector('.bar.speed');
@@ -191,17 +196,15 @@ window.addEventListener('load', function () {
       p = Math.round((speed.value - 1) * 100 / (speed.max - 1));
       speedValue.innerHTML = '' + parseInt(speed.value) + '%';
       // console.log(p);
-      speed.style.backgroundImage = '-webkit-linear-gradient(left ,'+barColor+' 0%,'+barColor+' ' + p + '%,#000 ' + p + '%, #000 100%)';
+      speed.style.backgroundImage = '-webkit-linear-gradient(left ,' + barColor + ' 0%,' + barColor + ' ' + p + '%,#000 ' + p + '%, #000 100%)';
       speed.oninput = function () {
         var _value = this.value;
         p = Math.round((_value - 1) * 100 / (this.max - 1));
-        speed.style.backgroundImage = '-webkit-linear-gradient(left ,'+barColor+' 0%,'+barColor+' ' + p + '%,#000 ' + p + '%, #000 100%)';
-        drawTrack.constantD = parseInt(_value);
+        speed.style.backgroundImage = '-webkit-linear-gradient(left ,' + barColor + ' 0%,' + barColor + ' ' + p + '%,#000 ' + p + '%, #000 100%)';
         speedValue.innerHTML = '' + parseInt(_value) + '%';
         carRPM = parseInt(_value);
-        setRPM(carAround,carRPM);
+        setRPM(carAround, carRPM);
       };
-
 
       controllerBtnEvent(document.getElementById('btn-record'), 'click', function () {
 

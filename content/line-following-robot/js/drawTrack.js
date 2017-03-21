@@ -8,8 +8,6 @@
   'use strict';
   var Module = scope.Module,
     proto;
-  // BoardEvent = scope.BoardEvent,
-  // proto;
 
   function DrawTrack(canvasId) {
     Module.call(this);
@@ -24,7 +22,6 @@
     this.text.innerHTML = 'test';*/
 
     this.pixel = [];
-    this.trackPixel = [];
     this.prevPixel = 0;
 
     this.constantR = 250;
@@ -41,7 +38,7 @@
       this.end = 'mouseup';
     }
     this.degree = 0;
-    this.degreeL = 0;
+    // this.degreeL = 0;
     this._stepList;
     this.callback = function () {};
   }
@@ -79,10 +76,10 @@
 
     this.callback = callback;
 
-    // this.drawCircle();
-
     this.cvs.addEventListener(this.start, function (e) {
       var touch = e;
+
+      $('*').bind('touchmove', false);
 
       if (self.pad) {
         touch = e.touches[0];
@@ -92,8 +89,8 @@
 
       self.clear();
 
-      self.getPoint(x, y);
-      self.drawPoint(true);
+      self.getPoint(self.pixel, x, y);
+      self.drawPoint(self.pixel);
       painted = true;
     });
 
@@ -101,35 +98,32 @@
       if (painted) {
         var touch = e;
 
+        $('*').bind('touchmove', false);
+
         if (self.pad) {
           touch = e.touches[0];
         }
         var x = touch.clientX + window.scrollX - touch.target.offsetLeft;
         var y = touch.clientY + window.scrollY - touch.target.offsetTop;
 
-        self.getPoint(x, y);
-        self.drawPoint(true);
+        self.getPoint(self.pixel, x, y);
+        self.drawPoint(self.pixel);
       }
     });
 
     this.cvs.addEventListener(this.end, function () {
       painted = false;
-      self.pixel.length = 0;
-      self.pixel = [];
-      self.track();
+      self.track(self.pixel);
       self.callback();
+      $('*').unbind('touchmove');
     });
   };
 
   proto.clear = function () {
     this.cxt.clearRect(0, 0, this.cvs.width, this.cvs.height);
 
-    // this.drawCircle();
-
     this.pixel.length = 0;
-    this.trackPixel.length = 0;
     this.pixel = [];
-    this.trackPixel = [];
     this.degree = 0;
     this.degreeL = 0;
     this.arcSec = 0;
@@ -144,152 +138,181 @@
     this.cxt.stroke();
   };
 
-  proto.drawPoint = function (dragging) {
+  proto.drawPoint = function (_pixel) {
 
-    var pixelA = this.pixel.length - 2;
-    var pixelB = this.pixel.length - 1;
+    var pixelA = _pixel.length - 2;
+    var pixelB = _pixel.length - 1;
 
     this.cxt.beginPath();
     if (pixelA < 0) {
-      this.cxt.moveTo(this.pixel[0].x, this.pixel[0].y);
-      this.cxt.lineTo(this.pixel[0].x, this.pixel[0].y - 1);
+      this.cxt.moveTo(_pixel[0].x, _pixel[0].y);
+      this.cxt.lineTo(_pixel[0].x, _pixel[0].y - 1);
     } else {
-      if (dragging) {
-        this.cxt.moveTo(this.pixel[pixelA].x, this.pixel[pixelA].y);
-        this.cxt.lineTo(this.pixel[pixelB].x, this.pixel[pixelB].y);
-      } else {
-        // console.log(this.pixel[pixelB].x,this.pixel[pixelB].y);
-        this.cxt.moveTo(this.pixel[pixelB].x, this.pixel[pixelB].y);
-        this.cxt.lineTo(this.pixel[pixelB].x, this.pixel[pixelB].y - 1);
-      }
+      this.cxt.moveTo(_pixel[pixelA].x, _pixel[pixelA].y);
+      this.cxt.lineTo(_pixel[pixelB].x, _pixel[pixelB].y);
     }
 
     this.cxt.closePath();
     this.cxt.stroke();
   };
 
-  proto.getPoint = function (_x, _y) {
-    this.pixel.push({
-      x: _x,
-      y: _y
-    });
-    this.trackPixel.push({
+  proto.getPoint = function (_pixel, _x, _y) {
+    _pixel.push({
       x: _x,
       y: _y
     });
   };
 
-  proto.getStep = function (last, callback) {
-
-    var pixelA = this.pixel.length - 2;
-    var pixelB = this.pixel.length - 1;
-
+  proto.getStep = function (dstPixels, srcPixels, last, callback) {
     var degS = 0;
     var r = 0;
-    var degreeN = 0;
+    var degreeN = 0.0;
+    var x2, y2;
+
+    var x1 = dstPixels[dstPixels.length - 1].x;
+    var y1 = dstPixels[dstPixels.length - 1].y;
+
+    if (last >= srcPixels.length) {
+      x2 = srcPixels[srcPixels.length - 1].x;
+      y2 = srcPixels[srcPixels.length - 1].y;
+    } else {
+      x2 = srcPixels[last].x;
+      y2 = srcPixels[last].y;
+    }
+
+    console.log(last, x2, y2);
 
     if (typeof callback != 'function') {
       callback = function () {};
     }
 
-    if (pixelA >= 0) {
+    r = Math.sqrt((x2 - x1) * (x2 - x1) + (y2 - y1) * (y2 - y1));
 
-      if (this.prevPixel == 0) {
-        pixelA = 0;
-      } else {
-        pixelA = this.prevPixel;
-      }
-
-      // console.log(pixelB,pixelA);
-
-      var x1 = this.pixel[pixelA].x;
-      var y1 = this.pixel[pixelA].y;
-      var x2 = this.pixel[pixelB].x;
-      var y2 = this.pixel[pixelB].y;
-
-      degreeN = 180 + ((Math.atan2((x2 - x1), (y2 - y1)) / Math.atan(1)) * 45);
-
-      if (this.degree == 0) {
-        degS = 0;
-      } else {
-        degS = (360 - degreeN + this.degree) % 360;
-        if (degS > 180) {
-          degS = degS - 360;
-        }
-      }
-
-      this.degree = degreeN;
-
-      r = Math.sqrt((x2 - x1) * (x2 - x1) + (y2 - y1) * (y2 - y1));
-
-      if ((Math.abs(degS) > 0 || last == true) && r > 0) {
-
-        // console.log(x1,y1,x2,y2,r.toFixed(2),this.degreeL.toFixed(2));
-
-        var s, time;
-
-        if (this.degreeL > 0) {
-          s = 1;
-        } else if (this.degreeL < 0) {
-          s = 4;
-        } else {
-          s = 0;
-        }
-
-//        time = parseInt(Math.abs(this.degreeL) * ((this.constantD * 7) / 100));
-        time = parseInt((Math.abs(this.degreeL) * this.constantD) / 30);
-
-        if (s != 0) {
-          this._stepList.push({
-            status: s,
-            timeval: parseInt(time)
-          });
-        }
-        this._stepList.push({
-          status: 2,
-//          timeval: parseInt(((this.constantR * 30) / 100) * r)
-          timeval: parseInt(r*this.constantR * 50/360)
-        });
-
-        // console.log(this.constantD,this.constantR,s,time,parseInt(((this.constantR*30)/100) * r));
-
-        this.degreeL = degS;
-        this.prevPixel = pixelB;
-        this.drawPointXY(x2, y2);
-        callback();
-        // } else {
-      }
+    if (x1 == x2 && y1 == y2) {
+      degreeN = 0;
     } else {
-      this.degree = 0;
+      degreeN = 180 + ((Math.atan2((x2 - x1), (y2 - y1)) / Math.atan(1)) * 45);
+    }
+    //    console.log(x1,y1,x2,y2,"deg :",this.degree,"degN :",degreeN.toFixed(2));
+
+    degS = (360 - degreeN + this.degree) % 360;
+    if (degS > 180) {
+      degS = degS - 360;
+    } else if (degS == 180) {
+      degS = 0;
+    }
+
+    if ((degS != 0 && r > 10) || last >= srcPixels.length - 1) {
+      this.degree = degreeN;
       callback();
-      this.drawPointXY(this.pixel[0].x, this.pixel[0].y);
+    } else {
+      //      console.log("OOOO:",x1,y1,x2,y2,"ral :",r.toFixed(2),"deg :",this.degreeL.toFixed(2));
     }
   };
 
-  proto.track = function () {
+  proto.stepConver = function (_stepPixels) {
+    var x1, y1, x2, y2;
+    var s, time;
+    var r;
+    var i;
+    var degS = 0;
+    var degree = 0;
+    var degreeN = 0;
+    var degL = 0;
+
+    for (i = 0; i < _stepPixels.length - 1; i++) {
+      x1 = _stepPixels[i].x;
+      y1 = _stepPixels[i].y;
+
+      x2 = _stepPixels[i + 1].x;
+      y2 = _stepPixels[i + 1].y;
+
+      r = Math.sqrt((x2 - x1) * (x2 - x1) + (y2 - y1) * (y2 - y1));
+      if (x1 == x2 && y1 == y2) {
+        degreeN = 0;
+      } else {
+        degreeN = 180 + ((Math.atan2((x2 - x1), (y2 - y1)) / Math.atan(1)) * 45);
+      }
+
+      if (degree == 0) {
+        degS = 0;
+      } else {
+        degS = (360 - degreeN + degree) % 360;
+        if (degS > 180) {
+          degS = degS - 360;
+        } else if (degS == 180) {
+          degS = 0;
+        }
+      }
+
+      // console.log('stepConver :', degree.toFixed(2), degreeN.toFixed(2), degS.toFixed(2));
+
+      degree = degreeN;
+
+      // console.log('stepConver :', x1, y1, x2, y2, 'degL :', degL.toFixed(2), '(', degS.toFixed(2), ') ral :', r.toFixed(2));
+
+      if (degS > 0) {
+        s = 1;
+      } else if (degS < 0) {
+        s = 4;
+      } else {
+        s = 2;
+      }
+
+      time = parseInt((Math.abs(degS) * this.constantD) / 30);
+      // console.log('stepConver :', s, time); //, parseInt(r * this.constantR * 50 / 360));
+
+      if (s != 2) {
+        this._stepList.push({
+          status: s,
+          timeval: parseInt(time)
+        });
+        // console.log('stepConver :', s, time);
+      }
+
+      this._stepList.push({
+        status: 2,
+        timeval: parseInt(r * this.constantR / 10)
+      });
+      // console.log('stepConver : 2', time);
+      //console.log(this.constantD,this.constantR,s,time,parseInt(((this.constantR*30)/100) * r));
+
+      degL = degS;
+    }
+  };
+
+  proto.track = function (srcPixels) {
     var self = this;
     this.cxt.strokeStyle = '#000000';
     this._stepList = [];
     this._stepList.length = 0;
+    var stepPixels = [];
 
-    for (var i = 0; i < this.trackPixel.length; i++) {
-      this.pixel.push(this.trackPixel[i]);
+    stepPixels.push(srcPixels[0]);
+    // console.log('track : ', stepPixels.length, stepPixels[stepPixels.length - 1].x, stepPixels[stepPixels.length - 1].y);
+    this.drawPointXY(srcPixels[0].x, srcPixels[0].y);
 
-      this.getStep(false, function () {
-        self.drawPoint(false);
+    for (var i = 0; i <= srcPixels.length; i++) {
+      this.getStep(stepPixels, srcPixels, i, function () {
+        stepPixels.push(srcPixels[i - 1]);
+        // console.log('track : ', stepPixels.length, stepPixels[stepPixels.length - 1].x, stepPixels[stepPixels.length - 1].y);
+        self.drawPointXY(stepPixels[stepPixels.length - 1].x, stepPixels[stepPixels.length - 1].y);
       });
     }
 
-    this.pixel.push(this.trackPixel[this.trackPixel.length - 1]);
-    this.getStep(true, function () {
-      self.drawPoint(false);
-    });
+    //    this.drawPointXY(srcPixels[srcPixels.length-1].x, srcPixels[srcPixels.length-1].y);
+
+    this.stepConver(stepPixels);
 
     this._stepList.push({
       status: 0,
       timeval: 0
     });
-
+/*
+    for (i = 0; i < this._stepList.length; i++) {
+      console.log(this._stepList[i].status, this._stepList[i].timeval);
+    }
+*/
     this.cxt.strokeStyle = '#FF0000';
   };
 
