@@ -25,10 +25,14 @@
     <div class="row">
       <div class="col-md-8 col-md-offset-2">
         <div class="cropper"></div>
+        <label class="control-label">Load image</label>
         <input type="file" class="image-input" accept="image/*" data-show-preview="false">
         <p>&nbsp;</p>
-        <button class="btn btn-primary btn-block btn-process" style="display: none">Process</button>
-        <input type="range" min="0" max="255" value="100" style="display: none;">
+        <div class="range" style="display: none">
+          <label class="control-label">Contrast</label>
+          <input type="range" min="0" max="255" value="100">
+        </div>
+          <button class="btn btn-primary btn-block btn-process" style="display: none;">Process</button>
       </div>
     </div>
     <p>&nbsp;</p>
@@ -56,7 +60,7 @@
 
       imgData = ctx.getImageData(0, 0, 128, 64);
       $('.btn-process').hide();
-      $('input[type="range"]').show();
+      $('.range').show();
       renderImage(canvas, imgData, 100);
       $('.cropper').html(canvas);
       $('input[type="range"]').on('change', function () {
@@ -142,13 +146,14 @@
         });
       };
       reader.readAsDataURL(input.files[0]);
+
       $('.btn-process')
       .show()
       .off('click')
       .on('click', function () {
         processImage();
       });
-      $('input[type="range"]').hide();
+      $('.range').hide();
       $('.row pre').remove();
     });
 
