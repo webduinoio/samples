@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/fontawesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="bower_components/bootstrap-fileinput/css/fileinput.min.css">
+  <link rel="stylesheet" href="bower_components/cropperjs/dist/cropper.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/animatecss/3.5.2/animate.min.css" integrity="sha256-j+P6EZJVrbXgwSR5Mx+eCS6FvP9Wq27MBRC/ogVriY0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="range.css">
+  <style>
+    .cropper {
+      margin: 1em 0;
+      text-align: center;
+    }
+    input[type="range"] {
+      margin: 2em 0;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <p>&nbsp;</p>
+    <div class="row">
+      <div class="col-md-8 col-md-offset-2">
+        <div class="cropper"></div>
+        <input type="file" class="image-input" accept="image/*" data-show-preview="false">
+        <p>&nbsp;</p>
+        <button class="btn btn-primary btn-block btn-process" style="display: none">Process</button>
+        <input type="range" min="0" max="255" value="100" style="display: none;">
+      </div>
+    </div>
+    <p>&nbsp;</p>
+  </div>
+  <script src="//cdn.jsdelivr.net/jquery/2.2.4/jquery.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+  <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+  <script src="bower_components/bootstrap-fileinput/js/fileinput.min.js"></script>
+  <script src="bower_components/cropperjs/dist/cropper.min.js"></script>
+  <script src="hermite.js"></script>
+  <script>
+    var cropper;
+    var bytes = [];
+
+    var processImage = function () {
+      var HERMITE = new Hermite_class();
+      var canvas = cropper.getCroppedCanvas();
+      var ctx = canvas.getContext('2d');
+      var imgData;
+
+      $('.cropper img').remove();
+      cropper.destroy();
+
+      // Resize cropped image to 128x64
+      HERMITE.resample_single(canvas, 128, 64, true);
+
+      imgData = ctx.getImageData(0, 0, 128, 64);
+      $('.btn-process').hide();
+      $('input[type="range"]').show();
+      renderImage(canvas, imgData, 100);
+      $('.cropper').html(canvas);
+      $('input[type="range"]').on('change', function () {
+        renderImage(canvas, imgData, $(this).val());
+      });
+    }
+
+    var renderImage = function (canvas, imgData, val) {
+      var ctx = canvas.getContext('2d');
+      var imgByte;
+      var imgData;
+
+      // Restore image and re-render
+      ctx.putImageData(imgData, 0, 0);
+      imgData = ctx.getImageData(0, 0, 128, 64);
+
+      val = parseInt(val);
+      for (var i = 0; i < 64; i++) {
+        for (var j = 0; j < 128; j++) {
+          var addr = 128 * 4 * i + j * 4;
+          imgByte = imgData.data[addr];
+          imgByte = imgByte > val ? 255 : 0;
+          imgData.data[addr] = imgByte;
+          imgData.data[addr + 1] = imgByte;
+          imgData.data[addr + 2] = imgByte;
+          bytes.push(imgByte > 0 ? 1 : 0);
+        }
+      }
+      ctx.putImageData(imgData, 0, 0);
+      generateHexCode();
+    }
+
+    var calcImageHex = function (canvas) {
+      var imgBitData = '';
+      var imgHexData = '';
+      var ctx;
+      var imgData;
+      var imgByte;
+      
+      for (var k = 0; k < bytes.length; k = k + 8) {
+        if (k % 128 == 0) {
+          imgBitData += '\r\n';
+        }
+        imgBitData += + bytes[k + 0] + bytes[k + 1] + bytes[k + 2] + bytes[k + 3] + bytes[k + 4] + bytes[k + 5] + bytes[k + 6] + bytes[k + 7];
+
+        var x =
+          bytes[k + 0] << 7 | bytes[k + 1] << 6 |
+          bytes[k + 2] << 5 | bytes[k + 3] << 4 |
+          bytes[k + 4] << 3 | bytes[k + 5] << 2 |
+          bytes[k + 6] << 1 | bytes[k + 7] << 0;
+        if (x <= 15) imgHexData += '0';
+        imgHexData += x.toString(16);
+      }
+      return imgHexData;
+    }
+
+    var generateHexCode = function () {
+      var hexCode = calcImageHex($('.cropper canvas')[0]);
+
+      $('.row pre').remove();
+      $('input[type="range"]').after('<pre>' + hexCode + '</pre>');
+      $('.row pre').addClass('animated bounceIn');
+    }
+
+    $('.image-input')
+    .fileinput({
+      showRemove: false,
+      showUpload: false
+    })
+    .on('change', function (e) {
+      var input = e.target;
+      var reader = new FileReader();
+
+      reader.onload = function () {
+        var dataURL = reader.result;
+        var img = $('<img/>').attr('src', dataURL);
+
+        $('.cropper').html(img);
+
+        cropper = new Cropper($('.cropper img')[0], {
+          viewMode: 2,
+          aspectRatio: 2
+        });
+      };
+      reader.readAsDataURL(input.files[0]);
+      $('.btn-process')
+      .show()
+      .off('click')
+      .on('click', function () {
+        processImage();
+      });
+      $('input[type="range"]').hide();
+      $('.row pre').remove();
+    });
+
+  </script>
+</body>
+</html>
