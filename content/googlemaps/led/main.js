@@ -1,14 +1,12 @@
 var deviceID = document.getElementById('deviceID');
 var dhtPin = document.getElementById('dhtPin');
-var buttonPin = document.getElementById('buttonPin');
-var buttonType = document.getElementById('buttonType');
 var mapAddress = document.getElementById('mapAddress');
 var mapAddressName = document.getElementById('mapAddressName');
 var submit = document.getElementById('submit');
 var refresh = document.getElementById('refresh');
 var errorMsg = document.getElementById('errorMsg');
 var light, lightOn, lightOff, note, showTime;
-var led, button;
+var led, button, pin;
 
 //var gmapKey = 'AIzaSyB6TBwRrd2pQeyD0COblf4uADkO1EMjSCw';
 var gmapCenter = '高雄市前鎮區復興四路20號';
@@ -23,10 +21,19 @@ var b = 0;
 
 function get_time(t) {
   var varTime = new Date(),
-    varHours = varTime.getHours(),
-    varMinutes = varTime.getMinutes(),
-    varSeconds = varTime.getSeconds();
+    varHours = varTime.getHours()*1,
+    varMinutes = varTime.getMinutes()*1,
+    varSeconds = varTime.getSeconds()*1;
   var varNow;
+  if(varHours < 10){
+    varHours = '0'+ varHours;
+  }
+  if(varMinutes < 10){
+    varMinutes = '0'+ varMinutes;
+  }
+  if(varSeconds < 10){
+    varSeconds = '0'+ varSeconds;
+  }
   if (t == "hms") {
     varNow = varHours + ":" + varMinutes + ":" + varSeconds;
   } else if (t == "h") {
@@ -43,8 +50,6 @@ if (window.localStorage.googleMapShow) {
   var jsonObj = JSON.parse(window.localStorage.googleMapShow);
   deviceID.value = jsonObj.deviceID;
   ledPin.value = jsonObj.ledPin;
-  buttonPin.value = jsonObj.buttonPin;
-  buttonType.value = jsonObj.buttonType;
   mapAddress.value = jsonObj.mapAddress;
   mapAddressName.value = jsonObj.mapAddressName;
 }
@@ -53,8 +58,6 @@ function localStorageSave() {
   var jsonOString = JSON.stringify({
     'deviceID': deviceID.value,
     'ledPin': ledPin.value,
-    'buttonPin': buttonPin.value,
-    'buttonType': buttonType.value,
     'mapAddress': mapAddress.value,
     'mapAddressName': mapAddressName.value
   });
@@ -161,17 +164,18 @@ function gmapFn() {
 
   function ok() {
     console.log('prepare...');
-    boardReady(deviceID.value, function(board) {
+    boardReady({
+      device: deviceID.value,
+      multi: true
+    }, function(board) {
       console.log(deviceID.value + ' ready');
       board.systemReset();
       board.samplingInterval = 250;
       led = getLed(board, ledPin.value * 1);
+      pin = getPin(board, ledPin.value);
       led.off();
-      if (buttonType.value == 'down') {
-        button = getButton(board, buttonPin.value * 1);
-      } else {
-        button = getPullupButton(board, buttonPin.value * 1);
-      }
+      setInterval(queryPin, 1000);
+
       document.querySelector('#a1 .markerContent').innerHTML = '<span id="note">上線</span>：<span id="showTime"></span><br/><div id="light"><img src="switch-on.png" id="lightOn"><img src="switch-off.png" id="lightOff"></div>';
 
       note = document.getElementById('note');
@@ -181,8 +185,30 @@ function gmapFn() {
       lightOff = document.getElementById('lightOff');
 
       showTime.innerHTML = get_time('hms');
-      button.on("pressed", toggle);
       light.addEventListener('click', toggle);
+    });
+  }
+
+
+  function queryPin(callback) {
+    showTime.innerHTML = get_time('hms');
+    pin.read().then(function(pin) {
+      console.log(pin);
+      if (pin > 0) {
+        a = 1;
+        m.setIcon('on.png');
+        lightOff.style.display = 'none';
+        lightOn.style.display = 'inline-block';
+        note.innerHTML = '開燈';
+        led.on();
+      } else {
+        a = -1;
+        m.setIcon('off.png');
+        lightOn.style.display = 'none';
+        lightOff.style.display = 'inline-block';
+        note.innerHTML = '關燈';
+        led.off();
+      }
     });
   }
 
