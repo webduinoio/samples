@@ -96,7 +96,8 @@ window.addEventListener('load', function() {
 
   button.onclick = function() {
     boardReady({
-      device: device.value
+      device: device.value,
+      multi: true
     }, function(board) {
       button.style.color = '#0f0';
       check.style.display = 'none';

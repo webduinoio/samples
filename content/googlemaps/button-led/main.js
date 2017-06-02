@@ -161,7 +161,7 @@ function gmapFn() {
 
   function ok() {
     console.log('prepare...');
-    boardReady(deviceID.value, function(board) {
+    boardReady({device: deviceID.value, multi: true}, function(board) {
       console.log(deviceID.value + ' ready');
       board.systemReset();
       board.samplingInterval = 250;
