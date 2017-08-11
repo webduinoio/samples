@@ -22,7 +22,9 @@ window.addEventListener('load', function () {
   var RIGHT = 0;
   var LEFT = 1;
 
-  if (localStorage.toyCarDeviceId) {
+  if(location.hash != 'undefined') {
+    deviceInput.value = location.hash.split('#')[1];
+  } else if (localStorage.toyCarDeviceId) {
     deviceInput.value = localStorage.toyCarDeviceId;
   }
 

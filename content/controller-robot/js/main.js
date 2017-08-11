@@ -6,6 +6,7 @@ window.addEventListener('load', function() {
   var div = document.querySelectorAll('.btn');
   var content = document.getElementById('content');
   var menu = document.getElementById('menu');
+  var setting = document.getElementById('setting');
   var boxing = 0;
   var close = document.getElementById('close-btn');
 
@@ -34,8 +35,12 @@ window.addEventListener('load', function() {
     menu.style.width = "0";
   });
 
-  close.addEventListener('touchend', function() {
+  close.addEventListener('click', function() {
     menu.style.width = "0";
+  });
+
+  setting.addEventListener('click', function() {
+    menu.style.width = "100%";
   });
 
   for (var i = 0; i < div.length; i++) {
@@ -91,8 +96,8 @@ window.addEventListener('load', function() {
 
   button.onclick = function() {
     boardReady({
-      transport: 'websocket',
-      url: device.value
+      device: device.value,
+      multi: true
     }, function(board) {
       button.style.color = '#0f0';
       check.style.display = 'none';

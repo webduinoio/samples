@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-  <title>google map photocell led</title>
+  <title>google map dht</title>
   <script src="https://webduino.io/components/webduino-js/dist/webduino-all.min.js"></script>
   <script src="https://blockly.webduino.io/webduino-blockly.js"></script>
   <script src="https://blockly.webduino.io/lib/runtime.min.js"></script>
@@ -52,7 +52,7 @@
   
   .mapMarker {
     line-height: 20px;
-    font-size: 16px;
+    font-size:16px;
   }
   
   .mapMarker h3 {
@@ -60,19 +60,17 @@
     padding: 5px 0 8px 0;
     border-bottom: 1px solid #ccc;
   }
-  
-  #light {
-    width: 80px;
-    margin: 10px 0;
-    cursor: pointer;
+
+  #light{
+    width:80px;
+    margin:10px 0;
+    cursor:pointer;
   }
-  
-  #light img {
-    width: 100%;
+  #light img{
+    width:100%;
   }
-  
-  #lightOn {
-    display: none;
+  #lightOn{
+    display:none;
   }
   
   @media (max-width:600px) {
@@ -105,17 +103,6 @@
       <option value="15">15</option>
       <option value="16">16</option>
     </select>
-    光敏電阻腳位：
-    <select id="photocellPin">
-      <option value="0">A0</option>
-      <option value="1">A1</option>
-      <option value="2">A2</option>
-      <option value="3">A3</option>
-      <option value="4">A4</option>
-      <option value="5">A5</option>
-    </select>
-    觸發亮度：
-    <input type="range" min="0" max="1" step="0.01" value="0.5" id="photocellRange"> ( <span id="rangeValue"></span> )
     <br/> 目的地名稱：
     <input id="mapAddressName"> 地址：
     <input id="mapAddress">
