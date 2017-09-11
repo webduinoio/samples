@@ -3,8 +3,9 @@
 
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
   <title>Smart 遙控器</title>
-  <script src="js/jquery.min.js"></script>
+  <script src="js/jquery-1.9.1.js"></script>
   <script src="js/webduino-all.min.js"></script>
   <script src="js/webduino-blockly.js"></script>
   <style>
@@ -252,18 +253,18 @@
           <div class="demo-area-09-btn btn-power">○</div>
           <div class="demo-area-09-btn btn-show">顯示</div>
           <div class="demo-area-09-btn-group btn-number-group">
-            <div class="demo-area-09-btn btn-num1">1</div>
-            <div class="demo-area-09-btn btn-num2">2</div>
-            <div class="demo-area-09-btn btn-num3">3</div>
-            <div class="demo-area-09-btn btn-num4">4</div>
-            <div class="demo-area-09-btn btn-num5">5</div>
-            <div class="demo-area-09-btn btn-num6">6</div>
-            <div class="demo-area-09-btn btn-num7">7</div>
-            <div class="demo-area-09-btn btn-num8">8</div>
-            <div class="demo-area-09-btn btn-num9">9</div>
-            <div class="demo-area-09-btn btn-num11">#</div>
-            <div class="demo-area-09-btn btn-num0">0</div>
-            <div class="demo-area-09-btn btn-num12">*</div>
+            <div class="demo-area-09-btn btn-num1">紅</div>
+            <div class="demo-area-09-btn btn-num2">綠</div>
+            <div class="demo-area-09-btn btn-num3">藍</div>
+            <div class="demo-area-09-btn btn-num4">黃</div>
+            <div class="demo-area-09-btn btn-num5">翻轉</div>
+            <div class="demo-area-09-btn btn-num6">X</div>
+            <div class="demo-area-09-btn btn-num7"></div>
+            <div class="demo-area-09-btn btn-num8"></div>
+            <div class="demo-area-09-btn btn-num9"></div>
+            <div class="demo-area-09-btn btn-num11"></div>
+            <div class="demo-area-09-btn btn-num0"></div>
+            <div class="demo-area-09-btn btn-num12"></div>
           </div>
           <input type="range" min="0" max="180" step="5" value="90" class="demo-area-09-input">
           <div class="demo-area-09-btn-group btn-direction-group">
@@ -344,6 +345,7 @@ boardReady({
     rgbled.setColor('#ffcc33');
   });
   controllerBtnEvent(getElement("#demo-area-09 .btn-num5"), "click", function() {
+  	document.querySelector("#demo-area-09 .btn-show").innerHTML = '偵測左右翻轉...';
     setDeviceOrientationListener(function(alpha, beta, gamma) {
       if ((Math.round(gamma)) > 0) {
         rgbled.setColor('#ffffff');
@@ -353,6 +355,7 @@ boardReady({
     });
   });
   controllerBtnEvent(getElement("#demo-area-09 .btn-num6"), "click", function() {
+  	document.querySelector("#demo-area-09 .btn-show").innerHTML = hash;
     rgbled.setColor('#000000');
     removeDeviceOrientationListener();
   });
