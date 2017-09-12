@@ -308,15 +308,19 @@ boardReady({
   document.querySelector("#demo-area-09 .btn-show").innerHTML = hash;
   controllerBtnEvent(getElement("#demo-area-09 .btn-num1"), "click", function() {
     rgbled.setColor('#ff0000');
+    removeDeviceOrientationListener();
   });
   controllerBtnEvent(getElement("#demo-area-09 .btn-num2"), "click", function() {
     rgbled.setColor('#009900');
+    removeDeviceOrientationListener();
   });
   controllerBtnEvent(getElement("#demo-area-09 .btn-num3"), "click", function() {
     rgbled.setColor('#3333ff');
+    removeDeviceOrientationListener();
   });
   controllerBtnEvent(getElement("#demo-area-09 .btn-num4"), "click", function() {
     rgbled.setColor('#ffcc33');
+    removeDeviceOrientationListener();
   });
   controllerBtnEvent(getElement("#demo-area-09 .btn-num5"), "click", function() {
   	document.querySelector("#demo-area-09 .btn-show").innerHTML = '偵測左右翻轉...';
