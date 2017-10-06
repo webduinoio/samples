@@ -1,0 +1,103 @@
+html,
+body {
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  margin: 0;
+}
+
+div {
+  position: relative;
+  z-index: 3;
+}
+
+img {
+  pointer-events: none;
+  -webkit-user-select: none;
+}
+
+#insect {
+  position: fixed;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  background-image: url(../img/bg.png);
+  background-size: 100% auto ;
+}
+
+#ladybug {
+  width: 40%;
+  background-image: url(../img/ladybug.png);
+  background-size: auto 100%;
+  margin: 50px auto 0;
+}
+
+#ladybug.move {
+  animation-name: ladybugmove;
+  animation-duration: 0.4s;
+  animation-iteration-count: infinite;
+}
+
+@media (max-width:640px) {
+  #ladybug {
+    width: 60%;
+  }
+}
+
+@keyframes ladybugmove {
+  0% {
+    background-position: 0 0;
+  }
+  49.9% {
+    background-position: 0 0;
+  }
+  50% {
+    background-position: -100% 0;
+  }
+  99.9% {
+    background-position: -100% 0;
+  }
+  100% {
+    background-position: 0 0;
+  }
+}
+
+#left-btn,
+#right-btn {
+  position: absolute;
+  bottom: 0;
+  width: 18%;
+}
+
+#left-btn {
+  left: 20px;
+}
+
+#right-btn {
+  right: 20px;
+}
+
+#left-btn div,
+#right-btn div {
+  width: 100%;
+  margin: 20px 0;
+}
+
+#left-btn div img,
+#right-btn div img {
+  width: 100%;
+}
+
+@media (max-width:640px) {
+  #left-btn,
+  #right-btn {
+    width: 25%;
+  }
+}
+
+@media (max-width:520px) {
+  #left-btn,
+  #right-btn {
+    width: 30%;
+  }
+}
