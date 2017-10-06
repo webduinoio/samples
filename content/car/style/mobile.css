@@ -1,0 +1,269 @@
+html,
+body {
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  margin: 0;
+}
+
+body {
+  background: #8ad0cd;
+  overflow: hidden;
+}
+
+div {
+  position: relative;
+  box-sizing: border-box;
+  z-index: 2;
+  color: #fff;
+  display: table;
+}
+
+div.hide {
+  display: none;
+}
+
+img {
+  pointer-events: none;
+  -webkit-user-select: none;
+}
+
+
+/* 中間主要圖片 */
+
+#main-img {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+}
+
+#main-img div {
+  width: 42%;
+  min-width: 500px;
+  margin: 0 auto;
+}
+
+#main-img div img {
+  width: 100%;
+  margin-top: 30px;
+}
+
+#main-img div.joypad img {
+  width: 100%;
+  margin-top: 60px;
+}
+
+@media (max-width:800px) {
+  #main-img div {
+    width: 60%;
+    min-width: 360px;
+  }
+  #main-img div.joypad img {
+    margin-top: 100px;
+  }
+}
+
+@media (max-height:580px) {
+  #main-img div {
+    width: 40%;
+    min-width: 40%;
+  }
+}
+
+@media (max-width:600px) {
+  #main-img div {
+    width: 70%;
+    min-width: 70%;
+  }
+  #main-img div img {
+    margin-top: 80px;
+  }
+}
+
+@media (max-height:380px) {
+  #main-img div {
+    width: 30%;
+  }
+  #main-img div img {
+    margin-top: 40px;
+  }
+}
+
+
+/* 左右兩側選單 */
+
+#mode,
+#speed {
+  position: absolute;
+  top: 30px;
+  z-index: 2;
+}
+
+#mode {
+  right: 30px;
+}
+
+#speed {
+  left: 30px;
+}
+
+#mode div,
+#speed div {
+  width: 120px;
+  margin: 0 0 10px;
+}
+
+#mode div img,
+#speed div img {
+  width: 100%;
+}
+
+#speed div.s100 img,
+#speed div.s50 img,
+#speed div.s20 img {
+  transition: .2s;
+  opacity: .4;
+}
+
+#speed div.s100.selected img,
+#speed div.s50.selected img,
+#speed div.s20.selected img {
+  opacity: 1;
+}
+
+@media (max-width:800px) {
+  #mode div,
+  #speed div {
+    width: 90px;
+    margin: 0 0 10px;
+  }
+}
+
+@media (max-height:580px) {
+  #mode div,
+  #speed div {
+    width: 90px;
+    margin: 0 0 10px;
+  }
+}
+
+@media (max-width:600px) {
+  #mode {
+    top: 15px;
+    right: 15px;
+  }
+  #speed {
+    top: 15px;
+    left: 15px;
+  }
+  #mode div,
+  #speed div {
+    width: 60px;
+    margin: 0 0 10px;
+  }
+}
+
+@media (max-height:380px) {
+  #mode {
+    top: 15px;
+    right: 15px;
+  }
+  #speed {
+    top: 15px;
+    left: 15px;
+  }
+  #mode div,
+  #speed div {
+    width: 60px;
+    margin: 0 0 10px;
+  }
+}
+
+
+/* 下方方向盤按鈕 */
+
+#wheel {
+  position: absolute;
+  bottom: 0;
+  left: 30px;
+  width: calc(100% - 60px);
+}
+
+#wheel div {
+  width: 20%;
+  float: left;
+}
+
+#wheel div.back {
+  float: right;
+}
+
+#wheel div img {
+  margin: -4px;
+  width: 100%;
+}
+
+@media (max-width:800px) {
+  #wheel div {
+    width: 30%;
+    float: left;
+  }
+}
+
+@media (max-height:580px) {
+  #wheel div {
+    width: 20%;
+    float: left;
+  }
+}
+
+@media (max-width:600px) {
+  #wheel div {
+    width: 35%;
+    float: left;
+  }
+}
+
+
+/* 下方搖桿按鈕 */
+
+#joypad {
+  position: absolute;
+  bottom: 0;
+  left: 30px;
+  width: calc(100% - 60px);
+  text-align: justify;
+}
+
+#joypad div {
+  width: calc(25% - 60px);
+  margin: 0 30px;
+  display: inline-block;
+}
+
+#joypad div img {
+  margin: -6px;
+  width: 100%;
+}
+
+@media (max-width:800px) {
+  #joypad div {
+    width: calc(25% - 30px);
+    margin: 0 15px;
+  }
+}
+@media (max-width:700px) {
+  #joypad div {
+    width: calc(25% - 20px);
+    margin: 0 10px;
+  }
+}
+@media (max-width:600px) {
+  #joypad div {
+    width: calc(25% - 10px);
+    margin: 0 5px;
+  }
+}

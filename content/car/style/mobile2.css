@@ -1,0 +1,161 @@
+html,
+body {
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  margin: 0;
+}
+
+body {
+  background: #8ad0cd;
+  //overflow: hidden;
+}
+
+div {
+  position: relative;
+  box-sizing: border-box;
+  z-index: 2;
+  color: #fff;
+  display: table;
+}
+
+div.hide {
+  display: none!important;
+}
+
+img{
+	pointer-events: none;
+	-webkit-user-select: none;
+}
+
+
+/* 中間主要圖片 */
+
+#main-img{
+  position:fixed;
+  top:0;
+  left:0;
+  z-index:1;
+  width:100%;
+  height:100%;
+  display:block;
+}
+#main-img div {
+  width: 42%;
+  height:100%;
+  min-width:420px;
+  margin: 0 auto;
+  text-align: center;
+}
+#main-img div::before {
+  content:'';
+  display:inline-block;
+  width: 1px;
+  height:100%;
+  vertical-align: middle;
+}
+#main-img div img {
+  height:40%;
+  vertical-align: middle;
+}
+#main-img div.joypad img {
+  margin-right:-125px;
+}
+
+/* 左右兩側選單 */
+
+#mode,
+#speed {
+  position: absolute;
+  right: 20px;
+  z-index: 3;
+}
+
+#mode {
+  bottom: 20px;
+}
+
+#speed {
+  top: 20px;
+}
+
+#mode div,
+#speed div {
+  height: 70px;
+  display:inline-block;
+  margin-left:15px;
+}
+
+#mode div img,
+#speed div img {
+  height: 100%;
+}
+
+#speed div.s100 img,
+#speed div.s50 img,
+#speed div.s20 img {
+  transition:.2s;
+  opacity: .4;
+}
+
+#speed div.s100.selected img,
+#speed div.s50.selected img,
+#speed div.s20.selected img {
+  opacity: 1;
+}
+
+/* 下方按鈕 */
+
+#wheel {
+  position: absolute;
+  left: 0;
+  top:30px;
+  height: calc(100% - 60px);
+  z-index: 3;
+  width:30%;
+}
+
+#wheel div {
+  height: 25%;
+}
+
+#wheel div.back {
+  position: absolute;
+  display:inline-block;
+  bottom:0;
+}
+
+#wheel div.front {
+  position: absolute;
+  display:inline-block;
+  top:0;
+}
+
+#wheel div img {
+  margin: -4px;
+  height: 100%;
+}
+
+
+/* 下方搖桿按鈕 */
+
+#joypad {
+  position: absolute;
+  left: 0;
+  top:30px;
+  height: calc(100% - 60px);
+  z-index: 3;
+  width:30%;
+}
+
+#joypad div {
+  height: 25%;
+  width:100%;
+  display:inline-block;
+}
+
+#joypad div img {
+  position: absolute;
+  margin: -6px;
+  height: calc(100% - 10px);
+}
