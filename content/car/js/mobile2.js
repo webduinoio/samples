@@ -12,7 +12,11 @@ $(function() {
   var windowHeight = $(window).height();
 
   if(windowWidth/windowHeight>1.3){
-    document.location.href="mobile.html";
+    if (deviceId) {
+      document.location.href = "mobile.html#" + deviceId;
+    } else {
+      document.location.href = "mobile.html";
+    }
   }
 
   var x;

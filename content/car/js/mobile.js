@@ -1,9 +1,9 @@
 $(function() {
 
-	if(!localStorage.mobileRotateNote){
-		alert('請將手機畫面設定為「不要旋轉」^_^');
-		localStorage.mobileRotateNote = true;
-	}
+  if (!localStorage.mobileRotateNote) {
+    alert('請將手機畫面設定為「不要旋轉」^_^');
+    localStorage.mobileRotateNote = true;
+  }
 
   var url = location.href;
   var deviceId = url.split('#')[1];
@@ -11,8 +11,12 @@ $(function() {
   var windowWidth = $(window).width();
   var windowHeight = $(window).height();
 
-  if(windowHeight/windowWidth>1.3){
-  	document.location.href="mobile2.html";
+  if (windowHeight / windowWidth > 1.3) {
+    if (deviceId) {
+      document.location.href = "mobile2.html#" + deviceId;
+    } else {
+      document.location.href = "mobile2.html";
+    }
   }
 
   var x;
@@ -45,22 +49,22 @@ $(function() {
   var $modeWheel = $('#mode .wheel');
   var $modeJoypad = $('#mode .joypad');
 
-  $modeWheel.on('click',function(){
-  	$modeWheel.addClass('hide');
-  	$modeJoypad.removeClass('hide');
-  	$wheel.removeClass('hide');
-  	$wheelImg.removeClass('hide');
-  	$joypad.addClass('hide');
-  	$joypadImg.addClass('hide');
+  $modeWheel.on('click', function() {
+    $modeWheel.addClass('hide');
+    $modeJoypad.removeClass('hide');
+    $wheel.removeClass('hide');
+    $wheelImg.removeClass('hide');
+    $joypad.addClass('hide');
+    $joypadImg.addClass('hide');
   });
 
-  $modeJoypad.on('click',function(){
-  	$modeWheel.removeClass('hide');
-  	$modeJoypad.addClass('hide');
-  	$wheel.addClass('hide');
-  	$wheelImg.addClass('hide');
-  	$joypad.removeClass('hide');
-  	$joypadImg.removeClass('hide');
+  $modeJoypad.on('click', function() {
+    $modeWheel.removeClass('hide');
+    $modeJoypad.addClass('hide');
+    $wheel.addClass('hide');
+    $wheelImg.addClass('hide');
+    $joypad.removeClass('hide');
+    $joypadImg.removeClass('hide');
   });
 
   function buzzer_music(m) {
