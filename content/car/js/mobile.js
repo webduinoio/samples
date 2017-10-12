@@ -6,7 +6,18 @@ $(function() {
   }
 
   var url = location.href;
-  var deviceId = url.split('#')[1];
+  var deviceId;
+  var pin = [];
+
+  if (url.indexOf('?') == -1) {
+    deviceId = url.split('#')[1];
+  } else {
+    deviceId = url.split('#')[1].split('?')[0];
+    pin[0] = url.split('?')[1].split('_')[0];
+    pin[1] = url.split('?')[1].split('_')[1];
+    pin[2] = url.split('?')[1].split('_')[2];
+    pin[3] = url.split('?')[1].split('_')[3];
+  }
 
   var windowWidth = $(window).width();
   var windowHeight = $(window).height();
@@ -149,7 +160,11 @@ $(function() {
       notes: ["C6", "D6", "E6", "F6", "G6", "A6", "B6"],
       tempos: ["8", "8", "8", "8", "8", "8", "8"]
     }]).tempos);
-    car = getToyCar(board, 6, 7, 8, 9);
+    if(pin.length>0){
+      car = getToyCar(board, pin[0], pin[1], pin[2], pin[3]);
+    }else{
+      car = getToyCar(board, 6, 7, 8, 9);
+    }
     car.stop();
     speed_max = 100;
     controllerBtnEvent($wheelFront, ["mousedown", "touchstart"], function() {

@@ -32,10 +32,15 @@ $(function() {
   var windowWidth = $(window).width();
   var windowHeight = $(window).height();
 
-  var $btnLF = $('#left-btn .front');
-  var $btnLB = $('#left-btn .back');
-  var $btnRF = $('#right-btn .front');
-  var $btnRB = $('#right-btn .back');
+  var $go1Front = $('#btn .front');
+  var $go1Back = $('#btn .back');
+  var $go1Left = $('#btn .left');
+  var $go1Right = $('#btn .right');
+
+  var $go2Front = $('#btn-2 .front');
+  var $go2Back = $('#btn-2 .back');
+  var $go2Left = $('#btn-2 .left');
+  var $go2Right = $('#btn-2 .right');
 
   var $insect = $('#insect');
   var $ladybug = $('#ladybug');
@@ -49,10 +54,6 @@ $(function() {
     });
   });
 
-  var rf = 0;
-  var rb = 0;
-  var lf = 0;
-  var lb = 0;
   var bgPosition = 0;
   var timer;
 
@@ -88,41 +89,6 @@ $(function() {
     }
   }
 
-  function move() {
-    if (lf == 0 && lb == 0 && rf == 0 && rb == 0) {
-      car.stop();
-    } else if (lf == 1 && lb == 0 && rf == 0 && rb == 0) {
-      car.goRight();
-    } else if (lf == 0 && lb == 1 && rf == 0 && rb == 0) {
-      car.backLeft();
-    } else if (lf == 0 && lb == 0 && rf == 1 && rb == 0) {
-      car.goLeft();
-    } else if (lf == 0 && lb == 0 && rf == 0 && rb == 1) {
-      car.backRight();
-    } else if (lf == 1 && lb == 1 && rf == 0 && rb == 0) {
-      car.stop();
-    } else if (lf == 1 && lb == 1 && rf == 1 && rb == 0) {
-      car.goLeft();
-    } else if (lf == 1 && lb == 1 && rf == 0 && rb == 1) {
-      car.backRight();
-    } else if (lf == 1 && lb == 1 && rf == 1 && rb == 1) {
-      car.stop();
-    } else if (lf == 0 && lb == 1 && rf == 1 && rb == 1) {
-      car.backLeft();
-    } else if (lf == 1 && lb == 0 && rf == 1 && rb == 1) {
-      car.goRight();
-    } else if (lf == 0 && lb == 0 && rf == 1 && rb == 1) {
-      car.stop();
-    } else if (lf == 1 && lb == 0 && rf == 1 && rb == 0) {
-      car.goFront();
-    } else if (lf == 0 && lb == 1 && rf == 0 && rb == 1) {
-      car.goBack();
-    } else if (lf == 0 && lb == 1 && rf == 1 && rb == 0) {
-      car.turnLeft();
-    } else if (lf == 1 && lb == 0 && rf == 0 && rb == 1) {
-      car.turnRight();
-    }
-  }
 
   function buzzer_music(m) {
     var musicNotes = {};
@@ -167,60 +133,84 @@ $(function() {
     car = getToyCar(board, 6, 7, 8, 9);
     car.stop();
 
-    controllerBtnEvent($btnLF, ["mousedown", "touchstart"], function() {
-      lf = 1;
-      $ladybug.addClass('move');
+    controllerBtnEvent($go1Front, ["mousedown", "touchstart"], function() {
+      car.goFront();
       bg(20);
     });
-    controllerBtnEvent($btnLF, ["mouseup", "touchend"], function() {
-      lf = 0;
-      if ((lf + rf + lb + rb) == 0) {
-        $ladybug.removeClass('move');
-        clearTimeout(timer);
-        car.stop();
-      }
+    controllerBtnEvent($go1Front, ["mouseup", "touchend"], function() {
+      car.stop();
+      $ladybug.removeClass('move');
+      clearTimeout(timer);
     });
 
-    controllerBtnEvent($btnRF, ["mousedown", "touchstart"], function() {
-      rf = 1;
-      $ladybug.addClass('move');
+    controllerBtnEvent($go1Back, ["mousedown", "touchstart"], function() {
+      car.goBack();
+      bg(-20);
+    });
+    controllerBtnEvent($go1Back, ["mouseup", "touchend"], function() {
+      car.stop();
+      $ladybug.removeClass('move');
+      clearTimeout(timer);
+    });
+
+    controllerBtnEvent($go1Right, ["mousedown", "touchstart"], function() {
+      car.turnRight();
       bg(20);
     });
-    controllerBtnEvent($btnRF, ["mouseup", "touchend"], function() {
-      rf = 0;
-      if ((lf + rf + lb + rb) == 0) {
-        $ladybug.removeClass('move');
-        clearTimeout(timer);
-        car.stop();
-      }
+    controllerBtnEvent($go1Right, ["mouseup", "touchend"], function() {
+      car.stop();
+      $ladybug.removeClass('move');
+      clearTimeout(timer);
     });
 
-    controllerBtnEvent($btnLB, ["mousedown", "touchstart"], function() {
-      lb = 1;
-      $ladybug.addClass('move');
-      bg(-20);
+    controllerBtnEvent($go1Left, ["mousedown", "touchstart"], function() {
+      car.turnLeft();
+      bg(20);
     });
-    controllerBtnEvent($btnLB, ["mouseup", "touchend"], function() {
-      lb = 0;
-      if ((lf + rf + lb + rb) == 0) {
-        $ladybug.removeClass('move');
-        clearTimeout(timer);
-        car.stop();
-      }
+    controllerBtnEvent($go1Left, ["mouseup", "touchend"], function() {
+      car.stop();
+      $ladybug.removeClass('move');
+      clearTimeout(timer);
     });
 
-    controllerBtnEvent($btnRB, ["mousedown", "touchstart"], function() {
-      rb = 1;
-      $ladybug.addClass('move');
+    controllerBtnEvent($go2Front, ["mousedown", "touchstart"], function() {
+      car.goFront();
+      bg(20);
+    });
+    controllerBtnEvent($go2Front, ["mouseup", "touchend"], function() {
+      car.stop();
+      $ladybug.removeClass('move');
+      clearTimeout(timer);
+    });
+
+    controllerBtnEvent($go2Back, ["mousedown", "touchstart"], function() {
+      car.goBack();
       bg(-20);
     });
-    controllerBtnEvent($btnRB, ["mouseup", "touchend"], function() {
-      rb = 0;
-      if ((lf + rf + lb + rb) == 0) {
-        $ladybug.removeClass('move');
-        clearTimeout(timer);
-        car.stop();
-      }
+    controllerBtnEvent($go2Back, ["mouseup", "touchend"], function() {
+      car.stop();
+      $ladybug.removeClass('move');
+      clearTimeout(timer);
+    });
+
+    controllerBtnEvent($go2Right, ["mousedown", "touchstart"], function() {
+      car.turnRight();
+      bg(20);
+    });
+    controllerBtnEvent($go2Right, ["mouseup", "touchend"], function() {
+      car.stop();
+      $ladybug.removeClass('move');
+      clearTimeout(timer);
+    });
+
+    controllerBtnEvent($go2Left, ["mousedown", "touchstart"], function() {
+      car.turnLeft();
+      bg(20);
+    });
+    controllerBtnEvent($go2Left, ["mouseup", "touchend"], function() {
+      car.stop();
+      $ladybug.removeClass('move');
+      clearTimeout(timer);
     });
 
   });
