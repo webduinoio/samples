@@ -54,6 +54,10 @@ $(function() {
     });
   });
 
+  var f = 0;
+  var b = 0;
+  var r = 0;
+  var l = 0;
   var bgPosition = 0;
   var timer;
 
@@ -77,8 +81,7 @@ $(function() {
   }
 
   function bg(x) {
-    move();
-    if ((lf + rf + lb + rb) != 0) {
+    if ((f + b + r + l) == 1) {
       bgPosition = bgPosition + x;
       $insect.css({
         'background-position': '0 ' + bgPosition + 'px'
@@ -135,9 +138,12 @@ $(function() {
 
     controllerBtnEvent($go1Front, ["mousedown", "touchstart"], function() {
       car.goFront();
+      f = 1;
+      $ladybug.addClass('move');
       bg(20);
     });
     controllerBtnEvent($go1Front, ["mouseup", "touchend"], function() {
+      f = 0
       car.stop();
       $ladybug.removeClass('move');
       clearTimeout(timer);
@@ -145,70 +151,91 @@ $(function() {
 
     controllerBtnEvent($go1Back, ["mousedown", "touchstart"], function() {
       car.goBack();
+      b = 1;
+      $ladybug.addClass('move');
       bg(-20);
     });
     controllerBtnEvent($go1Back, ["mouseup", "touchend"], function() {
       car.stop();
+      b = 0;
       $ladybug.removeClass('move');
       clearTimeout(timer);
     });
 
     controllerBtnEvent($go1Right, ["mousedown", "touchstart"], function() {
       car.turnRight();
+      r = 1;
+      $ladybug.addClass('move');
       bg(20);
     });
     controllerBtnEvent($go1Right, ["mouseup", "touchend"], function() {
       car.stop();
+      r = 0;
       $ladybug.removeClass('move');
       clearTimeout(timer);
     });
 
     controllerBtnEvent($go1Left, ["mousedown", "touchstart"], function() {
       car.turnLeft();
+      l = 1;
+      $ladybug.addClass('move');
       bg(20);
     });
     controllerBtnEvent($go1Left, ["mouseup", "touchend"], function() {
       car.stop();
+      l = 0;
       $ladybug.removeClass('move');
       clearTimeout(timer);
     });
 
     controllerBtnEvent($go2Front, ["mousedown", "touchstart"], function() {
       car.goFront();
+      f = 1;
+      $ladybug.addClass('move');
       bg(20);
     });
     controllerBtnEvent($go2Front, ["mouseup", "touchend"], function() {
       car.stop();
+      f = 0;
       $ladybug.removeClass('move');
       clearTimeout(timer);
     });
 
     controllerBtnEvent($go2Back, ["mousedown", "touchstart"], function() {
       car.goBack();
+      b = 1;
+      $ladybug.addClass('move');
       bg(-20);
     });
     controllerBtnEvent($go2Back, ["mouseup", "touchend"], function() {
       car.stop();
+      b = 0;
       $ladybug.removeClass('move');
       clearTimeout(timer);
     });
 
     controllerBtnEvent($go2Right, ["mousedown", "touchstart"], function() {
       car.turnRight();
+      r = 1;
+      $ladybug.addClass('move');
       bg(20);
     });
     controllerBtnEvent($go2Right, ["mouseup", "touchend"], function() {
       car.stop();
+      r = 0;
       $ladybug.removeClass('move');
       clearTimeout(timer);
     });
 
     controllerBtnEvent($go2Left, ["mousedown", "touchstart"], function() {
       car.turnLeft();
+      l = 1;
+      $ladybug.addClass('move');
       bg(20);
     });
     controllerBtnEvent($go2Left, ["mouseup", "touchend"], function() {
       car.stop();
+      l = 0;
       $ladybug.removeClass('move');
       clearTimeout(timer);
     });
