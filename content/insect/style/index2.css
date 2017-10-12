@@ -4,11 +4,13 @@ body {
   height: 100%;
   padding: 0;
   margin: 0;
+  -webkit-user-select: none;
 }
 
 div {
   position: relative;
   z-index: 3;
+  -webkit-user-select: none;
 }
 
 img {
@@ -110,6 +112,7 @@ img {
 #btn-2 div.front,
 #btn-2 div.back {
   display: block;
+  padding: 0;
 }
 
 #btn-2 div img {
