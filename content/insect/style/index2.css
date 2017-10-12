@@ -103,13 +103,13 @@ img {
 #btn-2 div {
   width: 20%;
   display: inline-block;
-  margin: 0 50px;
+  padding: 0 50px;
+  margin:0 auto;
 }
 
 #btn-2 div.front,
 #btn-2 div.back {
   display: block;
-  margin: 0 auto;
 }
 
 #btn-2 div img {
@@ -138,11 +138,12 @@ img {
   #btn-2 div {
     width: 25%;
     display: inline-block;
+    padding:0;
   }
   #btn-2 div.left {
-    margin-left:0;
+    padding-right:50px;
   }
   #btn-2 div.right {
-    margin-right:0;
+    padding-left:50px;
   }
 }
