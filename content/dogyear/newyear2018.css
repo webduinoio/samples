@@ -1,0 +1,237 @@
+html {
+    font-family: sans-serif;
+    -webkit-text-size-adjust: 100%;
+    -ms-text-size-adjust: 100%
+}
+
+body {
+    font-family: "蘋方-繁", "微軟繁黑體-標準", "微軟繁黑體-粗體", "微軟正黑體", "sans-serif";
+    margin: 0;
+    background-color: #fee8d5;
+    font-size: 14px;
+    line-height: 1.42857143;
+}
+
+a {
+    background-color: transparent;
+    color: inherit;
+    display: inline-block;
+}
+
+a:active,
+a:hover {
+    outline: 0;
+}
+
+* {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+    vertical-align: baseline;
+    list-style-type: none;
+    -webkit-touch-callout: none;
+    border: none;
+    outline: none;
+    max-height: 100vh;
+}
+
+*:before,
+*:after {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+h4 {
+    font-family: inherit;
+    font-weight: 500;
+    line-height: 1.1;
+    color: inherit;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    font-size: 18px;
+}
+p {
+    margin: 0;
+}
+
+.row {
+    margin-right: -15px;
+    margin-left: -15px;
+}
+
+.row:before,
+.row:after {
+    display: table;
+    content: " ";
+}
+
+.row:after {
+    clear: both;
+}
+
+.container {
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+@media (min-width:768px) {
+    .container {
+        width: 750px;
+    }
+}
+
+@media (min-width:850px) {
+    .container {
+        width: 850px;
+    }
+}
+
+@media (min-width:900px) {
+    .container {
+        width: 900px;
+    }
+}
+
+@media (min-width:950px) {
+    .container {
+        width: 970px;
+    }
+}
+
+@media (min-width:1200px) {
+    .container {
+        width: 1170px;
+    }
+}
+
+.container:before,
+.container:after,
+.container-fluid:before,
+.container-fluid:after {
+    display: table;
+    content: " ";
+}
+
+.container:after,
+.container-fluid:after {
+    clear: both;
+}
+
+button,
+input {
+    margin: 0;
+    font: inherit;
+    color: inherit;
+}
+
+button,
+input[type="text"] {
+    -webkit-appearance: button;
+    cursor: pointer;
+}
+
+button[disabled],
+html input[disabled] {
+    cursor: default;
+}
+
+button::-moz-focus-inner,
+input::-moz-focus-inner {
+    padding: 0;
+    border: 0;
+}
+
+.container {
+    height: 91vh;
+    overflow-y: scroll;
+    background-color: #fee8d5;
+}
+
+.setting-content {
+    margin: 10px;
+    padding: 10px 25px;
+}
+
+.setting-content input {
+    width: 100%;
+    border-radius: 5px;
+    padding: 8px 10px;
+    border: 1px solid #EA5944;
+    line-height: normal;
+}
+
+.setting-content span {
+    font-size: 80%;
+    padding-top: 10px;
+    text-align: center;
+}
+
+.setting-content button {
+    display: inline-block;
+    width: 100%;
+    padding: 11px;
+    margin-top: 10px;
+    background-color: #EA5944;
+    border-radius: 5px;
+    color: #fff;
+    overflow: visible;
+    text-transform: none;
+}
+
+img {
+    display: block;
+    max-height: 100%;
+    max-width: 100%;
+    margin: auto;
+    border: 0;
+}
+
+.main-content {
+    margin: 5px 15px;
+    padding: 10px;
+    margin: auto;
+}
+
+#newyear-title {
+    position: absolute;
+    height: 8vh;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    line-height: 8vh;
+    background-color: #EA5944;
+    color: #fff;
+    text-align: center;
+    margin: 0 auto;
+}
+
+@media (min-width: 600px) {
+    .setting-content {
+        width: 70%;
+        margin: auto;
+    }
+    img {
+        width: 70%;
+    }
+}
+
+@media (min-width: 800px) {
+    .setting-content {
+        width: 50%;
+        margin: auto;
+    }
+    img {
+        width: 50%;
+    }
+}
+
+@media (min-width: 1000px) {
+    img {
+        width: 45%;
+    }
+}
