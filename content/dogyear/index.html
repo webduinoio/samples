@@ -2,99 +2,95 @@
 <html>
 
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-    <link rel="shortcut icon" href="img/webduino-logo.png" type="image/vnd.microsoft.icon">
-    <link rel="shortcut icon" href="img/webduino-logo.png" type="image/x-icon">
-    <title>Webduino 來拜年</title>
-    <link rel="stylesheet" type="text/css" href="newyear2018.css">
-    <meta name="description" content="Webduino 來拜年">
-    <meta itemprop="description" content="Webduino 來拜年">
-    <meta itemprop="image" content="https://birteliu.github.io/2018newyear/img/newyear-0.png">
-    <meta property="og:title" content="Webduino 來拜年">
-    <meta property="og:url" content="https://birteliu.github.io/2018newyear/index.html">
-    <meta property="og:image" content="https://birteliu.github.io/2018newyear/img/newyear-0.png">
-    <meta property="og:description" content="Webduino 來拜年啦，連線後按壓 Smart 上的開關，就可以看看有什麼狗年吉祥話，一起來玩玩吧！">
-    <script src="https://blocklypro.webduino.io/components/jquery/dist/jquery.min.js"></script>
-    <script src="https://webduino.io/components/webduino-js/dist/webduino-all.min.js"></script>
-    <script src="https://blockly.webduino.io/webduino-blockly.js"></script>
-    <script src="https://blockly.webduino.io/lib/firebase.js"></script>
-    <script src="https://blockly.webduino.io/lib/runtime.min.js"></script>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <link rel="shortcut icon" href="img/webduino-logo.png" type="image/vnd.microsoft.icon">
+  <link rel="shortcut icon" href="img/webduino-logo.png" type="image/x-icon">
+  <title>Webduino 來拜年</title>
+  <link rel="stylesheet" type="text/css" href="newyear2018.css">
+  <meta name="description" content="Webduino 來拜年">
+  <meta itemprop="description" content="Webduino 來拜年">
+  <meta itemprop="image" content="https://birteliu.github.io/2018newyear/img/newyear-0.png">
+  <meta property="og:title" content="Webduino 來拜年">
+  <meta property="og:url" content="https://birteliu.github.io/2018newyear/index.html">
+  <meta property="og:image" content="https://birteliu.github.io/2018newyear/img/newyear-0.png">
+  <meta property="og:description" content="Webduino 來拜年啦，連線後按壓 Smart 上的開關，就可以看看有什麼狗年吉祥話，一起來玩玩吧！">
+  <script src="https://blocklypro.webduino.io/components/jquery/dist/jquery.min.js"></script>
+  <script src="https://webduino.io/components/webduino-js/dist/webduino-all.min.js"></script>
+  <script src="https://blockly.webduino.io/webduino-blockly.js"></script>
+  <script src="https://blockly.webduino.io/lib/firebase.js"></script>
+  <script src="https://blockly.webduino.io/lib/runtime.min.js"></script>
 </head>
 
 <body style="background-color: #ffe8d4;">
-    <div class="container">
-        <div class="row">
-            <div class="setting-content">
-                <h4>Webduino Smart 開發板 ID <span id="ready">( 未連線 )</span></h4>
-                <input type="text" id="deviceId">
-                <button id="connect_btn">連線</button>
-            </div>
-        </div>
+  <div class="container">
+    <div class="row">
+      <div class="setting-content">
+        <h4>Webduino Smart 開發板 ID <span id="ready">( 未連線 )</span></h4>
+        <input type="text" id="deviceId">
+        <button id="connect_btn">連線</button>
+      </div>
+    </div>
     <div class="main-content">
-        <span id="demo-area-01-show">
-            <img src="img/newyear.png" alt="">
-        </span>
+      <span id="demo-area-01-show">
+        <img src="img/newyear.png" alt="">
+      </span>
     </div>
-    </div>
-    <div id="newyear-title">
-        <p>按壓 Smart 上的開關看看狗年吉祥話吧</p>
-    </div>
-    <script>
+  </div>
+  <div id="newyear-title">
+    <p>按壓 Smart 上的開關看看狗年吉祥話吧</p>
+  </div>
+  <script>
     (function() {
+      var rgbled;
+      var button;
+      var name2;
+      var result;
+      var deviceId = $('#deviceId');
+      var connect_btn = $('#connect_btn');
+      var ready = $('#ready');
 
-        (async function() {
+      if (localStorage.boardName) {
+        deviceId.val(localStorage.boardName);
+      }
 
-            var rgbled;
-            var button;
-            var name2;
-            var result;
-            var deviceId = $('#deviceId'),
-                connect_btn = $('#connect_btn'),
-                ready = $('#ready');
+      function math_random_int(a, b) {
+        if (a > b) {
+          // Swap a and b to ensure a is smaller.
+          var c = a;
 
-            if (localStorage.boardName) {
-                deviceId.val(localStorage.boardName);
-            }
+          a = b;
+          b = c;
+        }
+        return Math.floor(Math.random() * (b - a + 1) + a);
+      }
 
-            function math_random_int(a, b) {
-                if (a > b) {
-                    // Swap a and b to ensure a is smaller.
-                    var c = a;
-                    a = b;
-                    b = c;
-                }
-                return Math.floor(Math.random() * (b - a + 1) + a);
-            }
+      function colour_random() {
+        var num = Math.floor(Math.random() * Math.pow(2, 24));
+        return '#' + ('00000' + num.toString(16)).substr(-6);
+      }
 
-            function colour_random() {
-                var num = Math.floor(Math.random() * Math.pow(2, 24));
-                return '#' + ('00000' + num.toString(16)).substr(-6);
-            }
-
-            connect_btn.on('click', function() {
-                localStorage.boardName = deviceId.val();
-                boardReady(deviceId.val(), async function(board) {
-                    board.systemReset();
-                    board.samplingInterval = 250;
-                    document.getElementById("ready").innerHTML = (['( 已連線 )'].join(''));
-                    rgbled = getRGBLedCathode(board, 15, 12, 13);
-                    button = getButton(board, 4);
-                    name2 = ['img/newyear-1.png', 'img/newyear-2.png', 'img/newyear-3.png', 'img/newyear-4.png', 'img/newyear-5.png', 'img/newyear-6.png', 'img/newyear-7.png', 'img/newyear-8.png'];
-                    button.on("pressed", async function() {
-                        console.log("pressed");
-                        result = '<img src="' + name2[math_random_int(1, 8) - 1]+ '">';
-                        document.getElementById("demo-area-01-show").style.color = '#009900';
-                        rgbled.setColor(colour_random());
-                        document.getElementById("demo-area-01-show").innerHTML = result;
-                        await delay(2);
-                        document.getElementById("demo-area-01-show").style.color = '#000000';
-                        rgbled.setColor('#000000');
-                        document.getElementById("newyear-title").style.display = "block";
-                    }); //button.on
-                }); //boardReady
-            }); //connect_btn
-        }()); //async function
+      connect_btn.on('click', function () {
+        localStorage.boardName = deviceId.val();
+        boardReady(deviceId.val(), function (board) {
+          board.systemReset();
+          board.samplingInterval = 250;
+          document.getElementById('ready').innerHTML = '( 已連線 )';
+          rgbled = getRGBLedCathode(board, 15, 12, 13);
+          button = getButton(board, 4);
+          name2 = ['img/newyear-1.png', 'img/newyear-2.png', 'img/newyear-3.png', 'img/newyear-4.png', 'img/newyear-5.png', 'img/newyear-6.png', 'img/newyear-7.png', 'img/newyear-8.png'];
+          button.on('pressed', async function () {
+            result = '<img src="' + name2[math_random_int(1, 8) - 1]+ '">';
+            document.getElementById("demo-area-01-show").style.color = '#009900';
+            rgbled.setColor(colour_random());
+            document.getElementById("demo-area-01-show").innerHTML = result;
+            await delay(2);
+            document.getElementById("demo-area-01-show").style.color = '#000000';
+            rgbled.setColor('#000000');
+            document.getElementById("newyear-title").style.display = 'block';
+          }); //button.on
+        }); //boardReady
+      }); //connect_btn
     }());
-    </script>
+  </script>
 </body>
