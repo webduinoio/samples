@@ -147,9 +147,7 @@ $(function() {
     car.setLeftSpeed(speed_left);
   }
 
-  boardReady({
-    device: deviceId
-  }, function(board) {
+  boardReady({board: 'Smart', device: '10y2XaYQ', transport: 'mqtt'}, function (board) {
     board.systemReset();
     board.samplingInterval = 250;
     // buzzer = getBuzzer(board, 14);
