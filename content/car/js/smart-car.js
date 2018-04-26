@@ -33,7 +33,7 @@ $(function() {
   var x;
   var s;
   var car;
-  var buzzer;
+  // var buzzer;
   var speed_right;
   var speed_max;
   var speed_left;
