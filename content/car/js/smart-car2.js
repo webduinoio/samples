@@ -24,7 +24,7 @@ $(function() {
 
   if (windowWidth / windowHeight > 1.3) {
     if (deviceId) {
-      document.location.href = "smart-car.html#" + deviceId;
+      document.location.href = "smart-car.html";
     } else {
       document.location.href = "smart-car.html";
     }
