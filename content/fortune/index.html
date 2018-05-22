@@ -1,0 +1,169 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>Fortune</title>
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="css/fortune.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script src="https://webduino.io/components/webduino-js/dist/webduino-all.min.js"></script>
+    <script src="https://blockly.webduino.io/webduino-blockly.js"></script>
+    <script src="https://blockly.webduino.io/lib/firebase.js"></script>
+    <script src="https://blockly.webduino.io/lib/runtime.min.js"></script>
+</head>
+
+<body>
+    <div class="container-fuild">
+        <div class="content" id="content-change">
+            <div id="demo-area-01-show" class="title">
+                <img src="img/welcome.png" class="tarot-img">
+            </div>
+            <div id="tarot">
+                <label>
+                    <input type="checkbox" />
+                    <div class="card">
+                        <div class="front">
+                            <img src="img/2.png" class="tarot-img">
+                        </div>
+                        <div class="back">
+                            <img src="img/3.png" class="tarot-img">
+                        </div>
+                    </div>
+                </label>
+            </div>
+            <!--  -->
+            <div id="tarot2">
+                <label>
+                    <input type="checkbox" />
+                    <div class="card">
+                        <div class="front">
+                            <img src="img/4.png" class="tarot-img">
+                        </div>
+                        <div class="back">
+                            <img src="img/5.png" class="tarot-img">
+                        </div>
+                    </div>
+                </label>
+            </div>
+            <div id="tarot3">
+                <label>
+                    <input type="checkbox" />
+                    <div class="card">
+                        <div class="front">
+                            <img src="img/6.png" class="tarot-img">
+                        </div>
+                        <div class="back">
+                            <img src="img/7.png" class="tarot-img">
+                        </div>
+                    </div>
+                </label>
+            </div>
+            <div id="tarot4">
+                <label>
+                    <input type="checkbox" />
+                    <div class="card">
+                        <div class="front">
+                            <img src="img/8.png" class="tarot-img">
+                        </div>
+                        <div class="back">
+                            <img src="img/9.png" class="tarot-img">
+                        </div>
+                    </div>
+                </label>
+            </div>
+            <div id="tarot5">
+                <label>
+                    <input type="checkbox" />
+                    <div class="card">
+                        <div class="front">
+                            <img src="img/10.png" class="tarot-img">
+                        </div>
+                        <div class="back">
+                            <img src="img/11.png" class="tarot-img">
+                        </div>
+                    </div>
+                </label>
+            </div>
+        </div>
+    </div>
+    <script>
+    (function() {
+
+        var matrix;
+        var rfid;
+
+        boardReady({ device: 'jV0j' }, function(board) {
+            board.systemReset();
+            board.samplingInterval = 20;
+            matrix = getMax7219(board, 9, 8, 7);
+            rfid = getRFID(board);
+            matrix.animateStop();
+            matrix.on("0000000000000000");
+            matrix.on('');
+            rfid.read();
+            rfid.on("enter", function(_uid) {
+                rfid._uid = _uid;
+                if (rfid._uid == '5A8F4F55') {
+                    document.getElementById("demo-area-01-show").innerHTML = document.getElementById("tarot").innerHTML;
+                    document.getElementById("content-change").style.backgroundColor = '#114165';
+                    matrix.animateStop();
+                    matrix.on("0000000000000000");
+                    matrix.on("0c1e3e7c7c3e1e0c");
+                } else if (rfid._uid == 'B613B3AB') {
+                    document.getElementById("demo-area-01-show").innerHTML = document.getElementById("tarot2").innerHTML;
+                    document.getElementById("content-change").style.backgroundColor = '#1c2f53';
+                    matrix.animateStop();
+                    matrix.on("0000000000000000");
+                    matrix.on("3c4295a1a195423c");
+                } else if (rfid._uid == 'AB5B48D5') {
+                    document.getElementById("demo-area-01-show").innerHTML = document.getElementById("tarot3").innerHTML;
+                    document.getElementById("content-change").style.backgroundColor = '#242425';
+                    matrix.animateStop();
+                    matrix.on("0000000000000000");
+                    matrix.on("995a3cffff3c5a99");
+                } else if (rfid._uid == 'F6884F55') {
+                    document.getElementById("demo-area-01-show").innerHTML = document.getElementById("tarot4").innerHTML;
+                    document.getElementById("content-change").style.backgroundColor = '#7a255f';
+                    matrix.animateStop();
+                    matrix.on("0000000000000000");
+                    matrix.on("62c7c2d8d8c2c762");                    
+                } else if (rfid._uid == '00F14F55') {
+                    document.getElementById("demo-area-01-show").innerHTML = document.getElementById("tarot5").innerHTML;
+                    document.getElementById("content-change").style.backgroundColor = '#d35f3d';
+                    matrix.animateStop();
+                    matrix.on("0000000000000000");
+                    matrix.on("62c7c2d8d8c2c762");                    
+                } else {
+                    document.getElementById("demo-area-01-show").innerHTML = rfid._uid;
+                    matrix.animateStop();
+                    matrix.on("0000000000000000");
+                    matrix.on("8142241818244281");
+                }
+                setTimeout(function () {
+                  matrix.animateStop();
+                  matrix.on("0000000000000000");
+                  matrix.on('');
+                }, 1000);
+            });
+        });
+
+        var card = document.getElementsByClassName('card');
+        for (var i = 0; i < card.length; i++) {
+          card[i].addEventListener('click', function() {
+              if (!this.classList.contains('on')) {
+                  this.classList.remove('off');
+                  this.classList.add('on');
+              } else {
+                  this.classList.remove('on');
+                  this.classList.add('off');
+              }
+          });
+        }
+
+    }());
+    </script>
+</body>
+
+</html>

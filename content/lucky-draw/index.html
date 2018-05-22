@@ -1,0 +1,135 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>Lucky Draw</title>
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="css/draw.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script src="https://webduino.io/components/webduino-js/dist/webduino-all.min.js"></script>
+    <script src="https://blockly.webduino.io/webduino-blockly.js"></script>
+    <script src="https://blockly.webduino.io/lib/firebase.js"></script>
+    <script src="https://blockly.webduino.io/lib/runtime.min.js"></script>
+</head>
+
+<body style="background-color: #f0efea;">
+    <div class="container-fuild">
+        <div class="content">
+            <div id="demo-area-01-show" class="welcome">
+                <img src="img/draw.gif" class="draw-img">
+            </div>
+            <div id="gift1" class="gift">
+                    <img src="img/gift1.png" alt="" class="img2 animated bounce">
+            </div>
+            <div id="gift2" class="gift">
+                    <img src="img/gift2.png" alt="" class="img2 animated tada">
+            </div>
+            <div id="gift3" class="gift">
+                    <img src="img/gift3.png" alt="" class="img2 animated rubberBand">
+            </div>
+            <div id="gift4" class="gift">
+                    <img src="img/gift4.png" alt="" class="img2 animated swing">
+            </div>
+            <div id="gift5" class="gift">
+                    <img src="img/gift5.png" alt="" class="img2 animated shake">
+            </div>
+            <div id="no" class="gift">
+                    <img src="img/no.png" alt="" class="img2 animated shake">
+            </div>
+        </div>
+    </div>
+    <script>
+    (function() {
+
+        var matrix;
+        var rfid;
+
+        boardReady({ device: 'jV0j' }, function(board) {
+            board.systemReset();
+            board.samplingInterval = 20;
+            matrix = getMax7219(board, 9, 8, 7);
+            rfid = getRFID(board);
+            matrix.animateStop();
+            matrix.on("0000000000000000");
+            matrix.on('');
+            rfid.read();
+            rfid.on("enter", function(_uid) {
+                rfid._uid = _uid;
+                if (rfid._uid == '36C8F813') {
+                    // document.getElementById("demo-area-01-show").innerHTML = rfid._uid;
+                    document.getElementById("demo-area-01-show").innerHTML = document.getElementById("gift1").innerHTML;
+                    // document.getElementById("content-change").style.borderColor = '#6bb6ac';
+                    // document.getElementById("demo-area-01-show").style.color = '#3333ff';
+                    matrix.animateStop();
+                    matrix.on("0000000000000000");
+                    matrix.on("0020464040462000");
+                } else if (rfid._uid == '6D31D8E5') {
+                    document.getElementById("demo-area-01-show").innerHTML = document.getElementById("gift2").innerHTML;
+                    // document.getElementById("content-change").style.borderColor = '#c35d3f';
+                    matrix.animateStop();
+                    matrix.on("0000000000000000");
+                    matrix.on("214581a0a0814521");
+                } else if (rfid._uid == '708A2083') {
+                    document.getElementById("demo-area-01-show").innerHTML = document.getElementById("gift3").innerHTML;
+                    // document.getElementById("content-change").style.borderColor = '#c35d3f';
+                    matrix.animateStop();
+                    matrix.on("0000000000000000");
+                    matrix.on("0105619090610501");
+                } else if (rfid._uid == 'B4AE2E00') {
+                    document.getElementById("demo-area-01-show").innerHTML = document.getElementById("gift4").innerHTML;
+                    // document.getElementById("content-change").style.borderColor = '#c35d3f';
+                    matrix.animateStop();
+                    matrix.on("0000000000000000");
+                    matrix.on("0185455050458501");
+                } else if (rfid._uid == 'D6CE2403') {
+                    document.getElementById("demo-area-01-show").innerHTML = document.getElementById("gift5").innerHTML;
+                    // document.getElementById("content-change").style.borderColor = '#c35d3f';
+                    matrix.animateStop();
+                    matrix.on("0000000000000000");
+                    matrix.on("3c4295a1a195423c");
+                } else if (rfid._uid == '76EE2F03') {
+                    document.getElementById("demo-area-01-show").innerHTML = document.getElementById("gift1").innerHTML;
+                    // document.getElementById("content-change").style.borderColor = '#c35d3f';
+                    matrix.animateStop();
+                    matrix.on("0000000000000000");
+                    matrix.on("3c4295a1a195423c");
+                } else if (rfid._uid == '415E932B') {
+                    document.getElementById("demo-area-01-show").innerHTML = document.getElementById("gift1").innerHTML;
+                    // document.getElementById("content-change").style.borderColor = '#c35d3f';
+                    matrix.animateStop();
+                    matrix.on("0000000000000000");
+                    matrix.on("3c4295a1a195423c");
+                } else if (rfid._uid == '36277B03') {
+                    document.getElementById("demo-area-01-show").innerHTML = document.getElementById("gift1").innerHTML;
+                    // document.getElementById("content-change").style.borderColor = '#c35d3f';
+                    matrix.animateStop();
+                    matrix.on("0000000000000000");
+                    matrix.on("3c4295a1a195423c");
+                } else {
+                    document.getElementById("demo-area-01-show").innerHTML = rfid._uid;
+                    document.getElementById("demo-area-01-show").innerHTML = document.getElementById("no").innerHTML;
+                    matrix.animateStop();
+                    matrix.on("0000000000000000");
+                    matrix.on("8142241818244281");
+                }
+
+                setTimeout(function () {
+                  $('#demo-area-01-show').html('<img src="img/draw.gif" class="draw-img">');
+                }, 3000);
+
+                setTimeout(function () {
+                  matrix.animateStop();
+                  matrix.on("0000000000000000");
+                  matrix.on('');
+                }, 1000);
+            });
+        });
+
+    }());
+    </script>
+</body>
+
+</html>

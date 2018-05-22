@@ -1,0 +1,196 @@
+* {
+    padding: 0;
+    margin: 0;
+    vertical-align: baseline;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    list-style-type: none;
+    text-decoration: none;
+}
+
+html,
+body {
+    width: 100%;
+    height: 100%;
+}
+
+body {
+    overflow-x: hidden;
+    overflow-y: auto;
+    font-size: 100%;
+    line-height: 1.5;
+    font-family: "蘋方-繁", "微軟繁黑體-標準", "微軟繁黑體-粗體", "微軟正黑體", sans-serif;
+}
+
+h1,
+h2,
+h3 {
+    line-height: 1;
+}
+
+h1 *,
+h2 *,
+h3 * {
+    font-size: 40px;
+}
+
+a {
+    display: inline-block;
+    color: inherit;
+}
+
+.cf:before,
+.cf:after {
+    content: " ";
+    display: table;
+}
+
+.cf:after {
+    clear: both;
+}
+
+.cf {
+    *zoom: 1;
+}
+
+.img-100 {
+    width: 100%;
+    display: block;
+    margin: 0;
+}
+
+
+
+
+/**/
+
+.container-fluid {
+    padding: 0;
+    margin: 0;
+}
+
+.content {
+    min-height: 100vh;
+    background-color: #114165;
+    /*border: 10px solid #6bb6ac;*/
+    overflow: hidden;
+}
+
+.title {
+    text-align: center;
+    color: #ffffff;
+}
+
+#tarot,
+#tarot2,
+#tarot3,
+#tarot4,
+#tarot5 {
+    display: none;
+}
+
+.tarot-img {
+    width: 100%;
+    margin: 0;
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    overflow-y: hidden;
+}
+
+
+
+
+/**/
+
+label {
+    -webkit-perspective: 1000px;
+    perspective: 1000px;
+    -webkit-transform-style: preserve-3d;
+    transform-style: preserve-3d;
+    display: block;
+    width: 100%;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    cursor: pointer;
+}
+
+.card {
+    position: relative;
+    height: 100%;
+    width: 100%;
+    -webkit-transform-style: preserve-3d;
+    transform-style: preserve-3d;
+    -webkit-transition: all 600ms;
+    transition: all 600ms;
+    z-index: 20;
+}
+
+.card div {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    background: #FFF;
+    text-align: center;
+    line-height: 200px;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    /* Chrome 和 Safari */
+    -moz-backface-visibility: hidden;
+    /* Firefox */
+    -ms-backface-visibility: hidden;
+    /* Internet Explorer */
+    border-radius: 2px;
+}
+
+.card img {
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    /* Chrome 和 Safari */
+    -moz-backface-visibility: hidden;
+    /* Firefox */
+    -ms-backface-visibility: hidden;
+    /* Internet Explorer */
+}
+
+.card .back {
+    -webkit-transform: rotateY(180deg);
+    transform: rotateY(180deg);
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    /* Chrome 和 Safari */
+    -moz-backface-visibility: hidden;
+    /* Firefox */
+    -ms-backface-visibility: hidden;
+    /* Internet Explorer */
+}
+
+input {
+    display: none;
+}
+
+:checked+.card {
+    transform: rotateY(180deg);
+    -webkit-transform: rotateY(180deg);
+}
+
+label:hover :checked + .card {
+    transform: rotateY(180deg);
+    -webkit-transform: rotateY(180deg);
+}
+
+
+/**/
+
+@media screen and (min-width: 700px) {
+    .tarot-img {
+        width: 35%;
+    }
+}
