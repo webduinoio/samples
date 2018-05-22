@@ -1,0 +1,204 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>PM2.5 空氣偵測顯示器</title>
+    <link rel="stylesheet" type="text/css" href="css/pm25.css">
+    <script src="https://blocklypro.webduino.io/components/jquery/dist/jquery.min.js"></script>
+    <script src="https://webduino.io/components/webduino-js/dist/webduino-all.min.js"></script>
+    <script src="https://blockly.webduino.io/webduino-blockly.js"></script>
+    <script src="https://blockly.webduino.io/lib/firebase.js"></script>
+    <script src="https://blockly.webduino.io/lib/runtime.min.js"></script>
+    <script src="https://blocklypro.webduino.io/components/webduino-module-pm25/G3.js"></script>
+    <script src="https://blocklypro.webduino.io/components/webduino-module-pm25/G3-blockly.js"></script>
+</head>
+
+<body>
+    <section>
+        <ul id="pages" class="view-container" style=" background-color: #f3f3f3">
+            <li id="pageA" style="display: block; overflow: scroll;">
+                <div class="container-fluid">
+                    <img src="img/air.png" alt="" class="air">
+                    <div style="padding: 30px">
+                        <button id="btnNext1" class="go">來測一下吧</button>
+                    </div>
+                </div>
+            </li>
+            <li id="pageB" class="page-container" style="left:100%; display:none; overflow: scroll;">
+                <div class="container-fluid section1" id="bgc">
+                    <img src="img/logo.png" alt="" class="logo">
+                    <img src="img/set.png" alt="" class="set-icon" id="btnNext2">
+                    <div class="pm25-information">
+                        <p class="title">PM2.5 濃度
+                            <br>( μg/m3 )</p>
+                        <span id="demo-area-01-show" class="pm25-value">0</span>
+                        <br>
+                        <span class="pm25-status" id="123">空氣品質狀態</span>
+                    </div>
+                </div>
+                <div class="container-fluid section2">
+                    <p>PM2.5 細懸浮微粒偵測</p>
+                </div>
+            </li>
+            <li id="pageC" class="page-container" style="left:200%;display:none; background-color: #ffffff; overflow: scroll;">
+                <div class="container-fluid setting">
+                    <img src="img/back.png" alt="" id="pageBack">
+                    <div class="setting-content">
+                        <h4>細懸浮微粒傳感器</h4>
+                        <p>接收腳位：14 ( TXD &rarr; 14 )</p>
+                        <h4>Webduino Smart 開發板 ID</h4>
+                        <input type="text" id="deviceId">
+                        
+                        <button id="connect_btn">連線</button>
+                        <span id="ready">連線狀態：未連線</span>
+                    </div>
+                    <div class="setting-content">
+                        <h4>細懸浮微粒指標對照表</h4>
+                        <p style="margin-bottom: 0;">PM2.5 濃度 (μg/m3) 及活動建議</p>
+                        <div class="row pm25-chart">
+                            <div class="col-xs-12 level-content">
+                                <div class="col-xs-4 level">
+                                    <div class="l1"><p>0~11</p></div>
+                                    <div class="l2"><p>12~23</p></div>
+                                    <div class="l3"><p>24~35</p></div>
+                                </div>
+                                <div class="col-xs-8 level-discription">
+                                    <div>
+                                        <ul>
+                                            <li>空氣品質：良好</li>
+                                            <li>一般民眾：正常戶外活動</li>
+                                            <li>敏感族群：正常戶外活動</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-12 level-content2">
+                                <div class="col-xs-4 level">
+                                    <div class="l4"><p>36~41</p></div>
+                                    <div class="l5"><p>42~47</p></div>
+                                    <div class="l6"><p>48~53</p></div>
+                                </div>
+                                <div class="col-xs-8 level-discription">
+                                    <div>
+                                        <ul>
+                                            <li>空氣品質：尚可</li>
+                                            <li>一般民眾：正常戶外活動</li>
+                                            <li>敏感族群：減少體力消耗及戶外活動</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-12 level-content3">
+                                <div class="col-xs-4 level">
+                                    <div class="l7"><p>54~58</p></div>
+                                    <div class="l8"><p>59~64</p></div>
+                                    <div class="l9"><p>65~70</p></div>
+                                </div>
+                                <div class="col-xs-8 level-discription">
+                                    <div>
+                                        <ul>
+                                            <li>空氣品質：不健康</li>
+                                            <li>一般民眾：減少戶外活動</li>
+                                            <li>敏感族群：減少體力消耗，特別是戶外活動</li>
+                                            <li>氣喘族群：需增加使用吸入劑頻率</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-12 level-content4">
+                                <div class="col-xs-4 level">
+                                    <div class="l10"><p>71 以上</p></div>
+                                </div>
+                                <div class="col-xs-8 level-discription">
+                                    <div>
+                                        <ul>
+                                            <li>空氣品質：危害</li>
+                                            <li>一般民眾：減少體力消耗，特別是戶外活動</li>
+                                            <li>敏感族群：避免體力消耗及戶外活動</li>
+                                            <li>氣喘族群：需增加使用吸入劑頻率</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </section>
+    <script>
+    (function() {
+        var g3;
+        var deviceId = $('#deviceId'),
+            connect_btn = $('#connect_btn'),
+            ready = $('#ready');
+
+        if (localStorage.boardName) {
+            deviceId.val(localStorage.boardName);
+        }
+
+        connect_btn.on('click', function() {
+            localStorage.boardName = deviceId.val();
+            boardReady(deviceId.val(), function(board) {
+                board.systemReset();
+                board.samplingInterval = 250;
+                document.getElementById("ready").innerHTML = (['連線狀態：已連線'].join(''));
+                g3 = getG3(board, 14, 3);
+                g3.read(function(evt) {
+                    if (g3.pm10 <= 11) {
+                        document.getElementById("demo-area-01-show").innerHTML = ([g3.pm10].join(''));
+                        document.getElementById("123").innerHTML = (['空氣品質：良好'].join(''));
+                        document.getElementById("bgc").style.backgroundColor = '#89C541';
+                    } else if (g3.pm10 <= 23) {
+                        document.getElementById("demo-area-01-show").innerHTML = ([g3.pm10].join(''));
+                        document.getElementById("123").innerHTML = (['空氣品質：尚可'].join(''));
+                        document.getElementById("bgc").style.backgroundColor = '#48B04B';
+                    } else if (g3.pm10 <= 35) {
+                        document.getElementById("demo-area-01-show").innerHTML = ([g3.pm10].join(''));
+                        document.getElementById("123").innerHTML = (['空氣品質：良好'].join(''));
+                        document.getElementById("bgc").style.backgroundColor = '#388E3C';
+                    } else if (g3.pm10 <= 41) {
+                        document.getElementById("demo-area-01-show").innerHTML = ([g3.pm10].join(''));
+                        document.getElementById("123").innerHTML = (['空氣品質：尚可'].join(''));
+                        document.getElementById("bgc").style.backgroundColor = '#FCD700';
+                    } else if (g3.pm10 <= 47) {
+                        document.getElementById("demo-area-01-show").innerHTML = ([g3.pm10].join(''));
+                        document.getElementById("123").innerHTML = (['空氣品質：尚可'].join(''));
+                        document.getElementById("bgc").style.backgroundColor = '#FFC107';
+                    } else if (g3.pm10 <= 53) {
+                        document.getElementById("demo-area-01-show").innerHTML = ([g3.pm10].join(''));
+                        document.getElementById("123").innerHTML = (['空氣品質：尚可'].join(''));
+                        document.getElementById("bgc").style.backgroundColor = '#FF9800';
+                    } else if (g3.pm10 <= 58) {
+                        document.getElementById("demo-area-01-show").innerHTML = ([g3.pm10].join(''));
+                        document.getElementById("123").innerHTML = (['空氣品質：不健康'].join(''));
+                        document.getElementById("bgc").style.backgroundColor = '#FF5252';
+                    } else if (g3.pm10 <= 64) {
+                        document.getElementById("demo-area-01-show").innerHTML = ([g3.pm10].join(''));
+                        document.getElementById("123").innerHTML = (['空氣品質：不健康'].join(''));
+                        document.getElementById("bgc").style.backgroundColor = '#F44336';
+                    } else if (g3.pm10 <= 70) {
+                        document.getElementById("demo-area-01-show").innerHTML = ([g3.pm10].join(''));
+                        document.getElementById("123").innerHTML = (['空氣品質：不健康'].join(''));
+                        document.getElementById("bgc").style.backgroundColor = '#D32F2F';
+                    } else if (g3.pm10 > 71) {
+                        document.getElementById("demo-area-01-show").innerHTML = ([g3.pm10].join(''));
+                        document.getElementById("123").innerHTML = (['空氣品質：危害'].join(''));
+                        document.getElementById("bgc").style.backgroundColor = '#9D1CB2';
+                    } else {
+                        document.getElementById("demo-area-01-show").innerHTML = ([g3.pm10].join(''));
+                        document.getElementById("123").innerHTML = (['空氣品質：危害'].join(''));
+                        document.getElementById("bgc").style.backgroundColor = '#9D1CB2';
+                    }
+                }, 1000); //g3.read
+            }); //boardready 
+        }); //connect_btn  
+    }());
+    </script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="js/slider.js"></script>
+</body>
+
+</html>
