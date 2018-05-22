@@ -1,72 +1,299 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-
-  <meta charset="utf-8">
-  <meta name="description" content="Webduino code samples">
-  <meta name="viewport" content="width=device-width, user-scalable=yes, initial-scale=1, maximum-scale=1">
-  <meta itemprop="description" content="Client-side Webduino code samples">
-  <meta itemprop="name" content="Webduino code samples">
-  <meta name="mobile-web-app-capable" content="yes">
-
-  <base target="_blank">
-
-  <title>Webduino samples</title>
-
-  <style>
+    <meta charset="utf-8">
+    <meta name="description" content="Webduino code samples">
+    <meta name="viewport" content="width=device-width, user-scalable=yes, initial-scale=1, maximum-scale=1">
+    <meta itemprop="description" content="Client-side Webduino code samples">
+    <meta itemprop="name" content="Webduino code samples">
+    <meta name="mobile-web-app-capable" content="yes">
+    <link rel="stylesheet" type="text/css" href="samples.css" media="screen">
+    <base target="_blank">
+    <title>Webduino samples</title>
+    <style>
     h2 {
-      font-size: 1.5em;
-      font-weight: 500;
+        font-size: 1.5em;
+        font-weight: 500;
     }
+
     h3 {
-      border-top: none;
+        border-top: none;
     }
+
     section {
-      border-bottom: 1px solid #eee;
-      margin: 0 0 1.5em 0;
-      padding: 0 0 1.5em 0;
+        border-bottom: 1px solid #eee;
+        margin: 0 0 1.5em 0;
+        padding: 0 0 1.5em 0;
     }
+
     section:last-child {
-      border-bottom: none;
-      margin: 0;
-      padding: 0;
+        border-bottom: none;
+        margin: 0;
+        padding: 0;
     }
-  </style>
+    </style>
 </head>
+
 <body>
-  <div id="container">
+    <header class="container">
+        <img src="img/logo.png" alt="">
+        <h2>範例大集合</h2>
+    </header>
+    <div class="container">
+        <hr>
+    </div>
+    <div style="width: 100%;">
+        <div id="myBtnContainer" class="container">
+            <button class="btn active" onclick="filterSelection('all')"> 全部</button>
+            <button class="btn" onclick="filterSelection('tools')"> 小工具</button>
+            <button class="btn" onclick="filterSelection('samples')"> 應用範例</button>
+        </div>
+        <!-- Portfolio Gallery Grid -->
+        <div class="container">
+            <div class="column samples">
+                <a href="http://webduinoio.github.io/samples/content/dogyear/" target="_blank">
+                    <div class="content">
+                        <img src="img/dog-newyear.jpg" alt="sample" style="width:100%">
+                        <h4>狗年吉祥話</h4>
+                        <h4>Dog New Year</h4>
+                    </div>
+                </a>
+            </div>
+            <div class="column samples">
+                <a href="http://webduinoio.github.io/samples/content/dogyear/riddle.html" target="_blank">
+                    <div class="content">
+                        <img src="img/riddle.jpg" alt="sample" style="width:100%">
+                        <h4>元宵猜謎趣</h4>
+                        <h4>New Year Riddle</h4>
+                    </div>
+                </a>
+            </div>
+            <div class="column samples">
+                <a href="https://birteliu.github.io/pm2.5/index.html" target="_blank">
+                    <div class="content">
+                        <img src="img/pm25.jpg" alt="sample" style="width:100%">
+                        <h4>PM2.5 空氣偵測器</h4>
+                        <h4>PM2.5 Air Detector</h4>
+                    </div>
+                </a>
+            </div>
+            <div class="column samples">
+                <a href="https://birteliu.github.io/fortune/index.html" target="_blank">
+                    <div class="content">
+                        <img src="img/tarot.jpg" alt="sample" style="width:100%">
+                        <h4>RFID 塔羅牌</h4>
+                        <h4>RFID Tarot</h4>
+                    </div>
+                </a>
+            </div>
+            <div class="column samples">
+                <a href="http://webduinoio.github.io/samples/content/insect/index.html#DiviceID" target="_blank">
+                    <div class="content">
+                        <img src="img/hexapod.jpg" alt="sample" style="width:100%">
+                        <h4>六足昆蟲機器人</h4>
+                        <h4>Hexapod Robot</h4>
+                    </div>
+                </a>
+            </div>
+            <div class="column samples">
+                <a href="http://webduinoio.github.io/samples/content/car/smart-car.html#DeviceID" target="_blank">
+                    <div class="content">
+                        <img src="img/mobile-control-car.jpg" alt="sample" style="width:100%">
+                        <h4>遙控自走車 ( Smart )</h4>
+                        <h4>Robot Car Controller</h4>
+                    </div>
+                </a>
+            </div>
+            <div class="column samples">
+                <a href="http://webduinoio.github.io/samples/content/car/mobile.html#DeviceID" target="_blank">
+                    <div class="content">
+                        <img src="img/mobile-control-car.jpg" alt="sample" style="width:100%">
+                        <h4>遙控自走車 ( 馬克一號 )</h4>
+                        <h4>Robot Car Controller</h4>
+                    </div>
+                </a>
+            </div>
+            <div class="column tools">
+                <a href="http://webduinoio.github.io/samples/content/oled/converter.html" target="_blank">
+                    <div class="content">
+                        <img src="img/oled.jpg" alt="tool" style="width:100%">
+                        <h4>OLED 圖片轉換器</h4>
+                        <h4>OLED Image Converter</h4>
+                    </div>
+                </a>
+            </div>
+            <div class="column samples">
+                <a href="https://webduinoio.github.io/samples/content/trump-hair/ultrasonic.html" target="_blank">
+                    <div class="content">
+                        <img src="img/trumphair-ultrasonic.jpg" alt="sample" style="width:100%">
+                        <h4>川普吹頭髮 - 超音波</h4>
+                        <h4>Trump's Hair - Ultrasonic</h4>
+                    </div>
+                </a>
+            </div>
+            <div class="column samples">
+                <a href="https://webduinoio.github.io/samples/content/trump-hair/sound.html" target="_blank">
+                    <div class="content">
+                        <img src="img/trumphair-sound.jpg" alt="sample" style="width:100%">
+                        <h4>川普吹頭髮 - 聲音感測</h4>
+                        <h4>Trump's Hair - Sound</h4>
+                    </div>
+                </a>
+            </div>
+            <div class="column tools">
+                <a href="http://webduinoio.github.io/samples/content/line-following-robot/" target="_blank">
+                    <div class="content">
+                        <img src="img/following-car.jpg" alt="tool" style="width:100%">
+                        <h4>循跡自走車</h4>
+                        <h4>Line Following Robot</h4>
+                    </div>
+                </a>
+            </div>
+            <div class="column samples">
+                <a href="http://webduinoio.github.io/samples/content/googlemaps/button-led/" target="_blank">
+                    <div class="content">
+                        <img src="img/ledgooglemap.jpg" alt="sample" style="width:100%">
+                        <h4>Google Map 點亮 LED 燈</h4>
+                        <h4>LED with Google Map</h4>
+                    </div>
+                </a>
+            </div>
+            <div class="column samples">
+                <a href="http://webduinoio.github.io/samples/content/googlesheets/button-led/" target="_blank">
+                    <div class="content">
+                        <img src="img/ledgooglesheets.jpg" alt="sample" style="width:100%">
+                        <h4>網頁點燈 + Google 試算表紀錄</h4>
+                        <h4>LED with Google Sheets</h4>
+                    </div>
+                </a>
+            </div>
+            <div class="column samples">
+                <a href="http://webduinoio.github.io/demo/firebase-im/" target="_blank">
+                    <div class="content">
+                        <img src="img/firebaseim.jpg" alt="sample" style="width:100%">
+                        <h4>Webduino IoT 聊天室</h4>
+                        <h4>Firebase IM</h4>
+                    </div>
+                </a>
+            </div>
+            <div class="column tools">
+                <a href="http://webduinoio.github.io/demo/max7219/" target="_blank">
+                    <div class="content">
+                        <img src="img/maxmatrix.jpg" alt="tool" style="width:100%">
+                        <h4>LED 點矩陣代碼產生器</h4>
+                        <h4>Matrix Code Generator</h4>
+                    </div>
+                </a>
+            </div>
+            <div class="column tools">
+                <a href="http://webduinoio.github.io/samples/content/buzzer-piano/" target="_blank">
+                    <div class="content">
+                        <img src="img/buzzer-piano.jpg" alt="tool" style="width:100%">
+                        <h4>蜂鳴器鋼琴</h4>
+                        <h4>Buzzer Virtual Piano</h4>
+                    </div>
+                </a>
+            </div>
+            <div class="column tools">
+                <a href="http://webduinoio.github.io/samples/content/rgbled-palette/" target="_blank">
+                    <div class="content">
+                        <img src="img/rgbled.jpg" alt="tool" style="width:100%">
+                        <h4>三色 LED 調色盤</h4>
+                        <h4>RGB LED Palette</h4>
+                    </div>
+                </a>
+            </div>
+            <div class="column samples">
+                <a href="http://webduinoio.github.io/demo/max7219-happynewyear/" target="_blank">
+                    <div class="content">
+                        <img src="img/2016newyear.jpg" alt="sample" style="width:100%">
+                        <h4>過年測字遊戲</h4>
+                        <h4>Max7219 Chinese New Year</h4>
+                    </div>
+                </a>
+            </div>
+            <div class="column samples">
+                <a href="http://webduinoio.github.io/samples/content/controller/" target="_blank">
+                    <div class="content">
+                        <img src="img/smart-home.jpg" alt="sample" style="width:100%">
+                        <h4>智慧家庭</h4>
+                        <h4>Smart Home Controller</h4>
+                    </div>
+                </a>
+            </div>
+            <div class="column samples">
+                <a href="http://webduinoio.github.io/samples/content/toycar/" target="_blank">
+                    <div class="content">
+                        <img src="img/controller.jpg" alt="sample" style="width:100%">
+                        <h4>飛天魚手機遙控器</h4>
+                        <h4>Controller</h4>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+    <footer>
+      <div class="container">
+        <div class="line"></div>
+        <div class="w-50">
+          <p>2018 Webduino All Rights Reserved.</p>
+        </div>
+        <div class="w-50">
+          <a href="https://www.facebook.com/webduino" target="_blank"><img src="img/facebook.png" alt=""></a>
+          <a href="https://webduino.io/" target="_blank"><img src="img/globe.png" alt=""></a>
+        </div>
+      </div>
+    </footer>
+    <script>
+    filterSelection("all") // Execute the function and show all columns
+    function filterSelection(c) {
+        var x, i;
+        x = document.getElementsByClassName("column");
+        if (c == "all") c = "";
+        // Add the "show" class (display:block) to the filtered elements, and remove the "show" class from the elements that are not selected
+        for (i = 0; i < x.length; i++) {
+            w3RemoveClass(x[i], "show");
+            if (x[i].className.indexOf(c) > -1) w3AddClass(x[i], "show");
+        }
+    }
 
-    <h1>Webduino samples</h1>
+    // Show filtered elements
+    function w3AddClass(element, name) {
+        var i, arr1, arr2;
+        arr1 = element.className.split(" ");
+        arr2 = name.split(" ");
+        for (i = 0; i < arr2.length; i++) {
+            if (arr1.indexOf(arr2[i]) == -1) {
+                element.className += " " + arr2[i];
+            }
+        }
+    }
 
-    <section>
+    // Hide elements that are not selected
+    function w3RemoveClass(element, name) {
+        var i, arr1, arr2;
+        arr1 = element.className.split(" ");
+        arr2 = name.split(" ");
+        for (i = 0; i < arr2.length; i++) {
+            while (arr1.indexOf(arr2[i]) > -1) {
+                arr1.splice(arr1.indexOf(arr2[i]), 1);
+            }
+        }
+        element.className = arr1.join(" ");
+    }
 
-      <h2 id="the-demos">The demos</h2>
-
-      <p><a href="http://webduinoio.github.io/samples/content/led/index.html">控制單顆 LED</a></p>
-
-      <p><a href="http://webduinoio.github.io/samples/content/led-two/index.html">兩顆 LED 交互閃動</a></p>
-
-      <p><a href="http://webduinoio.github.io/samples/content/rgbled/index.html">控制三色 LED</a></p>
-
-      <p><a href="http://webduinoio.github.io/samples/content/rgbled-palette/index.html">三色 LED 調色盤</a></p>
-
-      <p><a href="http://webduinoio.github.io/samples/content/ultrasonic/index.html">控制超音波傳感器</a></p>
-
-      <p><a href="http://webduinoio.github.io/samples/content/ultrasonic-picture/index.html">超音波傳感器改變圖片大小</a></p>
-
-      <p><a href="http://webduinoio.github.io/samples/content/ultrasonic-led/index.html">超音波傳感器 + LED</a></p>
-
-      <p><a href="http://webduinoio.github.io/samples/content/ultrasonic-rgbled/index.html">超音波傳感器 + 三色 LED</a></p>
-
-      <p><a href="http://webduinoio.github.io/samples/content/button-led/index.html">按鈕 + LED</a></p>
-
-      <p><a href="http://webduinoio.github.io/samples/content/oled/canvasMQTT.html#ID">OLED (填上ID)</a></p>
-
-    </section>
-
-    <a href="https://github.com/webduinoio/samples" title="View the repository" id="viewSource">github.com/webduinoio/samples</a>
-
-  </div>
-
+    // Add active class to the current button (highlight it)
+    var btnContainer = document.getElementById("myBtnContainer");
+    var btns = btnContainer.getElementsByClassName("btn");
+    for (var i = 0; i < btns.length; i++) {
+        btns[i].addEventListener("click", function() {
+            var current = document.getElementsByClassName("active");
+            current[0].className = current[0].className.replace(" active", "");
+            this.className += " active";
+        });
+    }
+    </script>
 </body>
+
 </html>
