@@ -1,0 +1,47 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <title>Webduino Blockly Demo 09</title>
+  <link rel="stylesheet" type="text/css" href="index.css">
+  <script src="https://blocklypro.webduino.io/components/jquery/dist/jquery.min.js?rev=4a356126b9573eb7bd1e9a7494737410"></script>
+  <script src="https://blocklypro.webduino.io/dist/lib/webduino-all-0.4.20.min.js?rev=4426739c00d85325cb2d3d701fa50666"></script>
+  <script src="https://blocklypro.webduino.io/dist/webduino-blockly.min.js?rev=6a9037f813da79372168951bbfeafb49"></script>
+  <script src="https://blocklypro.webduino.io/dist/lib/runtime.min.js?rev=683a69503433786202911b4d9f766100"></script>
+</head>
+
+<body>
+  <div>
+    <div id="demo-area-09" class="da">
+      <div id="demo-area-09-content">
+        <div id="demo-area-09-controller">
+          <div class="demo-area-09-btn btn-power">○</div>
+          <div class="demo-area-09-btn btn-show">顯示</div>
+          <div class="demo-area-09-btn-group btn-direction-group">
+            <canvas id='c1' width='360' height='280'></canvas>
+          </div>
+          <input type="range" min="0" max="180" step="5" value="90" class="demo-area-09-input">
+          <div class="demo-area-09-btn-group btn-direction-group">
+            <div class="demo-area-09-btn btn-up">▲</div>
+            <br>
+            <div class="demo-area-09-btn btn-left">◀</div>
+            <div class="demo-area-09-btn btn-center">●</div>
+            <div class="demo-area-09-btn btn-right">▶</div>
+            <br>
+            <div class="demo-area-09-btn btn-down">▼</div>
+          </div>
+          <div class="demo-area-09-btn-group btn-menu-group">
+            <div class="demo-area-09-btn btn-color1"></div>
+            <div class="demo-area-09-btn btn-color2"></div>
+            <div class="demo-area-09-btn btn-color3"></div>
+            <div class="demo-area-09-btn btn-color4"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script type="text/javascript" src='camera.js'></script>
+  <script type="text/javascript" src='index.js'></script>
+</body>
