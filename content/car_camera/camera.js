@@ -3,22 +3,15 @@ let Camera = (function () {
   const wsCam = 1;
   const jpgCam = 2;
   const imgStreamCam = 3;
-  /*
-    var cam = new Camera(0); // camType 0 , 1 , 2 ...
-    // get jpeg from url
-    var cam = new Camera('http://192.168.0.11/jpg');
-    // use raspberryPi camera (rws service)
-    var cam = new Camera('ws://192.168.43.110:8889/rws/ws'); 
 
-    cam.onCanvas('c1', function (c) {
-      console.log("canvas:", c);
-    });
-  */
   class Camera {
     // webCam: 0,1,2
     // jpgCam: http://192.168.0.11/jpg
     // wsCam:  ws://192.168.43.110:8889/rws/ws
     constructor(camType) {
+      if (arguments.length == 0) {
+        camType = 0;
+      }
       this.setCamType(camType);
       this.setFlip(false);
     }
@@ -45,18 +38,28 @@ let Camera = (function () {
 
     setRotate(bool) {
       this.rotate = bool;
+      return this;
     }
 
     setFlip(bool) {
       this.flip = bool;
+      return this;
     }
 
-    enumerateDevices() {
+    list(callback) {
+      var self = this;
+      this.enumerateDevices(function () {
+        callback(self.cameraList);
+      });
+    }
+
+    enumerateDevices(cb) {
       var self = this;
       return new Promise(function (resolve, reject) {
         navigator.mediaDevices.enumerateDevices()
           .then(function (o) {
             self.gotDevices(self, o);
+            if (cb) cb();
             resolve();
           }).catch(self.handleError);
       });
@@ -134,9 +137,10 @@ let Camera = (function () {
       if (param > 0) {
         camSnapshotDelay = parseFloat(this.URL.substring(param + 1)) * 1000;
         this.URL = this.URL.substring(0, param);
+      } else {
+        camSnapshotDelay = camSnapshotDelay * 1000;
       }
       image.src = this.URL;
-      console.log("camSnapshotDelay:",camSnapshotDelay);
       image.onload = function () {
         setTimeout(function () {
           if (typeof callback == 'function') {
@@ -163,7 +167,7 @@ let Camera = (function () {
                 ctx.drawImage(video, 0, 0, video.videoWidth, video.videoHeight,
                   0, 0, canvas.width, canvas.height);
                 if (typeof callback == 'function') {
-                  callback(canvas);
+                  callback(canvas, video);
                 }
                 requestAnimationFrame(loop);
               }
@@ -186,22 +190,25 @@ let Camera = (function () {
           case imgStreamCam:
             var ele = document.createElement('img');
             ele.src = self.URL;
-            //ele.setAttribute("crossOrigin", 'Anonymous');
+            ele.setAttribute("crossOrigin", 'Anonymous');
             ele.style.display = 'none';
             document.getElementsByTagName("body")[0].append(ele);
             var ctx = canvas.getContext('2d');
             var loop = function () {
-             // ctx.drawImage(ele, 0, 0, ele.width, ele.height,0, 0, canvas.width, canvas.height);
-             self.drawRotated(canvas, ele, self.rotate);
-              if (typeof callback == 'function') {
-                callback(canvas, ele);
-              }
+              // ctx.drawImage(ele, 0, 0, ele.width, ele.height,0, 0, canvas.width, canvas.height);
+              try {
+                self.drawRotated(canvas, ele, self.rotate);
+                if (typeof callback == 'function') {
+                  callback(canvas);
+                }
+              } catch (e) { console.log("img err:", e) };
               requestAnimationFrame(loop);
             }
             requestAnimationFrame(loop);
             break;
         }
       });
+      return this;
     }
 
     toVideo(eleOrId) {
@@ -227,9 +234,15 @@ let Camera = (function () {
       context.rotate(degrees * Math.PI / 180);
       var w = (canvas.width - image.width) / 2;
       var h = (canvas.height - image.height) / 2;
-      context.drawImage(image,
-        (-image.width / 2) - w, (-image.height / 2) - h,
-        canvas.width, canvas.height);
+      if (degrees != 0) {
+        context.drawImage(image,
+          (-image.height / 2) - h, (-image.width / 2) - w,
+          canvas.height, canvas.width);
+      } else {
+        context.drawImage(image,
+          (-image.width / 2) - w, (-image.height / 2) - h,
+          canvas.width, canvas.height);
+      }
       context.restore();
     }
 
