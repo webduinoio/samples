@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://blocklypro.webduino.io/components/jquery/dist/jquery.min.js?rev=4a356126b9573eb7bd1e9a7494737410"></script>
+  <script src="https://blocklypro.webduino.io/dist/lib/webduino-all-0.4.20.min.js?rev=4426739c00d85325cb2d3d701fa50666"></script>
+  <script src="https://blocklypro.webduino.io/dist/webduino-blockly.min.js?rev=736fa9a2fba9fa461db7c329f6651493"></script>
+  <script src="https://blocklypro.webduino.io/dist/lib/firebase.min.js?rev=c0bfd493efd477d098a4ae9e92b13880"></script>
+  <script src="https://blocklypro.webduino.io/dist/lib/runtime.min.js?rev=683a69503433786202911b4d9f766100"></script>
+</head>
+<style>
+html,
+body {
+  font-family:'Verdana';
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+  background:#f9c728;
+}
+
+#title{
+  background:#f1553f;
+  text-align:center;
+  font-size:40px;
+  line-height:60px;
+  font-weight:bold;
+  width:96%;
+  color:#fff;
+  border-radius:5px;
+  margin:5% 2% 10% 2%; 
+}
+
+#biabagroup{
+  display:block;
+  position:relative;
+  width:100%;
+  height:70%;
+  margin:auto;
+}
+
+#demo-area-01-show { 
+  display:block;
+  position:relative;
+  width:100%;
+  color:#fff;
+  font-size:10vw;
+  text-align:center;
+  line-height:820%;
+  pointer-events: auto!important;
+  margin:auto;
+  z-index:1;
+}
+
+#ba {
+  display:block;
+  position:absolute;
+  width:100%;
+  margin:auto;
+  z-index:0;
+}
+
+@media (max-width:480px){
+  #title{
+    font-size:35px;
+    height:55px;
+    line-height:55px;
+  } 
+}
+
+@media (max-width:400px){
+  #title{  
+    font-size:30px;
+    height:50px;
+    line-height:50px;
+  } 
+}</style>
+<body>
+        <div id="title">擊中次數</div>
+        <div id="biabagroup">
+          <img src="https://i.imgur.com/K5BaXfe.png" id="ba" >
+          <span id="demo-area-01-show">0次</span></div> 
+          <script>(async function () {
+
+                var led;
+                var servo;
+                var photocell;
+                var light;
+                var count;
+                var mode;
+                
+                
+                boardReady({device: 'DnEJ'}, async function (board) {
+                  board.samplingInterval = 250;
+                  led = getLed(board, 11);
+                  servo = getServo(board, 6);
+                  photocell = getPhotocell(board, 3);
+                  light = 0;
+                  count = 0;
+                  mode = 0;
+                  photocell.measure(async function (val) {
+                    photocell.detectedVal = val;
+                    light = photocell.detectedVal;
+                    document.getElementById('demo-area-01-show').innerHTML = (String(count) + String('次'));
+                    if (light > 0.5 && mode == 0) {
+                      mode = 1;
+                      servo.angle = 5;
+                      led.on();
+                      await delay(1);
+                      servo.angle = 90;
+                      led.off();
+                      count = count + 1;
+                      mode = 0;
+                    }
+                  });
+                });
+                
+                }());</script> 
+</body>
+</html>
