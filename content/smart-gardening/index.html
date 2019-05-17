@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+
+  <script
+    src="https://blocklypro.webduino.io/components/jquery/dist/jquery.min.js?rev=4a356126b9573eb7bd1e9a7494737410"></script>
+  <script
+    src="https://blocklypro.webduino.io/dist/lib/webduino-all-0.4.20.min.js?rev=4426739c00d85325cb2d3d701fa50666"></script>
+  <script
+    src="https://blocklypro.webduino.io/dist/webduino-blockly.min.js?rev=736fa9a2fba9fa461db7c329f6651493"></script>
+  <script src="https://blocklypro.webduino.io/dist/lib/firebase.min.js?rev=c0bfd493efd477d098a4ae9e92b13880"></script>
+  <script src="https://blocklypro.webduino.io/dist/lib/runtime.min.js?rev=683a69503433786202911b4d9f766100"></script>
+
+  <style>
+    html,
+    body {
+      font-family: 'Verdana';
+      background: #c3e058;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+    }
+
+    #gdtitle {
+      background: #2e6d3d;
+      color: #fff;
+      font-size: 34px;
+      text-align: center;
+      font-weight: bold;
+      line-height: 60px;
+      border-radius: 5px;
+    }
+
+    #gdetitle {
+      color: #2e6d3d;
+      font-size: 32px;
+      text-align: center;
+      font-weight: bold;
+      margin: 5px 0px 20px 0px;
+    }
+
+    #demo-area-09-controller {
+      position: relative;
+      box-sizing: border-box;
+      width: 100%;
+      margin: auto;
+      pointer-events: auto !important;
+    }
+
+    .gdimg {
+      display: block;
+      margin: auto;
+      margin-bottom: 10px;
+      width: 80%;
+    }
+
+    .demo-area-09-btn.btn-show {
+      background: #357;
+      display: block;
+      width: calc(90% - 1px);
+      text-align: center;
+      color: #fff;
+      margin: auto;
+      margin-bottom: 20px;
+      cursor: default;
+      overflow: hidden;
+    }
+
+    .demo-area-09-btn {
+      position: relative;
+      display: inline-block;
+      width: calc(46% - 9px);
+      height: 50px;
+      background: #2e6d3d;
+      margin: 3px 1px;
+      text-align: center;
+      line-height: 50px;
+      border: 0px;
+      border-radius: 5px;
+      outline: none;
+      pointer-events: auto !important;
+      color: #fff;
+      font-size: 22px;
+      cursor: pointer;
+    }
+
+    .demo-area-09-btn:hover {
+      box-shadow: 1px 1px 3px #888;
+    }
+
+    .demo-area-09-btn:active {
+      background: #3eb61b;
+    }
+
+    .demo-area-09-btn:focus {
+      background: #3eb61b;
+    }
+
+    .btn-num3 {
+      position: relative;
+      display: block;
+      margin: auto;
+      margin-top: 5px;
+      width: calc(90% - 4px);
+    }
+
+    .demo-area-09-btn-group {
+      width: 100%;
+      text-align: center;
+    }
+
+    @media (max-width:480px) {
+      .demo-area-09-btn {
+        height: 50px;
+        line-height: 50px;
+        font-size: 20px;
+      }
+
+      #gdtitle {
+        line-height: 45px;
+        font-size: 30px;
+      }
+
+      #gdetitle {
+        font-size: 28px;
+      }
+
+      .demo-area-09-btn.btn-show {
+        line-height: 50px;
+        height: 50px;
+      }
+    }
+
+    @media (max-width:400px) {
+      .demo-area-09-btn {
+        height: 45px;
+        line-height: 45px;
+        font-size: 18px;
+      }
+
+      #gdtitle {
+        line-height: 45px;
+        font-size: 28px;
+      }
+
+      #gdetitle {
+        font-size: 26px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div>
+    <div id="demo-area-09" class="da">
+      <div id="gdtitle">智慧植栽</div>
+      <div id="gdetitle">Smart Gardening</div>
+      <div id="demo-area-09-content">
+        <div id="demo-area-09-controller">
+          <img src="https://i.imgur.com/6Xqu5Co.png" class="gdimg">
+          <div class="demo-area-09-btn-group btn-number-group">
+            <div class="demo-area-09-btn btn-show">土壤濕度狀態(%)</div>
+            <button class="demo-area-09-btn btn-num1">澆水</button>
+            <div class="demo-area-09-btn btn-num2">停止</div>
+            <button class="demo-area-09-btn btn-num3">自動</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>
