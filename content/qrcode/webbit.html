@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>WebBit - FB QRCode</title>
+</head>
+
+<body>
+  <h1 id="h"></h1>
+  <script>
+    const fbID = '2320707257991178';
+    const androidUrl = `fb://page/${fbID}`;
+    const iphoneUrl = `fb://page/?id=${fbID}`;
+    const userAgent = navigator.userAgent.toLowerCase();
+    if (userAgent.indexOf('android') > -1) {
+      window.location.replace(androidUrl);
+    }
+    if (userAgent.indexOf('ipad') > -1 || userAgent.indexOf('iphone') > -1) {
+      window.location.replace(iphoneUrl);
+    }
+  </script>
+</body>
+
+</html>
