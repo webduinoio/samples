@@ -17,9 +17,10 @@
     const userAgent = navigator.userAgent.toLowerCase();
     if (userAgent.indexOf('android') > -1) {
       window.location.replace(androidUrl);
-    }
-    if (userAgent.indexOf('ipad') > -1 || userAgent.indexOf('iphone') > -1) {
+    }else if (userAgent.indexOf('ipad') > -1 || userAgent.indexOf('iphone') > -1) {
       window.location.replace(iphoneUrl);
+    }else{
+      window.location.replace('https://www.facebook.com/pg/webbit.edu/');
     }
   </script>
 </body>
