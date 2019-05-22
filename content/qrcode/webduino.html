@@ -5,12 +5,12 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>WebBit - FB QRCode</title>
+  <title>Webduino - FB QRCode</title>
 </head>
 
 <body>
   <script>
-    const fbID = '2320707257991178';
+    const fbID = '420729678092229';
     const androidUrl = `fb://page/${fbID}`;
     const iphoneUrl = `fb://page/?id=${fbID}`;
     const userAgent = navigator.userAgent.toLowerCase();
@@ -19,7 +19,7 @@
     }else if (userAgent.indexOf('ipad') > -1 || userAgent.indexOf('iphone') > -1) {
       window.location.replace(iphoneUrl);
     }else{
-      window.location.replace('https://www.facebook.com/webbit.edu/');
+      window.location.replace('https://www.facebook.com/webduino/');
     }
   </script>
 </body>
