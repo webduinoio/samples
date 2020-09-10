@@ -1,0 +1,1 @@
+!function(w,n){"use strict";w.Nuwa=new n.module.Nuwa}(window,window.webduino);
