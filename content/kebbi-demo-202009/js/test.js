@@ -210,7 +210,7 @@
   async function run(ele, msg, text) {
     divHidden();
     console.log(text);
-    await Nuwa.say(`你是${m1}，${m2}`);
+    await Nuwa.say(text);
     ele.className = '';
     ele.classList.add('run');
     ele.removeAttribute('hidden');
