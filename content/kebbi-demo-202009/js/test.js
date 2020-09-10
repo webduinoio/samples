@@ -1,16 +1,25 @@
 !async function () {
-  console.log(window.Nuwa);
-  //window.Nuwa.say('測試一下');
+  const Nuwa = window.Nuwa;
 
   function lottery() {
-    let result = [];
-    for (let i = 0; i < 6; i++) {
-      let num = ~~(Math.random() * 49);
+    this.result = [];
+    this.cal = function () {
+      let num = ~~(Math.random() * 49) + 1;
+      let result = this.result;
       if (!result.includes(num)) {
-        result.push(num);
+        this.result.push(num);
+      }
+      if (result.length < 6) {
+        this.cal();
+      }
+      else{
+        this.resultt = result.sort((x,y) => x - y);
       }
     }
-    return result.sort((x, y) => x - y);
   }
-  window.Nuwa.say(lottery());
+
+  let a = new lottery();
+  a.cal();
+  console.log(a.result);
+  Nuwa.say(a.result.join(','));
 }();
