@@ -7,6 +7,10 @@ body {
   font-size: 16px;
 }
 
+body{
+  background:url(../img/bg.jpg);
+}
+
 body * {
   position: relative;
   box-sizing: border-box;

@@ -134,6 +134,7 @@
         run(lucky, luckyMsg, '你的運勢如何呢？');
         break;
       default:
+        divHidden();
         break;
     }
   });
