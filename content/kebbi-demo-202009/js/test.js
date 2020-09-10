@@ -1,6 +1,16 @@
 !async function () {
   const Nuwa = window.Nuwa;
 
+  // MQTT
+  const robotChannel = 'b4da8d/robot';
+  const rfidChannel = 'b4da8d/rfid';
+  let webduinoBroadcastor;
+  if (!webduinoBroadcastor) {
+    webduinoBroadcastor = new webduino.module.mqttClient();
+    await webduinoBroadcastor.connect();
+  }
+
+  // 計算大樂透號碼
   function genLottery() {
     this.result = [];
     this.cal = function () {
@@ -23,13 +33,26 @@
     a.cal();
     let msg = `我算出來的大樂透號碼是：${a.result.join('， ')}`
     console.log(msg);
-    Nuwa.facePlay('001_P5_Pendulum', true);
     Nuwa.say('讓我來想想看喔');
     await Nuwa.syncMotionPlay("666_EM_Blush");
     Nuwa.say(msg);
-    Nuwa.facePlay('001_J2_GMFive_B1', true);
     await Nuwa.syncMotionPlay("666_TA_DrawCircle");
+    webduinoBroadcastor.send({
+      topic: rfidChannel,
+      message: ('ok').toString()
+    });
   }
 
-  lottery();
+
+
+  await webduinoBroadcastor.onMessage(robotChannel, async (msg) => {
+    switch (msg) {
+      case 'd':
+        lottery();
+        break;
+      default:
+        break;
+    }
+  });
+
 }();
