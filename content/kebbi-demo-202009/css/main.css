@@ -21,35 +21,49 @@ div[hidden]{
 }
 
 #sumikko{
+  background-image:url(../img/sumikko.jpg);
+}
+
+#pokemon{
+  background-image:url(../img/pokemon.jpg);
+}
+
+#disney{
+  background-image:url(../img/disney.jpg);
+}
+
+#lucky{
+  background-image:url(../img/lucky.jpg);
+}
+
+div[img5]{
   width:100vw;
   height:100vh;
-  background-image:url(../img/sumikko-5.jpg);
   background-size:200% auto;
   background-position:0 0;
 }
 
-#sumikko.run{
+div[img5].run{
   animation-name:loading;
   animation-duration:1s;
   animation-iteration-count:infinite;
   animation-timing-function:step-start;
 }
-#sumikko.a1{
+div[img5].a1{
   background-position:-1024px 0;
 }
-#sumikko.a2{
+div[img5].a2{
   background-position:-1024px -600px;
 }
-#sumikko.a3{
+div[img5].a3{
   background-position:-1024px -1200px ;
 }
-#sumikko.a4{
+div[img5].a4{
   background-position:-1024px -1800px;
 }
-#sumikko.a5{
+div[img5].a5{
   background-position:-1024px -2400px;
 }
-
 
 @keyframes loading{
   0%{
@@ -66,5 +80,54 @@ div[hidden]{
   }
   80%{
     background-position:0 -2400px;
+  }
+}
+
+#lottery{
+  width:100vw;
+  height:100vh;
+  text-align:center;
+  background:#400;
+}
+
+#lottery img{
+  height:80%;
+  margin-top:120px;
+  display:none;
+}
+#lottery b{
+  width:240px;
+  height:240px;
+  font-size:7rem;
+  line-height:1.8;
+  background:#e40;
+  color:#fff;
+  display:none;
+  margin:40px 20px 0;
+  border-radius:50%;
+  border:15px solid #fff;
+  box-shadow:#000 0 0 20px;
+}
+
+#lottery.run img{
+  display:inline-block;
+  animation-name:bounce;
+  animation-duration:.5s;
+  animation-iteration-count:infinite;
+  animation-direction:alternate;
+}
+
+#lottery.result b{
+  display:inline-block;
+}
+
+@keyframes bounce{
+  0%{
+    transform:scaleY(0.95);
+    margin-top:120px;
+  }
+  100%{
+    transform:scaleY(1);
+    margin-top:30px;
   }
 }
