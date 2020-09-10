@@ -198,9 +198,9 @@
     lottery.className = '';
     lottery.classList.add('run');
     lottery.removeAttribute('hidden');
-    await delay(2000);
     await Nuwa.say('讓我來預測看看這次的大樂透');
     await Nuwa.syncMotionPlay("666_EM_Blush");
+    await delay(2000);
     lottery.className = '';
     lottery.classList.add('result');
     Nuwa.say(msg);
@@ -211,11 +211,11 @@
   // 四種卡牌算命
   async function run(ele, msg, text) {
     divHidden();
-    console.log(text);
-    await Nuwa.say(text);
     ele.className = '';
     ele.classList.add('run');
     ele.removeAttribute('hidden');
+    console.log(text);
+    await Nuwa.say(text);
     await delay(2000);
     let charactor = ~~(Math.random() * 5) + 1;
     ele.className = '';
