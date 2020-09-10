@@ -156,6 +156,7 @@
   // 隱藏 div
   function divHidden() {
     let div = document.querySelectorAll('div[img5]');
+    lottery.setAttribute('hidden','');
     div.forEach(e => {
       if (e.getAttribute('id')) {
         e.setAttribute('hidden', '');
