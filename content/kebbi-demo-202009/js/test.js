@@ -222,7 +222,7 @@
     let m1 = msg[`a${charactor}`][0];
     let m2 = msg[`a${charactor}`][1];
     console.log(`${m1}，${m2}`);
-    Nuwa.say(`你是${m1}，${m2}`);
+    Nuwa.say(`${m1}，${m2}`);
     sendMQTT();
   }
 
