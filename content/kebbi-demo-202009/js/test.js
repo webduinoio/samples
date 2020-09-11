@@ -183,8 +183,9 @@
 
   // 隨機數
   function random(length) {
-    console.log(~~Math.random() * length + 1)
-    return (~~Math.random() * length + 1);
+    let output = ~~(Math.random() * length + 1);
+    console.log(output);
+    return output;
   }
 
   // 計算大樂透號碼
