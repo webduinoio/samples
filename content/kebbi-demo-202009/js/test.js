@@ -183,7 +183,7 @@
 
   // 隨機數
   function random(length) {
-    let output = ~~(Math.random() * length + 1);
+    let output = ~~(Math.random() * length);
     console.log(output);
     return output;
   }
