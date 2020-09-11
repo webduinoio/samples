@@ -223,7 +223,7 @@
     lottery.removeAttribute('hidden');
     Nuwa.say('讓我來預測看看這次的大樂透');
     await Nuwa.syncMotionPlay(kebbiMotion1[random(kebbiMotion1.length)]);
-    await delay(2000);
+    await delay(1000);
     lottery.className = '';
     lottery.classList.add('result');
     Nuwa.say(msg);
@@ -240,7 +240,7 @@
     console.log(text);
     Nuwa.say(text);
     await Nuwa.syncMotionPlay(kebbiMotion1[random(kebbiMotion1.length)]);
-    await delay(2000);
+    await delay(1000);
     let charactor = ~~(Math.random() * 5) + 1;
     ele.className = '';
     ele.classList.add(`a${charactor}`);
