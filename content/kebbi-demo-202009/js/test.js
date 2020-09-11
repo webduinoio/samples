@@ -103,6 +103,23 @@
     ]
   }
 
+  // 凱比動作
+  const kebbiMotion1 = [
+    '666_DA_Washhair',
+    '666_DA_Wear',
+    '666_SP_Cheer',
+    '666_LE_ListenSong'
+  ];
+  const kebbiMotion2 = [
+    '666_DA_Hit',
+    '666_DA_Drink',
+    '666_DA_Bathe',
+    '666_SP_HorizontalBar',
+    '666_SP_Chest',
+    '666_TA_Roar',
+    '666_TA_TalkY'
+  ];
+
   // MQTT
   const robotChannel = 'b4da8d/robot';
   const rfidChannel = 'b4da8d/rfid';
@@ -116,7 +133,8 @@
   // 接收 MQTT 訊息
   await webduinoBroadcastor.onMessage(robotChannel, async (msg) => {
     console.log(msg);
-    Nuwa.shutUp();
+    Nuwa.shutUp();     // 凱比靜音
+    Nuwa.motionStop(); // 凱比停止動作
     switch (msg) {
       case 'd':
         lotteryFn();
@@ -156,13 +174,16 @@
 
   // 隱藏 div
   function divHidden() {
-    let div = document.querySelectorAll('div[img5]');
-    lottery.setAttribute('hidden','');
-    div.forEach(e => {
-      if (e.getAttribute('id')) {
-        e.setAttribute('hidden', '');
-      }
+    let img5 = document.querySelectorAll('div[img5]');
+    lottery.setAttribute('hidden', '');
+    img5.forEach(e => {
+      e.setAttribute('hidden', '');
     });
+  }
+
+  // 隨機數
+  function random(length) {
+    return (~~Math.random() * length + 1);
   }
 
   // 計算大樂透號碼
@@ -198,13 +219,13 @@
     lottery.className = '';
     lottery.classList.add('run');
     lottery.removeAttribute('hidden');
-    await Nuwa.say('讓我來預測看看這次的大樂透');
-    await Nuwa.syncMotionPlay("666_EM_Blush");
+    Nuwa.say('讓我來預測看看這次的大樂透');
+    await Nuwa.syncMotionPlay(kebbiMotion1[random(kebbiMotion1.length)]);
     await delay(2000);
     lottery.className = '';
     lottery.classList.add('result');
     Nuwa.say(msg);
-    await Nuwa.syncMotionPlay("666_TA_DrawCircle");
+    Nuwa.syncMotionPlay(kebbiMotion2[random(kebbiMotion2.length)]);
     sendMQTT();
   }
 
@@ -215,7 +236,8 @@
     ele.classList.add('run');
     ele.removeAttribute('hidden');
     console.log(text);
-    await Nuwa.say(text);
+    Nuwa.say(text);
+    await Nuwa.syncMotionPlay(kebbiMotion1[random(kebbiMotion1.length)]);
     await delay(2000);
     let charactor = ~~(Math.random() * 5) + 1;
     ele.className = '';
@@ -224,6 +246,7 @@
     let m2 = msg[`a${charactor}`][1];
     console.log(`${m1}，${m2}`);
     Nuwa.say(`${m1}，${m2}`);
+    Nuwa.syncMotionPlay(kebbiMotion2[random(kebbiMotion2.length)]);
     sendMQTT();
   }
 
