@@ -3,8 +3,20 @@
 let submit = document.getElementById('submit');
 let deviceId = document.getElementById('deviceId');
 
-submit.onclick = async (e) => {
-  
+deviceId.value = location.hash.replace('#', '')
+
+window.addEventListener('hashchange', function (e) {
+  console.log(e.newURL);
+  deviceId.value = e.newURL;
+}, false);
+
+submit.onclick = (e) => {
+  run()
+}
+
+run()
+
+async function run() {
   var rgbled;
   var myData;
   var _E4_BA_AE_E5_BA_A6;
@@ -16,7 +28,6 @@ submit.onclick = async (e) => {
   var sht31;
   var g3;
 
-  
   function get_date(t) {
     var varDay = new Date(),
       varYear = varDay.getFullYear(),
@@ -58,21 +69,21 @@ submit.onclick = async (e) => {
   }
 
   function _E5_8D_B3_E6_99_82_E8_A8_8A_E6_81_AF() {
-    document.getElementById('demo-area-01-show').innerHTML = (['時間：',get_date("ymd"),' ',get_time("hms"),("<br/>"),'亮度：',_E4_BA_AE_E5_BA_A6,("<br/>"),'溫度：',_E6_BA_AB_E5_BA_A6,("<br/>"),'濕度：',_E6_BF_95_E5_BA_A6,("<br/>"),'PM2.5：',PM25,("<br/>"),'PM1.0：',PM10].join(''));
+    document.getElementById('demo-area-01-show').innerHTML = (['時間：', get_date("ymd"), ' ', get_time("hms"), ("<br/>"), '亮度：', _E4_BA_AE_E5_BA_A6, ("<br/>"), '溫度：', _E6_BA_AB_E5_BA_A6, ("<br/>"), '濕度：', _E6_BF_95_E5_BA_A6, ("<br/>"), 'PM2.5：', PM25, ("<br/>"), 'PM1.0：', PM10].join(''));
   }
 
 
-  boardReady({board: 'Smart', device: deviceId.value, transport: 'mqtt'}, async function (board) {
+  boardReady({ board: 'Smart', device: deviceId.value, transport: 'mqtt' }, async function (board) {
     console.log("ready")
     board.samplingInterval = 50;
     rgbled = getRGBLedCathode(board, 15, 12, 13);
     document.getElementById('demo-area-01-show').style.fontSize = 15 + 'px';
     rgbled.setColor('#33ff33');
-    max44009 = getMAX44009(board,4,5);
-    
-    sht31 = getSHT31(board,4,5);
+    max44009 = getMAX44009(board, 4, 5);
+
+    sht31 = getSHT31(board, 4, 5);
     g3 = getG3(board, 14, 16);
-            
+
 
     _E4_BA_AE_E5_BA_A6 = 0;
     _E6_BA_AB_E5_BA_A6 = 0;
@@ -80,7 +91,7 @@ submit.onclick = async (e) => {
     PM25 = 0;
     PM10 = 0;
 
-    max44009.on(async function(_lux){
+    max44009.on(async function (_lux) {
       max44009._lux = _lux;
       _E4_BA_AE_E5_BA_A6 = max44009._lux;
     });
@@ -88,8 +99,8 @@ submit.onclick = async (e) => {
       PM25 = g3.pm25;
       PM10 = g3.pm10;
     }, 1000);
-    sht31.on(async function(_temperature, _humidity){
-      sht31._temperature =  _temperature;
+    sht31.on(async function (_temperature, _humidity) {
+      sht31._temperature = _temperature;
       sht31._humidity = _humidity;
       _E6_BA_AB_E5_BA_A6 = sht31._temperature;
       _E6_BF_95_E5_BA_A6 = sht31._humidity;
@@ -102,6 +113,4 @@ submit.onclick = async (e) => {
       _E5_8D_B3_E6_99_82_E8_A8_8A_E6_81_AF();
     }, 1000 * 2);
   });
-
 }
-
