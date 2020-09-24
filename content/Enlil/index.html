@@ -1,0 +1,31 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <title>環境品質偵測 測試頁</title>
+  <script
+    src="https://blocklypro.webduino.io/node_modules/jquery/dist/jquery.min.js?rev=2f6b11a7e914718e0290410e85366fe9"></script>
+  <script
+    src="https://blocklypro.webduino.io/dist/lib/webduino-all-0.4.20.min.js?rev=4426739c00d85325cb2d3d701fa50666"></script>
+  <script
+    src="https://blocklypro.webduino.io/dist/webduino-blockly.min.js?rev=b1ada5fdae699e60af615c060e786d60"></script>
+  <script src="https://blocklypro.webduino.io/dist/lib/firebase.min.js?rev=c0bfd493efd477d098a4ae9e92b13880"></script>
+  <script src="https://blocklypro.webduino.io/dist/lib/runtime.min.js?rev=683a69503433786202911b4d9f766100"></script>
+  <script src="https://blocklypro.webduino.io/node_modules/webduino-module-max44009/MAX44009.js"></script>
+  <script src="https://blocklypro.webduino.io/node_modules/webduino-module-max44009/MAX44009-blockly.js"></script>
+  <script src="https://blocklypro.webduino.io/node_modules/webduino-module-sht31/SHT31.js"></script>
+  <script src="https://blocklypro.webduino.io/node_modules/webduino-module-sht31/SHT31-blockly.js"></script>
+  <script src="https://blocklypro.webduino.io/node_modules/webduino-module-pm25/G3.js"></script>
+  <script src="https://blocklypro.webduino.io/node_modules/webduino-module-pm25/G3-blockly.js"></script>
+</head>
+
+<body>
+  <span>Device ID：</span>
+  <input id="deviceId" type="text" placeholder="請輸入 Device ID">
+  <button id="submit">送出</button>
+  <div id="demo-area-01-show">啟動中...</div>
+</body>
+
+<script src='js/main.js'></script>
