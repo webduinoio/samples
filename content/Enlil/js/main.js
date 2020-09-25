@@ -77,7 +77,7 @@ async function run() {
     console.log("ready")
     board.samplingInterval = 50;
     rgbled = getRGBLedCathode(board, 15, 12, 13);
-    document.getElementById('demo-area-01-show').style.fontSize = 15 + 'px';
+    document.getElementById('demo-area-01-show').style.fontSize = 20 + 'px';
     rgbled.setColor('#33ff33');
     max44009 = getMAX44009(board, 4, 5);
 
