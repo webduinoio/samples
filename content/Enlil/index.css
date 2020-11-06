@@ -1,4 +1,4 @@
-span {
+p, span {
   font-size: 21px;
 }
 
@@ -8,5 +8,9 @@ input {
 }
 
 button {
+  font-size: 18px;
+}
+
+a {
   font-size: 18px;
 }
