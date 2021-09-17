@@ -1,0 +1,151 @@
+html,
+body {
+  padding: 0;
+  margin: 0;
+  width: 100%;
+  height: 100%;
+  font-size: 16px;
+}
+
+body {
+  background: url(../img/bg.gif);
+}
+
+body * {
+  position: relative;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-size: 1rem;
+  line-height: 1.2;
+}
+
+div[hidden] {
+  opacity: 0;
+}
+
+#sumikko {
+  background-image: url(../img/sumikko.jpg);
+}
+
+#pokemon {
+  background-image: url(../img/pokemon.jpg);
+}
+
+#disney {
+  background-image: url(../img/disney.jpg);
+}
+
+#lucky {
+  background-image: url(../img/lucky.jpg);
+}
+
+div[img5] {
+  width: 100vw;
+  height: 100vh;
+  background-size: 200% auto;
+  background-position: 0 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+div[img5].run {
+  animation-name: loading;
+  animation-duration: 1s;
+  animation-iteration-count: infinite;
+  animation-timing-function: step-start;
+}
+
+div[img5].a1 {
+  background-position: -1024px 0;
+}
+
+div[img5].a2 {
+  background-position: -1024px -600px;
+}
+
+div[img5].a3 {
+  background-position: -1024px -1200px;
+}
+
+div[img5].a4 {
+  background-position: -1024px -1800px;
+}
+
+div[img5].a5 {
+  background-position: -1024px -2400px;
+}
+
+@keyframes loading {
+  0% {
+    background-position: 0 0;
+  }
+
+  20% {
+    background-position: 0 -600px;
+  }
+
+  40% {
+    background-position: 0 -1200px;
+  }
+
+  60% {
+    background-position: 0 -1800px;
+  }
+
+  80% {
+    background-position: 0 -2400px;
+  }
+}
+
+#lottery {
+  width: 100vw;
+  height: 100vh;
+  text-align: center;
+  background: #400;
+}
+
+#lottery img {
+  height: 80%;
+  margin-top: 120px;
+  display: none;
+}
+
+#lottery b {
+  width: 240px;
+  height: 240px;
+  font-size: 7rem;
+  line-height: 1.8;
+  background: #e40;
+  color: #fff;
+  display: none;
+  margin: 40px 20px 0;
+  border-radius: 50%;
+  border: 15px solid #fff;
+  box-shadow: #000 0 0 20px;
+}
+
+#lottery.run img {
+  display: inline-block;
+  animation-name: bounce;
+  animation-duration: .5s;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+}
+
+#lottery.result b {
+  display: inline-block;
+}
+
+@keyframes bounce {
+  0% {
+    transform: scaleY(0.95);
+    margin-top: 120px;
+  }
+
+  100% {
+    transform: scaleY(1);
+    margin-top: 30px;
+  }
+}
